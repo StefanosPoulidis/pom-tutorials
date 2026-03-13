@@ -1,12 +1,16 @@
 # POM Tutorials - INSEAD MBA
 
+> **🔗 Live Site: [https://stefanospoulidis.github.io/pom-tutorials/](https://stefanospoulidis.github.io/pom-tutorials/)**
+>
+> **🔑 Password: `pom2026T`**
+
 Interactive static website for Process & Operations Management tutorial sessions. Built for GitHub Pages with client-side password protection for solutions.
 
 ## Quick Start
 
 1. Push this folder to a GitHub repo
 2. Enable GitHub Pages (see `deploy.md`)
-3. Share the URL with students
+3. Share the live URL above with students
 
 ## Project Structure
 
@@ -90,7 +94,7 @@ GitHub Pages will update automatically within a minute.
 3. Open `js/config.js` and replace the `passwordHash` value
 4. Commit and push
 
-**Current default password: `POM2026`**
+**Current password: `pom2026T`**
 
 ## How It Works
 
