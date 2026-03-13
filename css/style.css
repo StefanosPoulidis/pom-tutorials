@@ -551,10 +551,10 @@ a.card:hover {
 
 .solution-body {
   display: none;
-  padding: 1rem 1.25rem;
+  padding: 1.25rem 1.5rem;
   margin-top: .5rem;
   font-size: .875rem;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--gray-700);
   background: #f0fdf4;
   border: 1px solid #bbf7d0;
@@ -574,11 +574,68 @@ a.card:hover {
   font-style: italic;
 }
 
+.solution-body h4 {
+  font-size: .95rem;
+  color: var(--navy);
+  margin: 1.25rem 0 .5rem 0;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid #bbf7d0;
+}
+
+.solution-body h4:first-of-type {
+  margin-top: .75rem;
+}
+
+.solution-body p {
+  margin: .5rem 0;
+}
+
+.solution-body ul, .solution-body ol {
+  margin: .5rem 0 .5rem 1.25rem;
+}
+
+.solution-body li {
+  margin-bottom: .3rem;
+}
+
 .solution-body table {
   border-collapse: collapse;
   width: 100%;
   margin: .5rem 0;
   font-size: .85rem;
+}
+
+.solution-answer {
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #166534;
+}
+
+.solution-tip {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 3px solid #3b82f6;
+  border-radius: 6px;
+  padding: .75rem 1rem;
+  margin-top: 1rem;
+  font-size: .85rem;
+  color: #1e40af;
+  line-height: 1.6;
+}
+
+.problem-context {
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  font-size: .875rem;
+  line-height: 1.7;
+  color: var(--gray-700);
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
 }
 
 /* ─── Further Reading ─── */

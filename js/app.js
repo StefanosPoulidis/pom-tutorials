@@ -170,6 +170,7 @@ function renderSession() {
         </div>`;
     }).join("");
 
+    const contextHTML = p.context ? `<div class="problem-context">${p.context}</div>` : "";
     return `
       <div class="problem-block">
         <div class="problem-header">
@@ -177,6 +178,7 @@ function renderSession() {
           <strong>${p.title}</strong>
           <span class="difficulty">(${stars})</span>
         </div>
+        ${contextHTML}
         ${partsHTML}
       </div>`;
   }).join("");
