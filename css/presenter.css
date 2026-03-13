@@ -172,8 +172,14 @@
 }
 
 /* ─── Table slides ─── */
+.slide-container .slide-body {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .slide-container table {
   width: 100%;
+  min-width: 500px;
   border-collapse: collapse;
   font-size: clamp(.85rem, 1.5vw, 1.1rem);
   margin: 1rem 0;
