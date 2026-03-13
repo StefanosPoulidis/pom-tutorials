@@ -603,6 +603,19 @@ a.card:hover {
   width: 100%;
   margin: .5rem 0;
   font-size: .85rem;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.problem-context table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: .5rem 0;
+  font-size: .85rem;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .solution-answer {
