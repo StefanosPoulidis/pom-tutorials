@@ -3,6 +3,7 @@
  * Full-screen slide presentation for teaching tutorials.
  * Reads slide data from content.js and renders one slide at a time.
  * Navigation: Arrow keys, on-screen buttons, touch swipe.
+ * Hint buttons: Interactive overlays for formulas, diagrams, reminders.
  */
 
 // ─── Auth (same as app.js) ───
@@ -47,6 +48,46 @@ let session = null;
 let currentSlide = 0;
 let totalSlides = 0;
 
+// ─── Hint System ───
+function renderHints(hints) {
+  if (!hints || hints.length === 0) return "";
+  let html = '<div class="hint-bar">';
+  hints.forEach((hint, i) => {
+    html += `<button class="hint-btn" onclick="toggleHint(this, ${i})" data-hint-index="${i}">
+      <span class="hint-icon">${hint.icon || "💡"}</span> ${hint.label}
+    </button>`;
+  });
+  html += '</div><div class="hint-panels">';
+  hints.forEach((hint, i) => {
+    html += `<div class="hint-panel" id="hint-panel-${i}" style="display:none">
+      <div class="hint-panel-header">
+        <span>${hint.icon || "💡"} ${hint.label}</span>
+        <button class="hint-close" onclick="closeHint(${i})">✕</button>
+      </div>
+      <div class="hint-panel-body">${hint.content}</div>
+    </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+function toggleHint(btn, index) {
+  const panel = document.getElementById("hint-panel-" + index);
+  const isOpen = panel.style.display !== "none";
+  // Close all panels first
+  document.querySelectorAll(".hint-panel").forEach(p => p.style.display = "none");
+  document.querySelectorAll(".hint-btn").forEach(b => b.classList.remove("active"));
+  if (!isOpen) {
+    panel.style.display = "block";
+    btn.classList.add("active");
+  }
+}
+
+function closeHint(index) {
+  document.getElementById("hint-panel-" + index).style.display = "none";
+  document.querySelectorAll(".hint-btn").forEach(b => b.classList.remove("active"));
+}
+
 // ─── Slide Rendering ───
 function renderSlide(index) {
   const slide = session.teachingSlides[index];
@@ -81,6 +122,11 @@ function renderSlide(index) {
       html = `<h2 class="slide-heading">${slide.title}</h2>
         <div class="slide-body">${slide.content}</div>`;
       break;
+  }
+
+  // Add hints if present
+  if (slide.hints && slide.hints.length > 0) {
+    html += renderHints(slide.hints);
   }
 
   el.innerHTML = html;
@@ -125,7 +171,12 @@ function setupKeyboardNav() {
         if (e.target.tagName !== "INPUT") toggleFullscreen();
         break;
       case "Escape":
-        if (document.fullscreenElement) {
+        // Close hints first, then exit fullscreen, then exit presenter
+        const openHint = document.querySelector('.hint-panel[style*="display: block"], .hint-panel[style*="display:block"]');
+        if (openHint) {
+          document.querySelectorAll(".hint-panel").forEach(p => p.style.display = "none");
+          document.querySelectorAll(".hint-btn").forEach(b => b.classList.remove("active"));
+        } else if (document.fullscreenElement) {
           document.exitFullscreen();
         } else {
           window.location.href = document.getElementById("exit-btn").href;
