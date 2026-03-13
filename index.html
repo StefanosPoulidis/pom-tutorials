@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POM Tutorials | INSEAD</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ─── Site-wide Auth Gate ─── -->
+  <div id="auth-gate" class="auth-gate">
+    <div class="gate-card">
+      <div class="gate-logo">POM <span>Tutorials</span></div>
+      <h1>Process &amp; Operations Management</h1>
+      <p>INSEAD MBA Tutorial Sessions</p>
+      <form id="gate-form" class="gate-form">
+        <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" />
+        <button type="submit" class="btn btn-primary">Enter</button>
+      </form>
+      <div id="gate-error" class="password-error"></div>
+    </div>
+  </div>
+
+  <!-- ─── App Content (hidden until authenticated) ─── -->
+  <div id="app-content" style="display:none">
+    <nav class="navbar">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-brand">POM <span>Tutorials</span></a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+        <ul class="nav-links" id="nav-links"></ul>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <h1>Process &amp; Operations Management</h1>
+      <p>INSEAD MBA Tutorial Sessions &mdash; Stefanos Poulidis</p>
+    </header>
+
+    <main class="container">
+      <div class="card-grid" id="card-grid"></div>
+    </main>
+
+    <footer class="footer">
+      INSEAD &mdash; Process &amp; Operations Management Tutorials
+    </footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
