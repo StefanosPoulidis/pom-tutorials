@@ -6,8 +6,8 @@
  *    echo -n "YOUR_NEW_PASSWORD" | shasum -a 256
  * 2. Copy the hash output and replace the value below.
  *
- * Current default password: POM2026
+ * Current default password: pom2026T
  */
 const POM_CONFIG = {
-  passwordHash: "4f760bf767f150a8d0952c7b0c6591a6be000ae5c0e39717f75fe386b29ea7a7"
+  passwordHash: "eac643dc796538e648cc7a4e94383c1890a3c8cdc3d899566b4ac3f4124acd2f"
 };
