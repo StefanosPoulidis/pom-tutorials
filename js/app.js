@@ -139,7 +139,7 @@ function renderSession() {
 
   // ── Materials ──
   const materials = [];
-  if (session.slides) materials.push({ label: "Slide Deck", path: session.slides });
+  if (session.slidesPDF) materials.push({ label: "Slide Deck", path: session.slidesPDF });
   if (session.recipe) materials.push({ label: "Recipe / Cheat Sheet", path: session.recipe });
   if (session.reviewSheet) materials.push({ label: "Review Sheet (Problems)", path: session.reviewSheet });
   if (session.solutions) materials.push({ label: "Solutions PDF", path: session.solutions });
@@ -197,6 +197,9 @@ function renderSession() {
 
     <div class="section">
       <h2>Materials</h2>
+      ${session.teachingSlides && session.teachingSlides.length > 0
+        ? `<a href="present.html?s=${session.number}" class="present-btn">&#9654;&ensp;Present Teaching Slides</a>`
+        : ""}
       <ul class="materials-list">${materialsHTML}</ul>
     </div>
 

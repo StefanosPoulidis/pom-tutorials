@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presenter | POM Tutorials</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/presenter.css" />
+</head>
+<body>
+
+  <!-- ─── Site-wide Auth Gate ─── -->
+  <div id="auth-gate" class="auth-gate">
+    <div class="gate-card">
+      <div class="gate-logo">POM <span>Tutorials</span></div>
+      <h1>Process &amp; Operations Management</h1>
+      <p>INSEAD MBA Tutorial Sessions</p>
+      <form id="gate-form" class="gate-form">
+        <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" />
+        <button type="submit" class="btn btn-primary">Enter</button>
+      </form>
+      <div id="gate-error" class="password-error"></div>
+    </div>
+  </div>
+
+  <!-- ─── Presenter Content (hidden until authenticated) ─── -->
+  <div id="app-content" style="display:none">
+    <div class="presenter">
+      <div class="presenter-toolbar">
+        <a href="index.html" id="exit-btn" class="presenter-btn">&#10094; Exit</a>
+        <span id="slide-counter" class="slide-counter">1 / 1</span>
+        <button id="fullscreen-btn" class="presenter-btn">&#9974; Fullscreen</button>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="slide-viewport">
+        <div id="slide-container" class="slide-container"></div>
+      </div>
+      <div class="presenter-nav">
+        <button id="prev-btn" class="presenter-btn nav-btn">&#9664; Prev</button>
+        <button id="next-btn" class="presenter-btn nav-btn">Next &#9654;</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/presenter.js"></script>
+</body>
+</html>

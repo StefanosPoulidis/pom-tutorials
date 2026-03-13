@@ -1,0 +1,325 @@
+/* POM Tutorials - Presenter Mode Styles */
+
+.presenter {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, var(--navy) 0%, #004d5a 100%);
+  color: var(--white);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Toolbar (top bar) ─── */
+.presenter-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem 1.5rem;
+  background: rgba(0,0,0,.25);
+  font-size: .85rem;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.slide-counter {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  font-size: .9rem;
+  opacity: .8;
+}
+
+.presenter-btn {
+  background: rgba(255,255,255,.12);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: .45rem 1rem;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.presenter-btn:hover {
+  background: rgba(255,255,255,.22);
+}
+
+/* ─── Slide Viewport ─── */
+.slide-viewport {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 4rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.slide-container {
+  max-width: 960px;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  animation: slideIn .2s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Title Slides ─── */
+.slide-title {
+  text-align: center;
+}
+
+.slide-title-content h1 {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: .75rem;
+  line-height: 1.15;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.slide-subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  opacity: .65;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.slide-title .slide-body {
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  opacity: .8;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ─── Concept / Formula / Step slides ─── */
+.slide-concept,
+.slide-formula,
+.slide-step,
+.slide-table {
+  text-align: left;
+}
+
+.slide-heading {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #5eead4; /* teal-300 for contrast on dark bg */
+  line-height: 1.25;
+}
+
+.slide-body {
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  line-height: 1.75;
+  color: rgba(255,255,255,.9);
+}
+
+.slide-body p {
+  margin: .6rem 0;
+}
+
+.slide-body strong {
+  color: var(--white);
+}
+
+.slide-body em {
+  color: rgba(255,255,255,.65);
+  font-style: italic;
+}
+
+.slide-body ul, .slide-body ol {
+  margin: .75rem 0 .75rem 1.5rem;
+}
+
+.slide-body li {
+  margin-bottom: .4rem;
+}
+
+/* Formula emphasis boxes */
+.slide-formula .slide-body {
+  text-align: center;
+}
+
+.formula-box {
+  display: inline-block;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px;
+  padding: 1.25rem 2.5rem;
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  font-weight: 700;
+  margin: 1rem 0;
+  font-family: "Georgia", serif;
+  letter-spacing: .02em;
+}
+
+/* Step slides indicator */
+.slide-step .slide-heading {
+  padding-left: 1.5rem;
+  border-left: 4px solid #5eead4;
+}
+
+/* ─── Table slides ─── */
+.slide-container table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(.85rem, 1.5vw, 1.1rem);
+  margin: 1rem 0;
+}
+
+.slide-container th,
+.slide-container td {
+  padding: .6rem 1rem;
+  border: 1px solid rgba(255,255,255,.15);
+  text-align: left;
+}
+
+.slide-container th {
+  background: rgba(255,255,255,.1);
+  font-weight: 700;
+  font-size: .9em;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.slide-container tr.highlight,
+.slide-container tr[style*="background:#fef3c7"],
+.slide-container tr[style*="background: #fef3c7"] {
+  background: rgba(94, 234, 212, .15) !important;
+}
+
+.slide-container td[style],
+.slide-container th[style] {
+  border-color: rgba(255,255,255,.15) !important;
+}
+
+/* ─── Diagram / Image slides ─── */
+.slide-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.slide-visual svg {
+  max-width: 100%;
+  height: auto;
+  max-height: 55vh;
+}
+
+.slide-visual img {
+  max-width: 90%;
+  max-height: 55vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* SVG color overrides for dark background */
+.slide-visual svg text {
+  fill: var(--white) !important;
+}
+
+.slide-visual svg line,
+.slide-visual svg polyline,
+.slide-visual svg polygon {
+  stroke: rgba(255,255,255,.5) !important;
+}
+
+/* Keep colored rect fills visible but adjust borders */
+.slide-visual svg rect {
+  stroke: rgba(255,255,255,.3) !important;
+}
+
+/* ─── Navigation bar ─── */
+.presenter-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: .6rem;
+  background: rgba(0,0,0,.25);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.nav-btn {
+  padding: .55rem 1.5rem;
+  font-size: .9rem;
+  min-width: 100px;
+}
+
+/* ─── Progress bar ─── */
+.progress-bar {
+  height: 3px;
+  background: rgba(255,255,255,.1);
+  flex-shrink: 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #5eead4;
+  transition: width .25s ease;
+}
+
+/* ─── Keyboard hint ─── */
+.keyboard-hint {
+  font-size: .7rem;
+  opacity: .4;
+  margin-left: .5rem;
+}
+
+/* ─── Fullscreen adjustments ─── */
+:fullscreen .presenter-toolbar,
+:fullscreen .presenter-nav {
+  opacity: .15;
+  transition: opacity .3s;
+}
+
+:fullscreen .presenter:hover .presenter-toolbar,
+:fullscreen .presenter:hover .presenter-nav,
+:fullscreen .presenter-toolbar:hover,
+:fullscreen .presenter-nav:hover {
+  opacity: 1;
+}
+
+/* ─── Responsive (iPad / tablet) ─── */
+@media (max-width: 1024px) {
+  .slide-viewport {
+    padding: 1.5rem 2rem;
+  }
+
+  .slide-title-content h1 {
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+  }
+
+  .nav-btn {
+    padding: .7rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .slide-viewport {
+    padding: 1rem 1.25rem;
+  }
+
+  .slide-heading {
+    font-size: 1.3rem;
+  }
+
+  .slide-body {
+    font-size: 1rem;
+  }
+}

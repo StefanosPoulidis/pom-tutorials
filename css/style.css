@@ -334,6 +334,27 @@ a.card:hover {
   border-bottom: 2px solid var(--gray-200);
 }
 
+/* ─── Present Slides Button ─── */
+.present-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .65rem 1.5rem;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .95rem;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: background .15s, transform .1s;
+}
+
+.present-btn:hover {
+  background: #004d5a;
+  transform: translateY(-1px);
+}
+
 /* ─── Materials List ─── */
 .materials-list {
   list-style: none;
