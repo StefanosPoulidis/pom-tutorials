@@ -69,9 +69,6 @@
 /* ─── Slide Viewport ─── */
 .slide-viewport {
   flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 2rem 4rem;
   overflow-y: auto;
   min-height: 0;
@@ -80,6 +77,7 @@
 .slide-container {
   max-width: 960px;
   width: 100%;
+  margin: 0 auto;
   overflow-wrap: break-word;
   word-wrap: break-word;
   animation: slideIn .2s ease-out;
@@ -93,6 +91,7 @@
 /* ─── Title Slides ─── */
 .slide-title {
   text-align: center;
+  padding-top: 12vh;
 }
 
 .slide-title-content h1 {
@@ -595,6 +594,20 @@
 
   .slide-heading {
     font-size: 1.2rem;
+  }
+
+  .slide-title {
+    padding-top: 6vh;
+  }
+
+  .slide-title-content h1 {
+    font-size: 1.3rem;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  .slide-subtitle {
+    font-size: .95rem;
   }
 
   .slide-body {
