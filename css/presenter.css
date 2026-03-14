@@ -10,6 +10,21 @@
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  transition: background .5s ease;
+}
+
+/* ─── Problem Themes (distinct backgrounds per section) ─── */
+.presenter.theme-p1 {
+  background: linear-gradient(135deg, #1a2744 0%, #1e3a5f 100%);    /* deep blue */
+}
+.presenter.theme-p2 {
+  background: linear-gradient(135deg, #2a1f3d 0%, #3b2d5b 100%);    /* indigo purple */
+}
+.presenter.theme-p3 {
+  background: linear-gradient(135deg, #1a2f2a 0%, #1e4d3d 100%);    /* dark forest */
+}
+.presenter.theme-p4 {
+  background: linear-gradient(135deg, #2d2418 0%, #4a3728 100%);    /* warm amber */
 }
 
 /* ─── Toolbar (top bar) ─── */
@@ -406,6 +421,118 @@
   margin: .5rem auto;
 }
 
+/* ─── Slide Jump Overlay ─── */
+.slide-jump-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  overflow-y: auto;
+  animation: hintIn .15s ease-out;
+}
+
+.slide-jump-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.slide-jump-header h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+}
+
+.slide-jump-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: .5rem;
+  flex: 1;
+}
+
+.sj-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px;
+  padding: .5rem .65rem;
+  cursor: pointer;
+  transition: all .15s;
+  text-align: left;
+  color: rgba(255,255,255,.85);
+  font-size: .78rem;
+  line-height: 1.3;
+}
+
+.sj-item:hover {
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.25);
+}
+
+.sj-item.current {
+  background: rgba(94,234,212,.15);
+  border-color: #5eead4;
+  color: var(--white);
+}
+
+/* Theme colors for jump items */
+.sj-item.sj-p1 { border-left: 3px solid #60a5fa; }   /* blue */
+.sj-item.sj-p2 { border-left: 3px solid #a78bfa; }   /* purple */
+.sj-item.sj-p3 { border-left: 3px solid #34d399; }   /* green */
+.sj-item.sj-p4 { border-left: 3px solid #fbbf24; }   /* amber */
+
+.sj-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  font-size: .7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sj-item.current .sj-num {
+  background: #5eead4;
+  color: #0f172a;
+}
+
+.sj-icon {
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+
+.sj-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Make slide counter look clickable */
+.slide-counter {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: .15rem .5rem;
+  transition: background .15s;
+}
+
+.slide-counter:hover {
+  background: rgba(255,255,255,.1);
+}
+
 /* ─── Keyboard hint ─── */
 .keyboard-hint {
   font-size: .7rem;
@@ -468,5 +595,13 @@
 
   .hint-panel-body {
     font-size: .85rem;
+  }
+
+  .slide-jump-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .slide-jump-overlay {
+    padding: 1rem;
   }
 }

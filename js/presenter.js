@@ -4,6 +4,8 @@
  * Reads slide data from content.js and renders one slide at a time.
  * Navigation: Arrow keys, on-screen buttons, touch swipe.
  * Hint buttons: Interactive overlays for formulas, diagrams, reminders.
+ * Slide Jump: Click the counter or press G to jump to any slide.
+ * Themes: Each problem section has a distinct background color.
  */
 
 // ─── Auth (same as app.js) ───
@@ -48,20 +50,37 @@ let session = null;
 let currentSlide = 0;
 let totalSlides = 0;
 
+// ─── Theme System ───
+const themeLabels = {
+  p1: "Problem 1: Instant Dolls",
+  p2: "Problem 2: Ceramics",
+  p3: "Problem 3: Sugar Plant",
+  p4: "Problem 4: Sport Obermeyer"
+};
+
+function applyTheme(slide) {
+  const presenter = document.querySelector(".presenter");
+  // Remove all existing theme classes
+  presenter.classList.remove("theme-p1", "theme-p2", "theme-p3", "theme-p4");
+  if (slide.theme) {
+    presenter.classList.add("theme-" + slide.theme);
+  }
+}
+
 // ─── Hint System ───
 function renderHints(hints) {
   if (!hints || hints.length === 0) return "";
   let html = '<div class="hint-bar">';
   hints.forEach((hint, i) => {
     html += `<button class="hint-btn" onclick="toggleHint(this, ${i})" data-hint-index="${i}">
-      <span class="hint-icon">${hint.icon || "💡"}</span> ${hint.label}
+      <span class="hint-icon">${hint.icon || "\u{1F4A1}"}</span> ${hint.label}
     </button>`;
   });
   html += '</div><div class="hint-panels">';
   hints.forEach((hint, i) => {
     html += `<div class="hint-panel" id="hint-panel-${i}" style="display:none">
       <div class="hint-panel-header">
-        <span>${hint.icon || "💡"} ${hint.label}</span>
+        <span>${hint.icon || "\u{1F4A1}"} ${hint.label}</span>
         <button class="hint-close" onclick="closeHint(${i})">✕</button>
       </div>
       <div class="hint-panel-body">${hint.content}</div>
@@ -88,10 +107,58 @@ function closeHint(index) {
   document.querySelectorAll(".hint-btn").forEach(b => b.classList.remove("active"));
 }
 
+// ─── Slide Jump / Go-To ───
+function openSlideJump() {
+  // Don't open if already open
+  if (document.getElementById("slide-jump-overlay")) return;
+
+  const overlay = document.createElement("div");
+  overlay.id = "slide-jump-overlay";
+  overlay.className = "slide-jump-overlay";
+
+  let gridHTML = '<div class="slide-jump-header"><h3>Jump to Slide</h3><button class="hint-close" onclick="closeSlideJump()">\u2715</button></div>';
+  gridHTML += '<div class="slide-jump-grid">';
+
+  session.teachingSlides.forEach((slide, i) => {
+    const isCurrent = (i === currentSlide) ? " current" : "";
+    const themeClass = slide.theme ? " sj-" + slide.theme : "";
+    const label = slide.title.length > 35 ? slide.title.substring(0, 33) + "\u2026" : slide.title;
+    const typeIcon = { title: "\u{1F3AC}", concept: "\u{1F4D6}", formula: "\u{1F9EE}", step: "\u{1F4CB}", table: "\u{1F4CA}", diagram: "\u{1F5BC}" }[slide.type] || "\u{1F4C4}";
+    gridHTML += `<button class="sj-item${isCurrent}${themeClass}" onclick="jumpToSlide(${i})" title="${slide.title}">
+      <span class="sj-num">${i + 1}</span>
+      <span class="sj-icon">${typeIcon}</span>
+      <span class="sj-label">${label}</span>
+    </button>`;
+  });
+
+  gridHTML += '</div>';
+  overlay.innerHTML = gridHTML;
+  document.querySelector(".presenter").appendChild(overlay);
+
+  // Focus for keyboard navigation
+  overlay.focus();
+}
+
+function closeSlideJump() {
+  const overlay = document.getElementById("slide-jump-overlay");
+  if (overlay) overlay.remove();
+}
+
+function jumpToSlide(index) {
+  closeSlideJump();
+  currentSlide = index;
+  renderSlide(index);
+  // Scroll viewport to top
+  document.querySelector(".slide-viewport").scrollTop = 0;
+}
+
 // ─── Slide Rendering ───
 function renderSlide(index) {
   const slide = session.teachingSlides[index];
   const el = document.getElementById("slide-container");
+
+  // Apply theme
+  applyTheme(slide);
 
   // Re-trigger animation
   el.style.animation = "none";
@@ -143,6 +210,7 @@ function nextSlide() {
   if (currentSlide < totalSlides - 1) {
     currentSlide++;
     renderSlide(currentSlide);
+    document.querySelector(".slide-viewport").scrollTop = 0;
   }
 }
 
@@ -150,12 +218,23 @@ function prevSlide() {
   if (currentSlide > 0) {
     currentSlide--;
     renderSlide(currentSlide);
+    document.querySelector(".slide-viewport").scrollTop = 0;
   }
 }
 
 // ─── Keyboard Navigation ───
 function setupKeyboardNav() {
   document.addEventListener("keydown", (e) => {
+    // If slide jump is open, handle its keyboard events
+    const jumpOverlay = document.getElementById("slide-jump-overlay");
+    if (jumpOverlay) {
+      if (e.key === "Escape") {
+        closeSlideJump();
+        e.preventDefault();
+      }
+      return; // Don't process other keys when jump is open
+    }
+
     switch (e.key) {
       case "ArrowRight":
       case " ":
@@ -165,6 +244,13 @@ function setupKeyboardNav() {
       case "ArrowLeft":
         e.preventDefault();
         prevSlide();
+        break;
+      case "g":
+      case "G":
+        if (e.target.tagName !== "INPUT") {
+          e.preventDefault();
+          openSlideJump();
+        }
         break;
       case "f":
       case "F":
@@ -191,6 +277,10 @@ function setupButtonNav() {
   document.getElementById("prev-btn").addEventListener("click", prevSlide);
   document.getElementById("next-btn").addEventListener("click", nextSlide);
   document.getElementById("fullscreen-btn").addEventListener("click", toggleFullscreen);
+  // Click slide counter to open jump
+  document.getElementById("slide-counter").addEventListener("click", openSlideJump);
+  document.getElementById("slide-counter").style.cursor = "pointer";
+  document.getElementById("slide-counter").title = "Click to jump to any slide (or press G)";
 }
 
 // ─── Touch/Swipe Navigation ───
