@@ -848,6 +848,8 @@ a.card:hover {
   background: var(--white);
 }
 
+.formula-box .katex { font-size: 1.2em; }
+
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
   .nav-toggle { display: block; }

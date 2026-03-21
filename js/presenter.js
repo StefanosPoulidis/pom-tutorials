@@ -99,6 +99,16 @@ function toggleHint(btn, index) {
   if (!isOpen) {
     panel.style.display = "block";
     btn.classList.add("active");
+    // Re-render KaTeX math in the opened hint panel
+    if (typeof renderMathInElement === 'function') {
+      renderMathInElement(panel, {
+        delimiters: [
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false
+      });
+    }
   }
 }
 
@@ -204,6 +214,17 @@ function renderSlide(index) {
   // Update progress bar
   const pct = totalSlides > 1 ? ((index) / (totalSlides - 1)) * 100 : 100;
   document.getElementById("progress-fill").style.width = pct + "%";
+
+  // Re-render KaTeX math in the slide
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.querySelector('.slide-container'), {
+      delimiters: [
+        {left: '\\(', right: '\\)', display: false},
+        {left: '\\[', right: '\\]', display: true}
+      ],
+      throwOnError: false
+    });
+  }
 }
 
 function nextSlide() {

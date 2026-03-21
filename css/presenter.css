@@ -180,17 +180,18 @@
 }
 
 .formula-box {
-  display: inline-block;
+  display: block;
   background: rgba(255,255,255,.08);
   border: 1px solid rgba(255,255,255,.15);
   border-radius: 10px;
   padding: 1.25rem 2.5rem;
-  font-size: clamp(1.3rem, 2.5vw, 2rem);
-  font-weight: 700;
-  margin: 1rem 0;
-  font-family: "Georgia", serif;
-  letter-spacing: .02em;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  margin: 1rem auto;
+  text-align: center;
+  overflow-x: auto;
 }
+
+.formula-box .katex { font-size: 1.3em; }
 
 /* Step slides indicator */
 .slide-step .slide-heading {
