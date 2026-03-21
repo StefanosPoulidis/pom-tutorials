@@ -8,6 +8,33 @@
  * Themes: Each problem section has a distinct background color.
  */
 
+// ─── Load KaTeX dynamically via fetch+eval (for math rendering) ───
+var _katexReady = (function loadKaTeX() {
+  var base = 'vendor/katex/';
+  // CSS
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = base + 'katex.min.css';
+  document.head.appendChild(link);
+  // Load JS via fetch+eval (works in sandboxed environments)
+  return fetch(base + 'katex.min.js').then(function(r) { return r.text(); })
+    .then(function(code) { (0, eval)(code); return fetch(base + 'auto-render.min.js'); })
+    .then(function(r) { return r.text(); })
+    .then(function(code) {
+      (0, eval)(code);
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError: false
+        });
+      }
+    })
+    .catch(function(e) { console.warn('KaTeX load failed:', e); });
+})();
+
 // ─── Auth (same as app.js) ───
 async function hashPassword(password) {
   const enc = new TextEncoder().encode(password);

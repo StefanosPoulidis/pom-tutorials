@@ -6,6 +6,31 @@
  * Content is rendered from content.js — no HTML editing needed.
  */
 
+// ─── Load KaTeX dynamically via fetch+eval (for math rendering) ───
+(function loadKaTeX() {
+  var base = 'vendor/katex/';
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = base + 'katex.min.css';
+  document.head.appendChild(link);
+  fetch(base + 'katex.min.js').then(function(r) { return r.text(); })
+    .then(function(code) { (0, eval)(code); return fetch(base + 'auto-render.min.js'); })
+    .then(function(r) { return r.text(); })
+    .then(function(code) {
+      (0, eval)(code);
+      if (typeof renderMathInElement === 'function') {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError: false
+        });
+      }
+    })
+    .catch(function(e) { console.warn('KaTeX load failed:', e); });
+})();
+
 // ─── Password Utilities ───
 async function hashPassword(password) {
   const enc = new TextEncoder().encode(password);
