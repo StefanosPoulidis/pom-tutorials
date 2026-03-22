@@ -9,6 +9,7 @@
  *   topic       - Short topic title shown on cards
  *   status      - "available" | "coming-soon"
  *   summary     - 2-3 sentence description for the session card
+ *   recording   - URL to tutorial recording (OneDrive/Dropbox link, optional)
  *   slides      - Path to the slide deck PDF (relative to repo root)
  *   recipe      - Path to the recipe/cheat-sheet PDF (optional)
  *   reviewSheet - Path to the review sheet PDF
@@ -25,6 +26,7 @@ const SESSIONS = [
     topic: "Process Improvement",
     status: "available",
     summary: "Learn to identify bottlenecks, calculate capacity and utilization, and evaluate process improvement alternatives. Covers process flow diagrams, direct labor costs, yield-loss analysis, and Little's Law through hands-on manufacturing scenarios.",
+    recording: "PASTE_ONEDRIVE_LINK_HERE",
     slidesPDF: "assets/session1/POM Tutorial 1.pdf",
     recipe: "assets/session1/Recipe 1_Process Improvement.pdf",
     reviewSheet: "assets/session1/Review Sheet 1.pdf",
@@ -484,6 +486,7 @@ const SESSIONS = [
     topic: "Managing Variability",
     status: "available",
     summary: "Explore how variability in arrivals and service times creates queues and waiting. Master queuing theory formulas (M/M/1, multi-server), coefficient of variation, utilization dynamics, and Little's Law to evaluate operational trade-offs in real-world scenarios.",
+    recording: "PASTE_ONEDRIVE_LINK_HERE",
     slidesPDF: "assets/session2/POM Tutorial 2.pdf",
     recipe: "assets/session2/Recipe 2_Managing Variability.pdf",
     reviewSheet: "assets/session2/Review Sheet 2.pdf",

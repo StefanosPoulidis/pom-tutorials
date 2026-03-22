@@ -164,14 +164,15 @@ function renderSession() {
 
   // ── Materials ──
   const materials = [];
+  if (session.recording) materials.push({ label: "Tutorial Recording", path: session.recording, icon: "▶", type: "video" });
   if (session.slidesPDF) materials.push({ label: "Slide Deck", path: session.slidesPDF });
   if (session.recipe) materials.push({ label: "Recipe / Cheat Sheet", path: session.recipe });
   if (session.reviewSheet) materials.push({ label: "Review Sheet (Problems)", path: session.reviewSheet });
   if (session.solutions) materials.push({ label: "Solutions PDF", path: session.solutions });
 
   const materialsHTML = materials.map(m =>
-    `<li><a href="${m.path}" target="_blank">
-      <span class="file-icon">PDF</span>
+    `<li><a href="${m.path}" target="_blank" ${m.type === 'video' ? 'class="recording-link"' : ''}>
+      <span class="file-icon">${m.icon || 'PDF'}</span>
       <span>${m.label}</span>
     </a></li>`
   ).join("");

@@ -397,6 +397,20 @@ a.card:hover {
   flex-shrink: 0;
 }
 
+.recording-link .file-icon {
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 1.1rem;
+}
+.recording-link {
+  border: 2px solid #3b82f6 !important;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe) !important;
+}
+.recording-link span:last-child {
+  font-weight: 700;
+  color: #1e40af;
+}
+
 /* ─── Problems List ─── */
 .problems-list {
   list-style: none;
