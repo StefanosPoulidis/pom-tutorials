@@ -172,16 +172,14 @@ function renderSession() {
   // ── Recording video player ──
   const recordingHTML = session.recording ? `
     <div class="recording-section">
-      <button class="recording-toggle" onclick="document.getElementById('recording-player').classList.toggle('hidden'); this.querySelector('.toggle-icon').textContent = document.getElementById('recording-player').classList.contains('hidden') ? '▶' : '▼';">
+      <button class="recording-toggle" onclick="toggleRecording(this, '${session.recording}')">
         <span class="toggle-icon">▶</span>
         <span>Tutorial Recording</span>
         <span class="recording-badge">Watch</span>
       </button>
       <div id="recording-player" class="recording-player hidden">
-        <video controls preload="metadata" width="100%">
-          <source src="${session.recording}" type="video/mp4">
-          Your browser does not support video playback. <a href="${session.recording}" download>Download the recording</a>.
-        </video>
+        <video id="recording-video" controls preload="auto" width="100%" type="video/mp4"></video>
+        <p style="text-align:center;padding:.5rem;font-size:.8rem;color:#64748b">Large file — may take a moment to buffer. <a href="${session.recording}" download style="color:#3b82f6">Download instead</a></p>
       </div>
     </div>` : "";
 
@@ -299,6 +297,22 @@ function init() {
   renderDashboard();
   renderSession();
   setupMobileNav();
+}
+
+// ─── Recording video player ───
+function toggleRecording(btn, url) {
+  var player = document.getElementById("recording-player");
+  var video = document.getElementById("recording-video");
+  var isHidden = player.classList.contains("hidden");
+
+  player.classList.toggle("hidden");
+  btn.querySelector(".toggle-icon").textContent = isHidden ? "▼" : "▶";
+
+  // Only set source the first time it's opened
+  if (isHidden && !video.getAttribute("src")) {
+    video.src = url;
+    video.load();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
