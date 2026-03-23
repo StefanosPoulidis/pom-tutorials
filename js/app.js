@@ -164,17 +164,31 @@ function renderSession() {
 
   // ── Materials ──
   const materials = [];
-  if (session.recording) materials.push({ label: "Tutorial Recording", path: session.recording, icon: "▶", type: "video" });
   if (session.slidesPDF) materials.push({ label: "Slide Deck", path: session.slidesPDF });
   if (session.recipe) materials.push({ label: "Recipe / Cheat Sheet", path: session.recipe });
   if (session.reviewSheet) materials.push({ label: "Review Sheet (Problems)", path: session.reviewSheet });
   if (session.solutions) materials.push({ label: "Solutions PDF", path: session.solutions });
 
+  // ── Recording video player ──
+  const recordingHTML = session.recording ? `
+    <div class="recording-section">
+      <button class="recording-toggle" onclick="document.getElementById('recording-player').classList.toggle('hidden'); this.querySelector('.toggle-icon').textContent = document.getElementById('recording-player').classList.contains('hidden') ? '▶' : '▼';">
+        <span class="toggle-icon">▶</span>
+        <span>Tutorial Recording</span>
+        <span class="recording-badge">Watch</span>
+      </button>
+      <div id="recording-player" class="recording-player hidden">
+        <video controls preload="metadata" width="100%">
+          <source src="${session.recording}" type="video/mp4">
+          Your browser does not support video playback. <a href="${session.recording}" download>Download the recording</a>.
+        </video>
+      </div>
+    </div>` : "";
+
   const materialsHTML = materials.map(m =>
-    `<li><a href="${m.path}" target="_blank" ${m.type === 'video' ? 'class="recording-link" download' : ''}>
+    `<li><a href="${m.path}" target="_blank">
       <span class="file-icon">${m.icon || 'PDF'}</span>
       <span>${m.label}</span>
-      ${m.type === 'video' ? '<span class="download-badge">Download</span>' : ''}
     </a></li>`
   ).join("");
 
@@ -227,6 +241,7 @@ function renderSession() {
       ${session.teachingSlides && session.teachingSlides.length > 0
         ? `<a href="present.html?s=${session.number}" class="present-btn">&#9654;&ensp;Present Teaching Slides</a>`
         : ""}
+      ${recordingHTML}
       <ul class="materials-list">${materialsHTML}</ul>
     </div>
 
