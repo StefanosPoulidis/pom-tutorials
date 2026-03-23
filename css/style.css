@@ -406,9 +406,19 @@ a.card:hover {
   border: 2px solid #3b82f6 !important;
   background: linear-gradient(135deg, #eff6ff, #dbeafe) !important;
 }
-.recording-link span:last-child {
+.recording-link span:nth-child(2) {
   font-weight: 700;
   color: #1e40af;
+}
+.download-badge {
+  font-size: .65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #3b82f6;
+  color: #fff;
+  padding: .15rem .5rem;
+  border-radius: 4px;
+  letter-spacing: .05em;
 }
 
 /* ─── Problems List ─── */

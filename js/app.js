@@ -171,9 +171,10 @@ function renderSession() {
   if (session.solutions) materials.push({ label: "Solutions PDF", path: session.solutions });
 
   const materialsHTML = materials.map(m =>
-    `<li><a href="${m.path}" target="_blank" ${m.type === 'video' ? 'class="recording-link"' : ''}>
+    `<li><a href="${m.path}" target="_blank" ${m.type === 'video' ? 'class="recording-link" download' : ''}>
       <span class="file-icon">${m.icon || 'PDF'}</span>
       <span>${m.label}</span>
+      ${m.type === 'video' ? '<span class="download-badge">Download</span>' : ''}
     </a></li>`
   ).join("");
 
