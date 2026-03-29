@@ -23,6 +23,7 @@ var _katexReady = (function loadKaTeX() {
     .then(function(code) {
       (0, eval)(code);
       if (typeof renderMathInElement === 'function') {
+        // Render the entire body (catches any content already in DOM)
         renderMathInElement(document.body, {
           delimiters: [
             {left: '\\(', right: '\\)', display: false},
@@ -30,6 +31,17 @@ var _katexReady = (function loadKaTeX() {
           ],
           throwOnError: false
         });
+        // Also re-render the current slide in case it loaded before KaTeX was ready
+        var slideEl = document.querySelector('.slide-container');
+        if (slideEl) {
+          renderMathInElement(slideEl, {
+            delimiters: [
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+            ],
+            throwOnError: false
+          });
+        }
       }
     })
     .catch(function(e) { console.warn('KaTeX load failed:', e); });
