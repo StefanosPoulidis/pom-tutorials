@@ -1024,7 +1024,8 @@ const SESSIONS = [
   // ─────────────────────────────────────────
   readings: [
     { label: "The Newsvendor Problem \u2014 OM Explorer", url: "https://www.investopedia.com/terms/n/newsvendor-problem.asp" },
-    { label: "Why Do We Choose the Next Highest Q?", url: "assets/session3/Why do we choose the next highest Q.pdf" }
+    { label: "Why Do We Choose the Next Highest Q?", url: "assets/session3/Why do we choose the next highest Q.pdf" },
+    { label: "Variance: Definition, Proof & Discrete\u2192Normal", url: "assets/session3/Variance_Definition_and_Proof.html" }
   ],
 
   // ─────────────────────────────────────────

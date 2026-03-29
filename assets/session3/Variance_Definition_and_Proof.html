@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Variance: Definition &amp; Proof | POM Tutorials</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}], throwOnError: false});"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Georgia', 'Times New Roman', serif; max-width: 750px; margin: 2rem auto; padding: 0 1.5rem; color: #1a1a1a; line-height: 1.7; }
+    h1 { font-size: 1.6rem; color: #0f4c5c; margin-bottom: .25rem; }
+    h2 { font-size: 1.25rem; color: #0f4c5c; margin-top: 2rem; margin-bottom: .75rem; border-bottom: 2px solid #e2e8f0; padding-bottom: .3rem; }
+    h3 { font-size: 1.05rem; color: #334155; margin-top: 1.5rem; margin-bottom: .5rem; }
+    .subtitle { color: #64748b; font-size: .95rem; margin-bottom: 1.5rem; }
+    p { margin-bottom: 1rem; }
+    .formula-block { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.5rem; margin: 1rem 0; text-align: center; overflow-x: auto; }
+    .proof-step { background: #fffbeb; border-left: 3px solid #f59e0b; padding: .75rem 1rem; margin: 1rem 0; border-radius: 0 6px 6px 0; }
+    .note-box { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+    .note-box strong { color: #1e40af; }
+    .connection-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+    .connection-box strong { color: #166534; }
+    .back-link { display: inline-block; margin-bottom: 1rem; color: #0f4c5c; text-decoration: none; font-size: .9rem; }
+    .back-link:hover { text-decoration: underline; }
+    .katex { font-size: 1.1em; }
+    .formula-block .katex { font-size: 1.25em; }
+    table { border-collapse: collapse; margin: 1rem 0; font-family: -apple-system, sans-serif; font-size: .9rem; }
+    th, td { border: 1px solid #e2e8f0; padding: .4rem .75rem; text-align: center; }
+    th { background: #f1f5f9; font-weight: 600; }
+    @media print { body { max-width: 100%; margin: 0; padding: 1cm; } .back-link { display: none; } }
+  </style>
+</head>
+<body>
+  <a href="../../session.html?s=3" class="back-link">&larr; Back to Session 3</a>
+  <h1>Variance: Definition &amp; Proof</h1>
+  <p class="subtitle">A quick reference for POM Tutorial 3 &mdash; Managing Risks (Newsvendor I)</p>
+
+  <h2>1. Definition</h2>
+  <p>The <strong>variance</strong> of a random variable \(X\) is the expected value of the squared deviation from the mean \(\mu = E[X]\):</p>
+  <div class="formula-block">
+    \[ \operatorname{Var}(X) = E\!\left[(X - \mu)^2\right] \]
+  </div>
+  <p>This definition works for discrete, continuous, or mixed random variables. The variance can also be written as the covariance of \(X\) with itself:</p>
+  <div class="formula-block">
+    \[ \operatorname{Var}(X) = \operatorname{Cov}(X, X) \]
+  </div>
+  <p>Common notation: \(\operatorname{Var}(X)\), \(V(X)\), \(\sigma_X^2\), or simply \(\sigma^2\) (pronounced "sigma squared").</p>
+
+  <h2>2. Proof: The Shortcut Formula</h2>
+  <p>The variance can be expanded into a simpler computational form:</p>
+  <div class="proof-step">
+    <p><strong>Claim:</strong> \(\operatorname{Var}(X) = E[X^2] - (E[X])^2\)</p>
+  </div>
+  <p><strong>Proof:</strong> Starting from the definition:</p>
+  <div class="formula-block">
+    \[
+    \begin{aligned}
+    \operatorname{Var}(X) &= E\!\left[(X - E[X])^2\right] \\[6pt]
+    &= E\!\left[X^2 - 2X \cdot E[X] + (E[X])^2\right] \\[6pt]
+    &= E[X^2] - 2\,E[X] \cdot E[X] + (E[X])^2 \\[6pt]
+    &= E[X^2] - 2\,(E[X])^2 + (E[X])^2 \\[6pt]
+    &= E[X^2] - (E[X])^2
+    \end{aligned}
+    \]
+  </div>
+  <p>In words: <em>the variance equals the mean of the square minus the square of the mean.</em></p>
+
+  <h2>3. Discrete Random Variables</h2>
+  <p>If \(X\) takes values \(x_1, x_2, \ldots, x_n\) with probabilities \(p_1, p_2, \ldots, p_n\), then:</p>
+  <div class="formula-block">
+    \[ \mu = E[X] = \sum_{i=1}^{n} p_i \cdot x_i \]
+  </div>
+  <div class="formula-block">
+    \[ \operatorname{Var}(X) = \sum_{i=1}^{n} p_i \cdot (x_i - \mu)^2 \]
+  </div>
+  <p>Or equivalently, using the shortcut formula:</p>
+  <div class="formula-block">
+    \[ \sigma^2 = \left(\sum_{i=1}^{n} p_i \cdot x_i^2\right) - \mu^2 \]
+  </div>
+
+  <h2>4. Standard Deviation</h2>
+  <p>The standard deviation is simply the square root of the variance:</p>
+  <div class="formula-block">
+    \[ \sigma = \sqrt{\operatorname{Var}(X)} = \sqrt{\sum_{i=1}^{n} p_i \cdot (x_i - \mu)^2} \]
+  </div>
+
+  <h2>5. Connecting to the Newsvendor: From Discrete to Normal</h2>
+  <div class="connection-box">
+    <strong>Why this matters for the Newsvendor problem:</strong>
+    <p style="margin-top:.5rem">In Tutorial 3, you often start with a <strong>discrete demand distribution</strong> (e.g., Matt Herron's overcoats: 100, 200, 300, 400 with given probabilities) and need to find the "equivalent" normal distribution for the normal approximation method.</p>
+  </div>
+
+  <h3>Step-by-step: Discrete &rarr; Normal</h3>
+  <p><strong>Given:</strong> A discrete demand distribution with values \(d_1, d_2, \ldots, d_n\) and probabilities \(p_1, p_2, \ldots, p_n\).</p>
+
+  <p><strong>Step 1: Compute the mean \(\mu\)</strong></p>
+  <div class="formula-block">
+    \[ \mu = \sum_{i=1}^{n} p_i \cdot d_i \]
+  </div>
+
+  <p><strong>Step 2: Compute the variance \(\sigma^2\)</strong></p>
+  <div class="formula-block">
+    \[ \sigma^2 = \sum_{i=1}^{n} p_i \cdot (d_i - \mu)^2 \]
+  </div>
+
+  <p><strong>Step 3: Take the square root to get \(\sigma\)</strong></p>
+  <div class="formula-block">
+    \[ \sigma = \sqrt{\sigma^2} \]
+  </div>
+
+  <p><strong>Step 4: The "equivalent" normal distribution is \(D \sim N(\mu, \sigma^2)\)</strong></p>
+  <p>You can now use the normal Newsvendor formula: \(Q^* = \mu + z^* \cdot \sigma\), where \(\Phi(z^*) = CR\).</p>
+
+  <h3>Worked Example: Matt Herron (Tutorial 3, Problem 1c)</h3>
+  <table>
+    <tr><th>Demand (\(d_i\))</th><th>Probability (\(p_i\))</th><th>\(p_i \cdot d_i\)</th><th>\(d_i - \mu\)</th><th>\(p_i(d_i - \mu)^2\)</th></tr>
+    <tr><td>100</td><td>0.10</td><td>10</td><td>&minus;150</td><td>2,250</td></tr>
+    <tr><td>200</td><td>0.40</td><td>80</td><td>&minus;50</td><td>1,000</td></tr>
+    <tr><td>300</td><td>0.40</td><td>120</td><td>+50</td><td>1,000</td></tr>
+    <tr><td>400</td><td>0.10</td><td>40</td><td>+150</td><td>2,250</td></tr>
+    <tr style="background:#f0fdf4"><td colspan="2"><strong>Sum</strong></td><td><strong>&mu; = 250</strong></td><td></td><td><strong>&sigma;&sup2; = 6,500</strong></td></tr>
+  </table>
+  <p>\(\sigma = \sqrt{6{,}500} = 80.6\), so the equivalent normal distribution is \(D \sim N(250, \, 80.6^2)\).</p>
+
+  <div class="note-box">
+    <strong>Important note:</strong> The normal approximation works best when the discrete distribution is roughly symmetric and bell-shaped. It can be inaccurate when:
+    <ul style="margin-top:.5rem;padding-left:1.25rem">
+      <li>The distribution is highly skewed</li>
+      <li>There are very few discrete values</li>
+      <li>\(\sigma\) is large relative to \(\mu\) (the normal can assign probability to negative demand)</li>
+    </ul>
+    <p style="margin-top:.5rem">When in doubt, use the <strong>discrete method</strong> (CDF table with \(F(Q) \geq CR\)) for exact results, and the <strong>normal method</strong> for quick estimates or when only \(\mu\) and \(\sigma\) are given.</p>
+  </div>
+
+  <p style="margin-top:2rem;font-size:.85rem;color:#94a3b8;text-align:center">POM Tutorials &mdash; INSEAD MBA &mdash; Stefanos Poulidis</p>
+</body>
+</html>
