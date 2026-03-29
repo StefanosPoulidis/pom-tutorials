@@ -255,14 +255,21 @@ function renderSlide(index) {
   document.getElementById("progress-fill").style.width = pct + "%";
 
   // Re-render KaTeX math in the slide
-  if (typeof renderMathInElement === 'function') {
-    renderMathInElement(document.querySelector('.slide-container'), {
-      delimiters: [
-        {left: '\\(', right: '\\)', display: false},
-        {left: '\\[', right: '\\]', display: true}
-      ],
-      throwOnError: false
-    });
+  function renderKaTeX() {
+    if (typeof renderMathInElement === 'function') {
+      renderMathInElement(document.querySelector('.slide-container'), {
+        delimiters: [
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ],
+        throwOnError: false
+      });
+    }
+  }
+  renderKaTeX();
+  // If KaTeX wasn't ready, retry after it loads
+  if (typeof renderMathInElement !== 'function' && typeof _katexReady !== 'undefined') {
+    _katexReady.then(function() { renderKaTeX(); });
   }
 }
 
