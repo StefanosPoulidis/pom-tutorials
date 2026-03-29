@@ -909,6 +909,7 @@ const SESSIONS = [
   topic: "Managing Risks (Newsvendor I)",
   status: "available",
   summary: "Introduction to the Newsvendor model for single-period inventory decisions under demand uncertainty. Learn to calculate underage/overage costs, the critical ratio, optimal order quantities for both discrete and normal demand, and expected profit, sales, and leftover inventory.",
+  recording: "assets/recordings/Tutorial3.mp4",
   slidesPDF: "assets/session3/POM Tutorial 3.pdf",
   recipe: "assets/session3/Recipe 3_The Newsvendor.pdf",
   reviewSheet: "assets/session3/Review Sheet 3.pdf",
