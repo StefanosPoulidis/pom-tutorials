@@ -1109,7 +1109,7 @@ const SESSIONS = [
     },
 
     // ── Slide 10: Can both lost sales and leftover be positive? ──
-    { type: "concept", title: "Can Lost Sales AND Leftover Both Be Positive?", content: "<p><strong>YES!</strong> This surprises many students, but it makes perfect sense once you think about it.</p><p style='margin-top:.75rem'>Suppose Q* = 300 and demand has two equally likely scenarios:</p><table><tr><th>Scenario</th><th>Demand</th><th>Sales</th><th>Lost Sales</th><th>Leftover</th></tr><tr><td>High demand</td><td>400</td><td>300</td><td>100</td><td>0</td></tr><tr><td>Low demand</td><td>200</td><td>200</td><td>0</td><td>100</td></tr><tr style='background:#f0f9ff'><td><strong>Expected</strong></td><td>300</td><td>250</td><td><strong>50</strong></td><td><strong>50</strong></td></tr></table><p style='margin-top:.75rem'>In the high-demand scenario, you have lost sales but no leftover. In the low-demand scenario, you have leftover but no lost sales. <strong>On average, both are positive</strong> &mdash; because they come from different scenarios!</p><p style='margin-top:.5rem'><em>In any single period, you can't have both lost sales and leftover simultaneously. But the <strong>expected values</strong> (averages across scenarios) can both be positive.</em></p>",
+    { type: "concept", title: "Can Lost Sales AND Leftover Both Be Positive?", content: "<p><strong>YES!</strong> This surprises many students, but it makes perfect sense once you think about it.</p><p style='margin-top:.75rem'>Suppose Q* = 300 and demand has two equally likely scenarios:</p><table><tr><th>Scenario</th><th>Demand</th><th>Sales</th><th>Lost Sales</th><th>Leftover</th></tr><tr><td>High demand</td><td>400</td><td>300</td><td>100</td><td>0</td></tr><tr><td>Low demand</td><td>200</td><td>200</td><td>0</td><td>100</td></tr><tr style='background:rgba(94,234,212,.15)'><td><strong>Expected</strong></td><td>300</td><td>250</td><td><strong>50</strong></td><td><strong>50</strong></td></tr></table><p style='margin-top:.75rem'>In the high-demand scenario, you have lost sales but no leftover. In the low-demand scenario, you have leftover but no lost sales. <strong>On average, both are positive</strong> &mdash; because they come from different scenarios!</p><p style='margin-top:.5rem'><em>In any single period, you can't have both lost sales and leftover simultaneously. But the <strong>expected values</strong> (averages across scenarios) can both be positive.</em></p>",
       hints: [
         { label: "Key Insight", icon: "\ud83d\udca1", content: "<p>Lost sales and leftover are like two sides of a coin. On any given day, you flip one or the other (or neither, if D = Q exactly). But the <em>average</em> of each side is positive because each occurs in some scenarios.</p>" }
       ]
@@ -1641,6 +1641,190 @@ const SESSIONS = [
         { label: "Master Formula Sheet", icon: "\uD83D\uDCDD", content: "<div class='formula-box'><strong>Core:</strong> \\( Q^* = \\mu + z^*\\sigma \\), where \\( \\Phi(z^*) = CR \\)<br><br><strong>Double margin:</strong> Decentralized CR < Integrated CR<br><br><strong>Reactive:</strong> \\( C_u = \\text{expensive} - \\text{cheap} \\), \\( C_o = \\text{cheap} \\)<br><br><strong>Risk pooling:</strong> \\( \\sigma_{\\text{pool}} = \\sigma\\sqrt{n} \\), \\( CV_{\\text{pool}} = CV/\\sqrt{n} \\)<br><br><strong>Service level:</strong> \\( \\Phi(z^*) = \\text{target probability} \\)</div>" },
         { label: "Common Mistakes", icon: "\u26A0\uFE0F", content: "<ul><li>Using manufacturing cost instead of wholesale for retailer's C<sub>o</sub></li><li>Forgetting that z* can be negative (when C<sub>o</sub> > C<sub>u</sub>)</li><li>Adding standard deviations instead of variances when pooling</li><li>Mixing up L(z) and \u03A6(z) in expected profit calculations</li></ul>" },
         { label: "The Big Picture", icon: "\uD83C\uDF10", content: "<p>Across all 4 sessions, one theme dominates: <strong>variability is costly, and understanding it mathematically lets you make better decisions.</strong></p><ul><li>Session 1: Deterministic processes \u2014 find and fix bottlenecks</li><li>Session 2: Stochastic processes \u2014 variability causes queues</li><li>Session 3: One-time decisions \u2014 balance overage vs. underage</li><li>Session 4: Advanced applications \u2014 supply chains, finance, capacity</li></ul><p>The newsvendor framework (Cu, Co, CR) is your Swiss Army knife for any commit-before-demand-is-known decision.</p>" }
+      ]
+    }
+  ]
+},
+  {
+  number: 5,
+  topic: "Recap & Q\u00a0A",
+  status: "available",
+  summary: "Comprehensive review of all four tutorial sessions. Key formulas, frameworks, and problem-solving strategies from Process Improvement, Managing Variability, and the Newsvendor Model (I & II). Includes a past exam problems section (materials coming soon).",
+
+  concepts: [
+    {
+      title: "Process Improvement (Session 1)",
+      icon: "\u2699\ufe0f",
+      body: "The 4-step framework: (1) Draw process flow diagram, (2) Find capacity of each resource, (3) Find the bottleneck (lowest capacity or highest utilization), (4) Find system capacity. Key formulas: Capacity = 1/Processing Time, Utilization = Input/Capacity, DLC = Total Wages/Throughput. Remember: improving a non-bottleneck does NOT increase output."
+    },
+    {
+      title: "Managing Variability (Session 2)",
+      icon: "\ud83c\udfb2",
+      body: "Variability creates queues even with spare capacity. The 6-step recipe: (1) Write parameters (\u03bb, \u03bc, \u03c4, s, CVa, CVs), (2) Find s, (3) Find \u03c1, (4) Calculate Wq, (5) W = Wq + \u03c4, (6) Lq = \u03bb*Wq. Three levers: reduce utilization, reduce service time, reduce variability. Pooling is free and powerful."
+    },
+    {
+      title: "Newsvendor Model (Session 3)",
+      icon: "\ud83d\udcf0",
+      body: "Single-period inventory under uncertainty. Cu = r\u2212c (underage), Co = c\u2212s (overage), CR = Cu/(Cu+Co). Normal: Q* = \u03bc + z*\u03c3. Discrete: smallest Q where F(Q) \u2265 CR. Performance: E[Lost Sales] = \u03c3\u00b7L(z*), E[Sales] = \u03bc \u2212 E[LS], E[Leftover] = Q* \u2212 E[Sales], E[Profit] = Cu\u00b7E[Sales] \u2212 Co\u00b7E[Leftover]."
+    },
+    {
+      title: "Double Marginalization (Session 4)",
+      icon: "\ud83d\udd17",
+      body: "Separate firms in a supply chain order less than the SC optimum. Retailer uses wholesale price (not manufacturing cost) as their \"c\", inflating Co and deflating Cu. Integrated SC has higher CR and higher Q*. Supply chain contracts (buyback, revenue sharing) close the gap."
+    },
+    {
+      title: "Reactive Capacity & Risk Pooling (Session 4)",
+      icon: "\u26a1",
+      body: "Reactive capacity: cheap source (commit upfront) + expensive backup. Cu = premium for backup, Co = cost of unused cheap source. Risk pooling: n independent demands \u2192 \u03c3_pool = \u03c3\u00b7\u221an, CV drops by \u221an. Service level approach when failure is catastrophic: \u03a6(z*) = target probability."
+    },
+    {
+      title: "Exam Strategy",
+      icon: "\ud83c\udfaf",
+      body: "(1) Identify the problem type (process, queuing, newsvendor). (2) Write down ALL given parameters. (3) Draw a diagram. (4) Apply the right formula set. (5) Check units and reasonableness. Common mistakes: forgetting to check \u03c1 < 1, using manufacturing cost instead of wholesale for retailer's Co, adding standard deviations instead of variances when pooling, confusing L(z) with \u03a6(z)."
+    }
+  ],
+
+  diagrams: [],
+
+  problems: [
+    {
+      title: "Past Exam Problems",
+      difficulty: "***",
+      context: "Past exam problems and solutions will be uploaded here before the exam period. Check back next week for practice materials.",
+      parts: [
+        {
+          question: "Practice problems coming soon",
+          solution: "<p>Solutions will be posted alongside the problems. In the meantime, review the problems from Sessions 1\u20134 and make sure you can solve them without looking at the solutions.</p><div class='solution-tip'>\ud83d\udca1 <strong>Best exam prep strategy:</strong> For each tutorial problem, cover the solution and try to solve it from scratch. Time yourself. If you get stuck for more than 5 minutes on a step, peek at just that step, then continue on your own.</div>"
+        }
+      ]
+    }
+  ],
+
+  readings: [
+    { label: "Recipe 1: Process Improvement", url: "assets/session1/Recipe 1_Process Improvement.pdf" },
+    { label: "Recipe 2: Managing Variability", url: "assets/session2/Recipe 2_Managing Variability.pdf" },
+    { label: "Recipe 3: The Newsvendor", url: "assets/session3/Recipe 3_The Newsvendor.pdf" },
+    { label: "Recipe 4: Additional Notes", url: "assets/session4/Recipe 4_Additional Notes.pdf" },
+    { label: "Variance: Definition & Proof", url: "assets/session3/Variance_Definition_and_Proof.html" }
+  ],
+
+  teachingSlides: [
+    // ── Slide 1: Title ──
+    { type: "title", title: "Process and Operations Management", content: "<h2 style='margin-top:1rem'>Tutorial 5: Recap & Q\u00a0A</h2><p style='margin-top:.5rem;opacity:.8'>\u2014 Stefanos Poulidis</p>",
+      hints: [
+        { label: "Session Overview", icon: "\ud83d\udcdd", content: "<p>This session covers a comprehensive review of all four tutorial sessions: Process Improvement, Managing Variability, Newsvendor I, and Newsvendor II. We will review key formulas, frameworks, and problem-solving strategies.</p>" }
+      ]
+    },
+
+    // ── Slide 2: Course Overview ──
+    { type: "concept", title: "Course Overview", content: "<table><tr><th>Session</th><th>Topic</th><th>Key Concepts</th></tr><tr><td><strong>1</strong></td><td>Process Improvement</td><td>Bottlenecks, capacity, utilization, DLC, Little's Law</td></tr><tr><td><strong>2</strong></td><td>Managing Variability</td><td>Queuing theory, Wq/W/Lq, CVa/CVs, pooling</td></tr><tr><td><strong>3</strong></td><td>Newsvendor I</td><td>Cu, Co, CR, Q*, expected performance measures</td></tr><tr><td><strong>4</strong></td><td>Newsvendor II</td><td>Double marginalization, reactive capacity, risk pooling, service level</td></tr></table><p style='margin-top:1rem'>Each session builds on the previous one. The newsvendor framework from Session 3 is extended in Session 4 to supply chains, capacity planning, and risk management.</p>",
+      hints: [
+        { label: "Common Thread", icon: "\ud83d\udca1", content: "<p>The unifying theme across all sessions: <strong>variability is costly, and understanding it mathematically lets you make better decisions.</strong></p>" },
+        { label: "Exam Coverage", icon: "\ud83c\udfaf", content: "<p>All four sessions are examinable. The exam typically contains one problem from each major topic area. Practice identifying the problem type quickly.</p>" }
+      ]
+    },
+
+    // ── Slide 3: Session 1 Recap ──
+    { type: "concept", title: "Session 1 Recap: Process Improvement", content: "<h4>The 4-Step Framework</h4><ol><li><strong>Draw</strong> the process flow diagram</li><li><strong>Find capacity</strong> of each resource (= 1 / Processing Time)</li><li><strong>Find the bottleneck</strong> (lowest capacity or highest utilization)</li><li><strong>Find system capacity</strong> (= bottleneck capacity)</li></ol><p style='margin-top:.75rem'><strong>Key insight:</strong> Improving a non-bottleneck does NOT increase output. Always fix the bottleneck first!</p><p style='margin-top:.5rem'>When yields differ across stages, compare <strong>utilizations</strong> rather than processing times to identify the bottleneck.</p>",
+      hints: [
+        { label: "Bottleneck Definition", icon: "\u26d3", content: "<p>The bottleneck is the resource with the <strong>lowest capacity</strong> (or equivalently, the <strong>highest utilization</strong>). It limits the throughput of the entire system. Think: highway narrowing from 3 lanes to 1.</p>" },
+        { label: "DLC Formula", icon: "\ud83d\udcb0", content: "<p>Direct Labor Cost = Total Wages per Hour / Throughput per Hour</p><p>Counterintuitive: hiring MORE workers can <em>reduce</em> cost per unit if the new worker relieves the bottleneck.</p>" }
+      ]
+    },
+
+    // ── Slide 4: Session 1 Key Formulas ──
+    { type: "formula", title: "Session 1: Key Formulas", content: "<div class='formula-box'>\\( \\text{Capacity} = \\frac{1}{\\text{Processing Time}} \\)</div><div class='formula-box'>\\( \\text{Utilization} = \\frac{\\text{Input Rate}}{\\text{Capacity}} \\)</div><div class='formula-box'>\\( \\text{DLC} = \\frac{\\text{Total Wages/hr}}{\\text{Throughput}} \\)</div><div class='formula-box'>\\( L = \\lambda \\times W \\)</div><div class='formula-box'>\\( T_{\\text{empty}} = \\text{Flow Time} + (N-1) \\times \\text{Cycle Time}_{\\text{bottleneck}} \\)</div><p style='margin-top:.75rem'>Where L = average inventory, \u03bb = throughput, W = average flow time. The empty system formula accounts for the first unit flowing through all stages before steady state begins.</p>",
+      hints: [
+        { label: "Unit Consistency", icon: "\u26a0\ufe0f", content: "<p>Always convert all capacities to the <strong>same time unit</strong> (e.g., units/hour) before comparing. Mixing minutes and hours is the #1 arithmetic mistake.</p>" },
+        { label: "Little's Law Applications", icon: "\ud83d\udcdd", content: "<p>Little's Law (L = \u03bbW) is universal. Use it to find any one of the three variables when you know the other two. Works for entire systems or individual stages.</p>" }
+      ]
+    },
+
+    // ── Slide 5: Session 2 Recap ──
+    { type: "concept", title: "Session 2 Recap: Managing Variability", content: "<h4>The 6-Step Recipe</h4><ol><li>Write parameters: \u03bb (arrival rate), \u03bc (service rate), \u03c4 (service time), s (servers), CVa, CVs</li><li>Find s (number of servers)</li><li>Find \u03c1 = \u03bb / (s \u00d7 \u03bc) \u2014 must be < 1!</li><li>Calculate Wq (time waiting in queue)</li><li>W = Wq + \u03c4 (total time in system)</li><li>Lq = \u03bb \u00d7 Wq (average queue length)</li></ol><p style='margin-top:.75rem'><strong>Three levers to reduce waiting:</strong> (1) Reduce utilization, (2) Reduce service time variability, (3) Pool resources.</p>",
+      hints: [
+        { label: "Highway Analogy", icon: "\ud83d\ude97", content: "<p>A highway at 90% capacity has occasional slowdowns. At 99% capacity, traffic jams are constant. Similarly, queues grow explosively as utilization approaches 100%. This is why \u03c1 < 1 is required for a stable queue.</p>" },
+        { label: "Pooling Benefit", icon: "\ud83c\udfaf", content: "<p>Pooling multiple servers into one queue (vs. separate lines) is <strong>always</strong> better. It reduces waiting time without any extra cost. Example: one line feeding multiple bank tellers vs. separate lines per teller.</p>" }
+      ]
+    },
+
+    // ── Slide 6: Session 2 Key Formulas ──
+    { type: "formula", title: "Session 2: Key Formulas", content: "<div class='formula-box'>\\( \\rho = \\frac{\\lambda}{s \\times \\mu} \\)</div><div class='formula-box'>\\( W_q^{\\text{single}} = \\frac{\\rho}{1-\\rho} \\times \\frac{CV_a^2 + CV_s^2}{2} \\times \\tau \\)</div><div class='formula-box'>\\( W_q^{\\text{multi}} \\approx \\frac{\\rho^{\\sqrt{2(s+1)}}}{s(1-\\rho)} \\times \\frac{CV_a^2 + CV_s^2}{2} \\times \\tau \\)</div><div class='formula-box'>\\( W = W_q + \\tau \\qquad L_q = \\lambda \\times W_q \\)</div><p style='margin-top:.75rem'>These formulas decompose waiting into three factors: utilization effect, variability effect, and service time scale.</p>",
+      hints: [
+        { label: "CV Definitions", icon: "\ud83d\udcdd", content: "<p>CV (Coefficient of Variation) = \u03c3 / \u03bc. Measures relative variability.</p><p>CVa = variability of inter-arrival times<br>CVs = variability of service times</p><p>If arrivals follow a Poisson process, CVa = 1. If service is deterministic, CVs = 0.</p>" },
+        { label: "Stability Condition", icon: "\u26a0\ufe0f", content: "<p>\u03c1 must be strictly less than 1 for the queue to be stable. If \u03c1 \u2265 1, the queue grows to infinity \u2014 the system cannot keep up with demand. Always check this first!</p>" }
+      ]
+    },
+
+    // ── Slide 7: Session 3 Recap ──
+    { type: "concept", title: "Session 3 Recap: Newsvendor I", content: "<h4>The Newsvendor Framework</h4><p><strong>Cu</strong> (underage cost) = r \u2212 c = profit lost per unit of unmet demand</p><p><strong>Co</strong> (overage cost) = c \u2212 s = loss per unsold unit</p><p><strong>CR</strong> (critical ratio) = Cu / (Cu + Co)</p><h4>Finding Q*</h4><ul><li><strong>Normal demand:</strong> Q* = \u03bc + z*\u03c3 where \u03a6(z*) = CR</li><li><strong>Discrete demand:</strong> smallest Q where F(Q) \u2265 CR</li></ul><h4>Performance Measures</h4><p>E[Lost Sales] = \u03c3\u00b7L(z*), E[Sales] = \u03bc \u2212 E[LS], E[Leftover] = Q* \u2212 E[Sales]</p>",
+      hints: [
+        { label: "When to Use Which", icon: "\ud83d\udca1", content: "<p><strong>Normal:</strong> When demand is described as N(\u03bc, \u03c3) or \"normally distributed\".</p><p><strong>Discrete:</strong> When demand has specific values with probabilities (e.g., a probability table).</p><p>The logic is the same \u2014 only the method of finding Q* differs.</p>" },
+        { label: "CR Intuition", icon: "\ud83c\udfaf", content: "<p>CR represents the probability of meeting all demand at the optimal order quantity. High CR (close to 1) means Cu >> Co, so you order aggressively. Low CR means Co dominates, so you order conservatively.</p>" }
+      ]
+    },
+
+    // ── Slide 8: Session 3 Key Formulas ──
+    { type: "formula", title: "Session 3: Key Formulas", content: "<div class='formula-box'>\\( C_u = r - c \\qquad C_o = c - s \\qquad CR = \\frac{C_u}{C_u + C_o} \\)</div><div class='formula-box'>\\( Q^* = \\mu + z^* \\sigma \\quad \\text{where } \\Phi(z^*) = CR \\)</div><div class='formula-box'>\\( E[\\text{Lost Sales}] = \\sigma \\cdot L(z^*) \\)</div><div class='formula-box'>\\( E[\\text{Sales}] = \\mu - E[\\text{Lost Sales}] \\)</div><div class='formula-box'>\\( E[\\text{Leftover}] = Q^* - E[\\text{Sales}] \\)</div><div class='formula-box'>\\( E[\\text{Profit}] = C_u \\times E[\\text{Sales}] - C_o \\times E[\\text{Leftover}] \\)</div>",
+      hints: [
+        { label: "L(z) vs \u03a6(z)", icon: "\u26a0\ufe0f", content: "<p>\u03a6(z) = CDF of the standard normal (probability). Used to find z* from CR.</p><p>L(z) = standard normal loss function. Used to calculate expected lost sales.</p><p>These are <strong>different functions</strong>. Do not confuse them! L(z) = \u03c6(z) \u2212 z[1\u2212\u03a6(z)].</p>" },
+        { label: "Quick Reference", icon: "\ud83d\udcdd", content: "<p>Common z* values: CR=0.5 \u2192 z*=0, CR=0.8 \u2192 z*=0.84, CR=0.9 \u2192 z*=1.28, CR=0.95 \u2192 z*=1.645</p><p>Common L(z) values: L(0)=0.3989, L(0.5)=0.1978, L(1.0)=0.0833, L(1.5)=0.0293, L(2.0)=0.0085</p>" }
+      ]
+    },
+
+    // ── Slide 9: Session 4 Recap ──
+    { type: "concept", title: "Session 4 Recap: Newsvendor II", content: "<h4>Four Extensions of the Newsvendor</h4><ol><li><strong>Double Marginalization:</strong> Decentralized SC orders less than optimal. Retailer's c = wholesale price, not manufacturing cost.</li><li><strong>Reactive Capacity:</strong> Cheap source (commit upfront) + expensive backup. Cu = premium, Co = cheap cost.</li><li><strong>Risk Pooling:</strong> Aggregate n demands \u2192 \u03c3_pool = \u03c3\u221an, CV drops by \u221an.</li><li><strong>Service Level:</strong> When failure is catastrophic, use \u03a6(z*) = target probability instead of cost optimization.</li></ol><p style='margin-top:.75rem'>All four use the same CR \u2192 z* \u2192 Q* logic, just with different definitions of Cu and Co!</p>",
+      hints: [
+        { label: "Real-World Examples", icon: "\ud83c\udf10", content: "<p><strong>Double marginalization:</strong> Manufacturer-retailer relationships (e.g., fashion industry)</p><p><strong>Reactive capacity:</strong> Energy companies with pipeline + LNG backup</p><p><strong>Risk pooling:</strong> Centralized warehousing (e.g., Amazon fulfillment)</p><p><strong>Service level:</strong> Hospital capacity planning, disaster preparedness</p>" },
+        { label: "Contract Solutions", icon: "\ud83d\udd17", content: "<p>Buyback contracts, revenue sharing, and quantity flexibility contracts can align incentives in a decentralized supply chain, restoring the integrated optimum.</p>" }
+      ]
+    },
+
+    // ── Slide 10: Session 4 Key Formulas ──
+    { type: "formula", title: "Session 4: Key Formulas", content: "<div class='formula-box'><strong>Double Marginalization:</strong><br>\\( CR_{\\text{integrated}} = \\frac{r - c_m}{r - s} \\qquad CR_{\\text{decentralized}} = \\frac{r - w}{r - s} \\)</div><div class='formula-box'><strong>Reactive Capacity:</strong><br>\\( C_u = c_{\\text{expensive}} - c_{\\text{cheap}} \\qquad C_o = c_{\\text{cheap}} \\)</div><div class='formula-box'><strong>Risk Pooling:</strong><br>\\( \\sigma_{\\text{pool}} = \\sigma \\sqrt{n} \\qquad CV_{\\text{pool}} = \\frac{CV}{\\sqrt{n}} \\)</div><div class='formula-box'><strong>Service Level:</strong><br>\\( \\Phi(z^*) = \\text{target probability} \\)</div>",
+      hints: [
+        { label: "Why w > c_m Matters", icon: "\ud83d\udca1", content: "<p>Since wholesale price w > manufacturing cost c_m, the retailer's CR is always lower than the integrated CR. Lower CR \u2192 lower z* \u2192 lower Q* \u2192 more stockouts \u2192 lost profit for the entire supply chain.</p>" },
+        { label: "Pooling Pitfall", icon: "\u26a0\ufe0f", content: "<p>When pooling: <strong>variances add</strong>, not standard deviations! For n independent demands each with \u03c3: \u03c3_pool = \u03c3\u221an (not n\u03c3). This is because Var(sum) = n\u03c3\u00b2, so SD = \u03c3\u221an.</p>" }
+      ]
+    },
+
+    // ── Slide 11: Master Formula Sheet ──
+    { type: "formula", title: "Master Formula Sheet", content: "<h4>Process Improvement</h4><div class='formula-box'>\\( \\text{Capacity} = \\frac{1}{\\text{PT}} \\quad \\text{Util} = \\frac{\\lambda}{\\text{Cap}} \\quad \\text{DLC} = \\frac{\\text{Wages}}{\\text{Throughput}} \\quad L = \\lambda W \\)</div><h4>Managing Variability</h4><div class='formula-box'>\\( \\rho = \\frac{\\lambda}{s\\mu} \\quad W_q = \\frac{\\rho}{1-\\rho} \\cdot \\frac{CV_a^2+CV_s^2}{2} \\cdot \\tau \\quad W = W_q + \\tau \\quad L_q = \\lambda W_q \\)</div><h4>Newsvendor</h4><div class='formula-box'>\\( C_u = r-c \\quad C_o = c-s \\quad CR = \\frac{C_u}{C_u+C_o} \\quad Q^* = \\mu + z^*\\sigma \\)</div><div class='formula-box'>\\( E[\\text{LS}] = \\sigma L(z^*) \\quad E[\\text{Sales}] = \\mu - E[\\text{LS}] \\quad E[\\text{LO}] = Q^* - E[\\text{Sales}] \\)</div><h4>Extensions</h4><div class='formula-box'>\\( \\sigma_{\\text{pool}} = \\sigma\\sqrt{n} \\quad CV_{\\text{pool}} = CV/\\sqrt{n} \\quad \\Phi(z^*) = \\text{target (service level)} \\)</div>",
+      hints: [
+        { label: "How to Use This Sheet", icon: "\ud83d\udcdd", content: "<p>Step 1: Identify the problem type. Step 2: Go to the relevant section. Step 3: Plug in your values. This sheet covers 90% of what you need for the exam.</p>" },
+        { label: "Print This!", icon: "\ud83d\udda8\ufe0f", content: "<p>If allowed a formula sheet in the exam, this slide is your best friend. Make sure you understand each formula, not just memorize it.</p>" }
+      ]
+    },
+
+    // ── Slide 12: Common Exam Mistakes ──
+    { type: "concept", title: "Common Exam Mistakes", content: "<ol><li><strong>Mixing time units</strong> \u2014 e.g., capacity in units/min vs. demand in units/hour</li><li><strong>Forgetting to check \u03c1 < 1</strong> before applying queuing formulas</li><li><strong>Using manufacturing cost instead of wholesale price</strong> for retailer's Co in double marginalization</li><li><strong>Adding standard deviations instead of variances</strong> when pooling demands</li><li><strong>Confusing L(z) with \u03a6(z)</strong> \u2014 loss function vs. CDF</li><li><strong>Not identifying the bottleneck correctly</strong> when yields differ across stages</li><li><strong>Forgetting that z* can be negative</strong> when Co > Cu (CR < 0.5)</li><li><strong>Applying process improvement to a non-bottleneck</strong> and claiming output increases</li><li><strong>Ignoring salvage value</strong> when computing Co (Co = c \u2212 s, not just c)</li><li><strong>Not reading the question carefully</strong> \u2014 is it asking for Q* or expected profit or both?</li></ol>",
+      hints: [
+        { label: "Self-Check", icon: "\u2705", content: "<p>Before submitting your answer, ask yourself: Did I convert all units? Did I check \u03c1 < 1? Did I use the right cost for Co? Did I add variances (not \u03c3's) when pooling? Did I answer the actual question asked?</p>" },
+        { label: "Partial Credit", icon: "\ud83d\udcdd", content: "<p>Even if you make an error early on, continue with your (incorrect) intermediate result. Examiners typically award marks for correct methodology applied to wrong numbers. Show your work!</p>" }
+      ]
+    },
+
+    // ── Slide 13: Problem-Solving Strategy ──
+    { type: "concept", title: "Problem-Solving Strategy", content: "<h4>Step-by-Step for Any POM Problem</h4><ol><li><strong>Identify the problem type:</strong> Is it a process/bottleneck problem? A queuing problem? A newsvendor problem? An extension (double marginalization, reactive capacity, risk pooling)?</li><li><strong>Extract ALL parameters:</strong> Write down every number given. Label each one (\u03bb, \u03bc, r, c, s, \u03c3, etc.).</li><li><strong>Draw a diagram:</strong> Process flow for Session 1, queue diagram for Session 2, timeline for newsvendor.</li><li><strong>Apply the right formula set:</strong> Use the master formula sheet. Don't mix formulas from different problem types.</li><li><strong>Interpret the result:</strong> Does it make sense? Is utilization between 0 and 1? Is Q* positive? Is profit reasonable?</li></ol><p style='margin-top:.75rem'><em>The exam rewards structured thinking. Show every step clearly.</em></p>",
+      hints: [
+        { label: "Time Management", icon: "\u23f0", content: "<p>In the exam, spend 2 minutes reading the entire problem before writing anything. Identify the type, then work methodically. Don't rush into calculations without understanding what's being asked.</p>" },
+        { label: "Sanity Checks", icon: "\ud83e\udde0", content: "<p>After solving, verify: Is utilization \u2264 100%? Is Q* > 0? Is E[Sales] \u2264 \u03bc? Is E[Leftover] \u2265 0? Is E[Profit] reasonable given the margins? If any check fails, recheck your work.</p>" }
+      ]
+    },
+
+    // ── Slide 14: Past Exam Problems ──
+    { type: "concept", title: "Past Exam Problems", content: "<div style='text-align:center;padding:2rem'><p style='font-size:1.2rem;opacity:.7'>Practice problems from past exams will be uploaded here.</p><p style='margin-top:1rem;font-size:1.1rem'><strong>Check back next week for practice materials.</strong></p><p style='margin-top:1.5rem;opacity:.6'>In the meantime, revisit problems from Sessions 1\u20134 and solve them from scratch without looking at the solutions.</p></div>",
+      hints: [
+        { label: "Preparation Tip", icon: "\ud83d\udca1", content: "<p>The best exam preparation: for each tutorial problem, cover the solution and try to solve it from scratch. Time yourself. If you get stuck for more than 5 minutes on a step, peek at just that step, then continue on your own.</p>" },
+        { label: "Office Hours", icon: "\ud83d\udce7", content: "<p>If you have questions about any topic, come to office hours or post on the course forum. No question is too basic \u2014 it's better to ask now than to be confused in the exam.</p>" }
+      ]
+    },
+
+    // ── Slide 15: Good Luck! ──
+    { type: "title", title: "Good Luck!", content: "<p style='font-size:1.2rem;margin-top:1rem'>You've worked through four challenging tutorial sessions covering process improvement, variability management, and the newsvendor model in all its forms.</p><p style='margin-top:1rem;font-size:1.1rem'>Remember: <strong>structured thinking beats memorization.</strong> Identify the problem type, extract parameters, apply the framework, and check your answer.</p><p style='margin-top:1.5rem;opacity:.8'>Questions? Reach out during office hours or via email.</p><p style='margin-top:1rem;opacity:.6'>Best wishes for the exam \u2014 Stefanos</p>",
+      hints: [
+        { label: "Final Advice", icon: "\ud83c\udf1f", content: "<p>Trust your preparation. You've seen every problem type that can appear on the exam. Stay calm, manage your time, and show your work. You've got this!</p>" },
+        { label: "Resources", icon: "\ud83d\udcda", content: "<p>All recipes, review sheets, and tutorial solutions are available on the course website. Use them as references during your final review.</p>" }
       ]
     }
   ]

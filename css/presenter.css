@@ -230,8 +230,28 @@
 
 .slide-container tr.highlight,
 .slide-container tr[style*="background:#fef3c7"],
-.slide-container tr[style*="background: #fef3c7"] {
+.slide-container tr[style*="background: #fef3c7"],
+.slide-container tr[style*="background:#f0f9ff"],
+.slide-container tr[style*="background:#dcfce7"],
+.slide-container tr[style*="background:#fffbeb"],
+.slide-container tr[style*="background:#f8fafc"],
+.slide-container tr[style*="background:#fff7ed"],
+.slide-container tr[style*="background:#f3f4f6"],
+.slide-container tr[style*="background: #f3f4f6"] {
   background: rgba(94, 234, 212, .15) !important;
+  color: #fff !important;
+}
+
+/* Override any inline light backgrounds in slide content */
+.slide-container p[style*="background:#f8fafc"],
+.slide-container p[style*="background:#fff7ed"],
+.slide-container p[style*="background:#dcfce7"],
+.slide-container div[style*="background:#f8fafc"],
+.slide-container div[style*="background:#fff7ed"],
+.slide-container div[style*="background:#dcfce7"] {
+  background: rgba(255,255,255,.08) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.2) !important;
 }
 
 .slide-container td[style],
