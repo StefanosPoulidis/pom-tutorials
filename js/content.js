@@ -1293,6 +1293,7 @@ const SESSIONS = [
   topic: "Managing Risks (Newsvendor II)",
   status: "available",
   summary: "Advanced Newsvendor applications including double marginalization in supply chains, reactive capacity with backup sources, and risk pooling. Covers supply chain contracts, integrated vs. decentralized optimization, and service-level-based ordering through three applied problems.",
+  recording: "assets/recordings/Tutorial4.mp4",
   slidesPDF: "assets/session4/POM Tutorial 4.pdf",
   recipe: "assets/session4/Recipe 4_Additional Notes.pdf",
   reviewSheet: "assets/session4/Review Sheet 4.pdf",
