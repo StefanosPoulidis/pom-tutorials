@@ -573,6 +573,144 @@ a.card:hover {
   min-height: 1.2em;
 }
 
+.reveal-password {
+  margin-top: 1.25rem;
+  font-size: .85rem;
+  color: var(--gray-500);
+  text-align: center;
+}
+
+.reveal-password summary {
+  cursor: pointer;
+  display: inline-block;
+  padding: .4rem .75rem;
+  border: 1px dashed var(--gray-300);
+  border-radius: 6px;
+  color: var(--navy);
+  user-select: none;
+  transition: background .15s, border-color .15s;
+}
+
+.reveal-password summary:hover {
+  background: var(--gray-100, #f3f4f6);
+  border-color: var(--teal);
+}
+
+.reveal-password[open] summary {
+  border-style: solid;
+  border-color: var(--teal);
+}
+
+.reveal-password p {
+  margin: .75rem 0 0;
+  color: var(--gray-700, #374151);
+}
+
+.reveal-password code {
+  background: var(--gray-100, #f3f4f6);
+  padding: .15rem .45rem;
+  border-radius: 4px;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: .95em;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* ─── Practice Exam Cards ─── */
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.exam-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  position: relative;
+}
+
+.exam-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal), var(--navy));
+  border-radius: 12px 12px 0 0;
+}
+
+.exam-year {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.exam-card h4 {
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.exam-meta {
+  font-size: .85rem;
+  color: var(--gray-700, #374151);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .35rem .75rem;
+  padding: .75rem 0;
+  border-top: 1px dashed var(--gray-200);
+  border-bottom: 1px dashed var(--gray-200);
+}
+
+.exam-topics {
+  font-size: .85rem;
+  color: var(--gray-700, #374151);
+}
+
+.exam-topics ul {
+  margin: .35rem 0 0;
+  padding-left: 1.2rem;
+  color: var(--gray-600, #4b5563);
+  font-size: .8rem;
+}
+
+.exam-topics li {
+  margin-bottom: .15rem;
+}
+
+.exam-links {
+  display: flex;
+  gap: .5rem;
+  margin-top: auto;
+}
+
+.exam-btn {
+  flex: 1;
+  text-align: center;
+  font-size: .85rem;
+  padding: .5rem .75rem;
+  text-decoration: none;
+}
+
+.exam-btn-secondary {
+  background: var(--white);
+  color: var(--navy);
+  border: 1.5px solid var(--navy);
+}
+
+.exam-btn-secondary:hover {
+  background: var(--gray-100, #f3f4f6);
+}
+
 /* ─── Problem Blocks with Inline Solutions ─── */
 .problem-block {
   background: var(--white);

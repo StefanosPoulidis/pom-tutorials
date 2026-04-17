@@ -222,6 +222,33 @@ function renderSession() {
       </div>`;
   }).join("");
 
+  // ── Practice Exams ──
+  const practiceExamsHTML = (session.practiceExams && session.practiceExams.length > 0)
+    ? `<div class="section">
+        <h2>Practice Exams</h2>
+        <p style="font-size:.85rem;color:var(--gray-500);margin-bottom:1.25rem;">Download the exam, time yourself (3 hours), then check your work against the solutions PDF. Detailed step-by-step walk-throughs of every problem are below under "Problems &amp; Solutions".</p>
+        <div class="exam-grid">${session.practiceExams.map(e => `
+          <div class="exam-card">
+            <div class="exam-year">${e.year}</div>
+            <h4>${e.title}</h4>
+            <div class="exam-meta">
+              <div><strong>Instructor:</strong> ${e.instructor}</div>
+              <div><strong>Duration:</strong> ${e.duration}</div>
+              <div><strong>Points:</strong> ${e.totalPoints}</div>
+              <div><strong>Format:</strong> ${e.format}</div>
+            </div>
+            <div class="exam-topics">
+              <strong>Topics:</strong>
+              <ul>${e.topics.map(t => `<li>${t}</li>`).join("")}</ul>
+            </div>
+            <div class="exam-links">
+              <a href="${e.examPDF}" target="_blank" class="btn btn-primary exam-btn">Exam PDF</a>
+              <a href="${e.solutionsPDF}" target="_blank" class="btn exam-btn exam-btn-secondary">Solutions PDF</a>
+            </div>
+          </div>`).join("")}
+        </div>
+      </div>` : "";
+
   // ── Readings ──
   const readingsHTML = session.readings.map(r =>
     `<li><a href="${r.url}" target="_blank">
@@ -242,6 +269,8 @@ function renderSession() {
       ${recordingHTML}
       <ul class="materials-list">${materialsHTML}</ul>
     </div>
+
+    ${practiceExamsHTML}
 
     <div class="section">
       <h2>Problems &amp; Solutions</h2>

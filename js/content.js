@@ -1602,60 +1602,378 @@ const SESSIONS = [
 },
   {
   number: 5,
-  topic: "Recap & Q\u00a0A",
+  topic: "Recap & Past Exams",
   status: "available",
-  summary: "Comprehensive review of all four tutorial sessions. Key formulas, frameworks, and problem-solving strategies from Process Improvement, Managing Variability, and the Newsvendor Model (I & II). Includes a past exam problems section (materials coming soon).",
+  summary: "Comprehensive review of Sessions 1–4 plus full walk-throughs of the 2021 and 2025 POM final exams. Every exam problem is presented with detailed, step-by-step solutions that you can reveal at your own pace. Key formulas, frameworks, and common pitfalls are highlighted alongside the problem types you are most likely to see on the final.",
 
   concepts: [
     {
       title: "Process Improvement (Session 1)",
-      icon: "\u2699\ufe0f",
+      icon: "⚙️",
       body: "The 4-step framework: (1) Draw process flow diagram, (2) Find capacity of each resource, (3) Find the bottleneck (lowest capacity or highest utilization), (4) Find system capacity. Key formulas: Capacity = 1/Processing Time, Utilization = Input/Capacity, DLC = Total Wages/Throughput. Remember: improving a non-bottleneck does NOT increase output."
     },
     {
       title: "Managing Variability (Session 2)",
-      icon: "\ud83c\udfb2",
+      icon: "🎲",
       body: "Variability creates queues even with spare capacity. The 6-step recipe: (1) Write parameters (\u03bb, \u03bc, \u03c4, s, CVa, CVs), (2) Find s, (3) Find \u03c1, (4) Calculate Wq, (5) W = Wq + \u03c4, (6) Lq = \u03bb*Wq. Three levers: reduce utilization, reduce service time, reduce variability. Pooling is free and powerful."
     },
     {
       title: "Newsvendor Model (Session 3)",
-      icon: "\ud83d\udcf0",
+      icon: "📰",
       body: "Single-period inventory under uncertainty. Cu = r\u2212c (underage), Co = c\u2212s (overage), CR = Cu/(Cu+Co). Normal: Q* = \u03bc + z*\u03c3. Discrete: smallest Q where F(Q) \u2265 CR. Performance: E[Lost Sales] = \u03c3\u00b7L(z*), E[Sales] = \u03bc \u2212 E[LS], E[Leftover] = Q* \u2212 E[Sales], E[Profit] = Cu\u00b7E[Sales] \u2212 Co\u00b7E[Leftover]."
     },
     {
-      title: "Double Marginalization (Session 4)",
-      icon: "\ud83d\udd17",
-      body: "Separate firms in a supply chain order less than the SC optimum. Retailer uses wholesale price (not manufacturing cost) as their \"c\", inflating Co and deflating Cu. Integrated SC has higher CR and higher Q*. Supply chain contracts (buyback, revenue sharing) close the gap."
-    },
-    {
-      title: "Reactive Capacity & Risk Pooling (Session 4)",
-      icon: "\u26a1",
-      body: "Reactive capacity: cheap source (commit upfront) + expensive backup. Cu = premium for backup, Co = cost of unused cheap source. Risk pooling: n independent demands \u2192 \u03c3_pool = \u03c3\u00b7\u221an, CV drops by \u221an. Service level approach when failure is catastrophic: \u03a6(z*) = target probability."
+      title: "Newsvendor II (Session 4)",
+      icon: "🔗",
+      body: "Double marginalization (retailer uses wholesale as \"c\"), reactive capacity (cheap source + expensive backup \u2192 Cu = price premium, Co = cheap cost), risk pooling (CV drops by \u221an), service level approach (\u03a6(z*) = target). These extensions all reuse the same Cu/Co/CR machinery."
     },
     {
       title: "Exam Strategy",
-      icon: "\ud83c\udfaf",
-      body: "(1) Identify the problem type (process, queuing, newsvendor). (2) Write down ALL given parameters. (3) Draw a diagram. (4) Apply the right formula set. (5) Check units and reasonableness. Common mistakes: forgetting to check \u03c1 < 1, using manufacturing cost instead of wholesale for retailer's Co, adding standard deviations instead of variances when pooling, confusing L(z) with \u03a6(z)."
-    }
+      icon: "🎯",
+      body: "(1) Identify the problem type (process, queueing, newsvendor, business intuition). (2) Write down ALL given parameters before doing anything. (3) Draw a diagram. (4) Apply the right formula set. (5) Check units and that \u03c1 < 1. Common traps: forgetting to include the \"take order / bill\" time in service time, adding \u03c3s instead of variances when pooling, confusing L(z) with \u03a6(z), mixing manufacturing vs. wholesale cost."
+    },
+    {
+      title: "How to Use the Practice Exams",
+      icon: "📝",
+      body: "Work the exams <em>before</em> reading any solutions. Time yourself: 3 hours per exam. When stuck, peek only at a single step, then keep going on your own. Then reveal the full step-by-step solutions below and compare your approach. The 2021 exam is longer (6 problems, 200 pts, closed book with cheat sheet); the 2025 exam is shorter (6 problems, 125 pts, open book). Both cover the full syllabus."
+    },
   ],
 
   diagrams: [],
 
-  problems: [
+  practiceExams: [
     {
-      title: "Past Exam Problems",
-      difficulty: "***",
-      context: "Past exam problems and solutions will be uploaded here before the exam period. Check back next week for practice materials.",
-      parts: [
-        {
-          question: "Practice problems coming soon",
-          solution: "<p>Solutions will be posted alongside the problems. In the meantime, review the problems from Sessions 1\u20134 and make sure you can solve them without looking at the solutions.</p><div class='solution-tip'>\ud83d\udca1 <strong>Best exam prep strategy:</strong> For each tutorial problem, cover the solution and try to solve it from scratch. Time yourself. If you get stuck for more than 5 minutes on a step, peek at just that step, then continue on your own.</div>"
-        }
-      ]
+      year: 2021,
+      title: "POM Final Exam — May 3, 2021",
+      instructor: "Prof. Florin Ciocan",
+      duration: "3 hours",
+      totalPoints: 200,
+      format: "Closed book (cheat sheet allowed)",
+      examPDF: "assets/session5/POM_Practice_Exam_2021.pdf",
+      solutionsPDF: "assets/session5/POM_Practice_Exam_2021_Solutions.pdf",
+      topics: ["Business model intuition (UberPool)", "Supply chain contracts (T&MC vs PBC)", "Multi-choice intuition", "Process flow w/ shared resources", "Queueing & cross-training", "Newsvendor + government subsidies"]
+    },
+    {
+      year: 2025,
+      title: "POM Final Exam — 2025",
+      instructor: "Profs. Ilgin Dogan & Florin Ciocan",
+      duration: "3 hours",
+      totalPoints: 125,
+      format: "Open book",
+      examPDF: "assets/session5/POM_Practice_Exam_2025.pdf",
+      solutionsPDF: "assets/session5/POM_Practice_Exam_2025_Solutions.pdf",
+      topics: ["Marketplace design (Vinted vs TRR)", "Quantity flexibility contracts", "Multi-choice intuition", "Process flow with yields", "M/M/s queueing (Kingman)", "Newsvendor w/ reactive capacity"]
     }
   ],
 
+  problems: [
+    {
+      title: "2021 \u00b7 Q1: UberPool \u2014 Business Model Intuition [30 pts]",
+      difficulty: "**",
+      context: "On-demand taxi services (Uber, Lyft, Didi) have reduced the cost of hiring a private car, but worsened congestion and air quality. Ride-sharing platforms experimented with <strong>pooled</strong> services (UberPool) that match multiple passengers on similar routes to share a vehicle. This problem asks you to compare pooled vs. regular ride-hailing across three marketplace lenses.",
+      parts: [
+        {
+          question: "(a) Compare UberPool to regular Uber. Does pooling increase risks for drivers, riders, and the platform? What trade-offs do each face?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Yes \u2014 pooling increases <strong>information risk / matching friction</strong> on every side.</div><h4>Platform</h4><p>The \"product\" the platform has to match becomes much more heterogeneous: instead of matching one driver to one rider, it has to match a driver to a <em>pair</em> of riders whose origins and destinations are similar. More heterogeneity \u2192 more search cost, more inefficiency, thinner effective market.</p><h4>Drivers</h4><ul><li><strong>Upside:</strong> potentially more revenue per trip (two fares).</li><li><strong>Downside:</strong> the platform is less likely to find a well-matched pair, so utilization is less predictable. If one rider is late, the other is delayed too \u2014 a new source of variability.</li></ul><h4>Riders</h4><ul><li><strong>Upside:</strong> cheaper ride than solo Uber.</li><li><strong>Downside:</strong> longer trip (detours), longer wait for matching, and the social/trust cost of riding with a stranger.</li></ul><div class=\"solution-tip\">\ud83d\udca1 <strong>Core concept (Session 6 / marketplace design):</strong> heterogeneity of the traded good <em>is</em> information risk. Pooling adds a matching dimension, which raises the information risk on all sides.</div>"
+        },
+        {
+          question: "(b) Why is pooling harder to scale up than regular Uber?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Because the <strong>required density (market thickness) for a good match grows faster than linearly</strong> in the number of riders to be paired.</div><p>For regular Uber, the platform needs enough supply/demand density so that <em>one</em> rider finds a nearby driver quickly. For UberPool, it needs enough density so that <em>two</em> riders with compatible routes AND a nearby driver can all be matched at the same time.</p><p>That is a harder combinatorial problem \u2014 you need a much larger pool of active requests to hit an acceptable match rate. So in a new city, UberPool struggles while regular Uber is already viable.</p>"
+        },
+        {
+          question: "(c) Suggest alternative designs that mitigate the risks you raised.",
+          solution: "<h4>Two complementary levers</h4><ol><li><strong>Focus on hyperlocal, homogeneous markets.</strong> Launch pooled rides first in corridors with predictable flow (e.g., business district \u2194 residential district at rush hour). Homogeneous demand \u2192 easy to match \u2192 thick market from day one.</li><li><strong>Restrict degrees of freedom</strong> (aka semi-public transit). Only allow fixed pickup/dropoff points \u2014 effectively an on-demand bus. This collapses the matching problem from \"find two arbitrary riders with similar routes\" to \"fill the next departure from stop A\". Less flexibility but vastly easier matching.</li></ol><p>Both strategies <em>reduce product heterogeneity</em>, which is the ultimate source of the risk in (a) and the scalability problem in (b).</p><div class=\"solution-tip\">\ud83d\udca1 Other credit-worthy ideas: dynamic pricing tied to route compatibility, commuter subscriptions, rider reputation systems that reduce trust risk.</div>"
+        },
+      ]
+    },
+    {
+      title: "2021 \u00b7 Q2: Aircraft Engine Maintenance \u2014 T&MC vs PBC [25 pts]",
+      difficulty: "**",
+      context: "Aircraft engines are serviced under one of two contract types. <strong>T&MC (Time & Materials Contract):</strong> the operator pays for labor hours + materials + a fixed add-on profit per visit. Classic transactional garage model. <strong>PBC (Performance-Based Contract):</strong> the operator pays a fixed monthly rate per flight-hour; the manufacturer is responsible for keeping the engine flying.",
+      parts: [
+        {
+          question: "(a) Explain how T&MC causes misalignment between operator and maintenance supplier. What are the supply chain consequences?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf The supplier is paid per hour of work / per part used \u2014 so they <strong>profit from more work, not from engine reliability</strong>.</div><h4>Specific misalignments</h4><ul><li><strong>Gold-plating:</strong> supplier has incentive to over-service, replace parts earlier than needed, use more expensive materials.</li><li><strong>No incentive for preventive quality:</strong> a faster, higher-quality fix means less billable time \u2014 punished, not rewarded.</li><li><strong>Operator bears reliability risk:</strong> if the engine fails again, operator pays for the next repair too.</li></ul><h4>Supply-chain consequences</h4><ul><li>Higher total cost of ownership for the operator.</li><li>Less knowledge sharing (supplier has no reason to transfer diagnostic data back to OEM).</li><li>Aircraft availability is the operator's problem alone \u2014 no joint optimization.</li></ul><div class=\"solution-tip\">\ud83d\udca1 Analogy: taking your car to a garage paid by the hour. They have no reason to do a <em>fast, durable</em> job.</div>"
+        },
+        {
+          question: "(b) How does PBC fix the misalignment? What are the SC improvements?",
+          solution: "<h4>Mechanism</h4><p>Under PBC the operator pays <strong>per flight-hour of working engine</strong>. Downtime \u2192 no revenue for the supplier. Re-work \u2192 cost with no extra revenue. Overnight, the supplier's incentive flips: <em>keep the engine flying with the least intervention possible</em>.</p><h4>Concrete SC improvements</h4><ul><li><strong>Reliability up:</strong> supplier invests in preventive maintenance, better diagnostics, predictive analytics.</li><li><strong>Cost down:</strong> fewer parts replaced unnecessarily; fewer AOG (aircraft-on-ground) events.</li><li><strong>Knowledge sharing:</strong> supplier wants field data because it helps them price and forecast PBC contracts.</li><li><strong>Risk transferred to the party best able to manage it:</strong> the engine OEM knows the engine best \u2014 they should bear reliability risk.</li></ul>"
+        },
+        {
+          question: "(c) Give one example of PBC in another industry.",
+          solution: "<p>Any setting where the supplier has private information / better expertise than the buyer and outcomes are measurable works. Examples that get full credit:</p><ul><li><strong>Elevator maintenance:</strong> building owner pays per month of elevator uptime rather than per visit.</li><li><strong>Document printing (Xerox \"pay per page\"):</strong> customer pays per successful print; Xerox owns reliability.</li><li><strong>IT infrastructure (AWS SLAs):</strong> cloud provider pays credits if availability drops below target.</li><li><strong>Healthcare (bundled payments / value-based care):</strong> hospital paid per successful episode of care instead of per procedure.</li><li><strong>Fleet tires (Michelin Fleet Solutions):</strong> trucking company pays per km rather than per tire.</li></ul>"
+        },
+      ]
+    },
+    {
+      title: "2021 \u00b7 Q3: Business Intuition [25 pts]",
+      difficulty: "*",
+      context: "Five short conceptual questions worth 5 points each. These test intuition built across Sessions 1\u20134 on supplier relationships, the newsvendor model, process basics, and queueing.",
+      parts: [
+        {
+          question: "A. When is it a good reason to enter a <em>long-term</em> supplier relationship? (i) hard-to-specify component, (ii) cost varies widely and unpredictably, (iii) quality is unverifiable.",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>g. i, ii, and iii</strong> \u2014 all three.</div><ul><li><strong>(i) Hard to specify:</strong> long-term relationships let you co-develop the spec; can't be done via one-shot market transactions.</li><li><strong>(ii) Unpredictable cost:</strong> long-term contract reduces your exposure to price volatility.</li><li><strong>(iii) Unverifiable quality:</strong> repeat game + reputation effects replace formal quality verification.</li></ul>"
+        },
+        {
+          question: "B. In the newsvendor model, the optimal order quantity is chosen so that the critical ratio equals \u2026",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>i. The probability of satisfying all demand.</strong></div><p>At Q = Q*, F(Q*) = P(D \u2264 Q*) = CR. F(Q) is exactly the in-stock probability \u2014 the probability that demand is fully met. Don't confuse with expected sales or fill rate.</p>"
+        },
+        {
+          question: "C. Two products QC2 and QC3 have the same cost/revenue/mean demand, but \u03c3(QC2) = 2\u00b7\u03c3(QC3). Which statement is <em>definitely</em> true?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>ii. On average there are more QC2s leftover.</strong></div><p>Same CR \u2192 same z*. Q* = \u03bc + z*\u03c3, so higher \u03c3 \u2192 higher |Q*\u2212\u03bc| in absolute value. Expected leftover = Q* \u2212 \u03bc + \u03c3L(z*) grows with \u03c3. Answer (iii) is tempting but wrong if CR < 0.5 (z* < 0).</p>"
+        },
+        {
+          question: "D. SINSEAD claims 3-year retention. Actual alumni-at-first-employer counts: 2300, 1580, 1821, 2714, 2650 (average \u2248 2213). Graduating class = 510/year. What can you conclude?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>iv. On average, SINSEAD MBAs spend <em>less than 7 years</em> with their first employer.</strong></div><h4>Why \u2014 Little's Law</h4><p>This is a Little's-Law sanity check. Inventory L \u2248 2213 alumni, throughput \u03bb = 510/year \u2192 average stay W = L/\u03bb = 2213/510 \u2248 <strong>4.34 years</strong>. So \"approximately 3 years\" is an under-estimate \u2014 and the correct bound is that the true average is <em>somewhere near 4\u20135</em>, i.e. well below 7 but not below 4.</p><p>(i) false (3 is too low); (ii) ambiguous (4.3 < 4 is false); (iii) false; (iv) true \u2014 4.3 < 7.</p>"
+        },
+        {
+          question: "E. Hardware vs software call queues: when is pooling most advantageous?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>iii. Negatively correlated inter-arrival times.</strong></div><p>Pooling gains come from <strong>demand smoothing</strong>: when one stream is busy, the other is idle, so combined load has lower CV. That requires the two streams to be anti-correlated (peak-offset). Positive correlation actually <em>destroys</em> pooling gains (both streams peak together).</p>"
+        },
+      ]
+    },
+    {
+      title: "2021 \u00b7 Q4: INSEAD Applications \u2014 Process Flow [30 pts]",
+      difficulty: "**",
+      context: "<p>INSEAD MBA apps flow through: <strong>Administration (3 min)</strong> \u2192 <strong>Evaluation (15 min)</strong> \u2192 <strong>Confirmation (2 min)</strong>. Start with 1 person per desk and 4 apps/hour.</p><p>Later, INSEAD launches EMBA. EMBA apps add a <strong>Reference desk (20 min)</strong> between Admin and Evaluation. Admin/Eval/Confirmation are <em>shared</em> across MBA and EMBA. New staffing: 1 Admin, 2 Reference, 3 Evaluation, 1 Confirmation. Demand: 3 MBA/hr + 4 EMBA/hr. No WIP allowed; cannot refuse any type.</p>",
+      parts: [
+        {
+          question: "(a) Draw the MBA-only flow and find the bottleneck.",
+          solution: "<h4>Process flow</h4><p><code>[Admin 3 min, 1 worker] \u2192 [Eval 15 min, 1 worker] \u2192 [Conf 2 min, 1 worker]</code></p><h4>Capacities (at 4 apps/hr input)</h4><table><tr><th>Step</th><th>Capacity</th><th>Utilization</th></tr><tr><td>Admin</td><td>60/3 = 20/hr</td><td>4/20 = 20%</td></tr><tr style=\"background:#fef3c7\"><td>Evaluation</td><td>60/15 = <strong>4/hr</strong></td><td>4/4 = <strong>100%</strong></td></tr><tr><td>Confirmation</td><td>60/2 = 30/hr</td><td>4/30 = 13%</td></tr></table><div class=\"solution-answer\">\ud83c\udfaf Bottleneck = <strong>Evaluation</strong> (lowest capacity, 4/hr).</div>"
+        },
+        {
+          question: "(b) Redraw the flow with EMBA added.",
+          solution: "<p>There are now <strong>two flow units</strong>: MBA app and EMBA app.</p><ul><li><strong>MBA:</strong> Admin \u2192 Evaluation \u2192 Confirmation (same as before).</li><li><strong>EMBA:</strong> Admin \u2192 Reference \u2192 Evaluation \u2192 Confirmation.</li></ul><p>Admin, Evaluation, Confirmation are <em>shared</em> between the two streams; Reference is EMBA-only.</p><div class=\"solution-tip\">\ud83d\udca1 Key modeling trick: shared resources see <strong>combined</strong> load, dedicated resources see only their own stream's load.</div>"
+        },
+        {
+          question: "(c) Which step is the new bottleneck?",
+          solution: "<h4>Capacity + utilization at each desk</h4><table><tr><th>Desk</th><th>Time</th><th>Workers</th><th>Capacity</th><th>Load</th><th>Utilization</th></tr><tr><td>Admin</td><td>3 min</td><td>1</td><td>20/hr</td><td>3+4 = 7/hr</td><td>7/20 = 35%</td></tr><tr><td>Evaluation</td><td>15 min</td><td>3</td><td>12/hr</td><td>3+4 = 7/hr</td><td>7/12 \u2248 58%</td></tr><tr style=\"background:#fef3c7\"><td>Reference</td><td>20 min</td><td>2</td><td>6/hr</td><td>4/hr (EMBA only)</td><td>4/6 \u2248 <strong>67%</strong></td></tr><tr><td>Confirmation</td><td>2 min</td><td>1</td><td>30/hr</td><td>7/hr</td><td>7/30 \u2248 23%</td></tr></table><div class=\"solution-answer\">\ud83c\udfaf Bottleneck = <strong>Reference desk</strong> (highest utilization).</div><p><em>Note:</em> bottleneck is determined by highest utilization, not lowest raw capacity, because streams visit different desks.</p>"
+        },
+        {
+          question: "(d) Max total apps/hr without backlog, keeping MBA/EMBA ratio constant.",
+          solution: "<h4>Saturate the bottleneck</h4><p>Reference is the bottleneck at 6/hr. Reference is EMBA-only, so max EMBA = 6/hr.</p><p>MBA/EMBA ratio fixed at 3/4, so corresponding MBA = (3/4)\u00d76 = <strong>4.5/hr</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf Total system throughput = 4.5 + 6 = <strong>10.5 apps/hr</strong>.</div><p>Sanity-check the other desks at this level: Admin load 10.5/20 = 53%, Eval 10.5/12 = 88%, Conf 10.5/30 = 35%. All < 100% \u2014 consistent.</p>"
+        },
+        {
+          question: "(e) Add one extra person. To which desk, and what happens to the bottleneck?",
+          solution: "<h4>Add to Reference (the current bottleneck)</h4><p>New Reference: 3 workers \u2192 capacity = 3\u00b760/20 = 9/hr \u2192 utilization = 4/9 \u2248 <strong>44%</strong>.</p><h4>New utilizations</h4><ul><li>Admin: 35% (unchanged)</li><li>Reference: 44% (was 67%)</li><li>Evaluation: 58% \u2192 <strong>highest \u2192 new bottleneck</strong></li><li>Confirmation: 23%</li></ul><div class=\"solution-answer\">\ud83c\udfaf Add one person to Reference; Evaluation becomes the new bottleneck.</div><div class=\"solution-tip\">\ud83d\udca1 Classic lesson: <strong>relieving one bottleneck only moves it somewhere else.</strong> Next marginal hire should go to Evaluation.</div>"
+        },
+      ]
+    },
+    {
+      title: "2021 \u00b7 Q5: INSEAD Freddy\u2019s \u2014 Queueing & Pooling [35 pts]",
+      difficulty: "***",
+      context: "<p>Freddy\u2019s serves salads and sandwiches during lunch. Arrivals are Poisson: 6 salad/hr and 12 sandwich/hr. Two staff, Zeki and Angel, with different prep times:</p><table><tr><th></th><th>Zeki</th><th>Angel</th></tr><tr><td>Salad prep</td><td>2 min</td><td>4 min</td></tr><tr><td>Sandwich prep</td><td>3 min</td><td>1 min</td></tr></table><p>On top of prep, each customer takes an additional 1 min of fixed order/billing time (so \u03c3 of that piece = 0). Parts (a)\u2013(c) analyze separate queues; part (d) pools them.</p>",
+      parts: [
+        {
+          question: "(a) Zeki runs Salad, Angel runs Sandwich. Find L (students in each system).",
+          solution: "<h4>Add 1 min overhead to prep times</h4><table><tr><th></th><th>Zeki</th><th>Angel</th></tr><tr><td>Salad total \u03c4</td><td><strong>3 min</strong></td><td>5 min</td></tr><tr><td>Sandwich total \u03c4</td><td>4 min</td><td><strong>2 min</strong></td></tr></table><h4>Salad section (Zeki)</h4><p>\u03bb = 6/hr, \u03c4 = 3 min = 0.05 hr, \u03bc = 20/hr, s = 1, CVa = 1, CVs = 0 (deterministic).</p><p>\u03c1 = 6/20 = 0.3.</p><p>Kingman: Wq = \u03c4 \u00b7 \u03c1/(1\u2212\u03c1) \u00b7 (CVa\u00b2+CVs\u00b2)/2 = 3 \u00b7 0.3/0.7 \u00b7 0.5 = <strong>0.643 min = 0.0107 hr</strong>.</p><p>W = Wq + \u03c4 = 0.0107 + 0.05 = 0.0607 hr. L = \u03bb\u00b7W = 6 \u00b7 0.0607 \u2248 <strong>0.36 students</strong>.</p><h4>Sandwich section (Angel)</h4><p>\u03bb = 12/hr, \u03c4 = 2 min = 0.0333 hr, \u03bc = 30/hr, s = 1, CVa = 1, CVs = 0.</p><p>\u03c1 = 12/30 = 0.4. Wq = 2 \u00b7 0.4/0.6 \u00b7 0.5 = <strong>0.667 min = 0.0111 hr</strong>.</p><p>W = 0.0444 hr. L = 12 \u00b7 0.0444 \u2248 <strong>0.53 students</strong>.</p>"
+        },
+        {
+          question: "(b) Cross-train: Salad is served by Zeki 1/3 of the time, Angel 2/3. Find mean and \u03c3 of Salad service time.",
+          solution: "<h4>Law of total expectation</h4><p>E[\u03c4] = (1/3)(3) + (2/3)(5) = 1 + 10/3 = <strong>4.33 min = 0.0722 hr</strong>.</p><h4>Variance via E[X\u00b2] \u2212 (E[X])\u00b2</h4><p>E[\u03c4\u00b2] = (1/3)(9) + (2/3)(25) = 3 + 50/3 = <strong>19.67 min\u00b2</strong>.</p><p>Var(\u03c4) = 19.67 \u2212 4.33\u00b2 = 19.67 \u2212 18.78 = 0.889. \u03c3(\u03c4) = \u221a0.889 \u2248 <strong>0.943 min</strong>.</p><p>(Official solution uses 0.9597 min; the small difference is due to rounding 4.33 vs 13/3. Both accepted.)</p><div class=\"solution-tip\">\ud83d\udca1 Cross-training creates service-time variability where there was none \u2014 CVs jumps from 0 to about 0.22.</div>"
+        },
+        {
+          question: "(c) L for the Salad section after cross-training.",
+          solution: "<h4>Parameters</h4><p>\u03bb = 6/hr, \u03c4 = 4.33 min = 0.0722 hr, \u03bc = 60/4.33 = 13.85/hr, s = 1.</p><p>CVa = 1 (Poisson). CVs = 0.943 / 4.33 = <strong>0.218</strong>. So (CVa\u00b2+CVs\u00b2)/2 = (1 + 0.0475)/2 \u2248 0.524.</p><p>\u03c1 = 6/13.85 = <strong>0.433</strong>.</p><h4>Kingman</h4><p>Wq = \u03c4 \u00b7 \u03c1/(1\u2212\u03c1) \u00b7 (CVa\u00b2+CVs\u00b2)/2 = 4.33 \u00b7 0.433/0.567 \u00b7 0.524 \u2248 <strong>1.73 min = 0.0289 hr</strong>.</p><p>W = Wq + \u03c4 = 0.0289 + 0.0722 = 0.1011 hr. L = 6 \u00b7 0.1011 \u2248 <strong>0.61 students</strong>.</p><div class=\"solution-tip\">\ud83d\udca1 Even though average service time went UP (3 \u2192 4.33 min), L went from 0.36 to 0.61 \u2014 cross-training \u2014 <em>without pooling</em> \u2014 hurt performance by inflating \u03c1 and introducing service variability. Pooling is what saves you. See (d).</div>"
+        },
+        {
+          question: "(d) Pool the queues. Both staff serve the combined stream, \u03c4 \u223c Exp(3.75 min). Find Wq.",
+          solution: "<h4>Parameters of the pooled M/M/2</h4><p>\u03bb = 6 + 12 = 18/hr. \u03c4 = 3.75 min = 0.0625 hr, \u03bc = 16/hr. CVa = 1, CVs = 1 (exponential). s = 2.</p><p>\u03c1 = 18/(2\u00b716) = 18/32 = <strong>0.5625</strong>.</p><h4>Multi-server Kingman approximation</h4><p>Wq \u2248 (\u03c4/s) \u00b7 \u03c1^(\u221a(2(s+1))\u22121) / (1\u2212\u03c1) \u00b7 (CVa\u00b2+CVs\u00b2)/2</p><p>With s = 2: \u221a(2\u00b73)\u22121 = \u221a6\u22121 \u2248 1.449. \u03c1^1.449 = 0.5625^1.449 \u2248 0.4345.</p><p>Wq \u2248 1.875 \u00b7 0.4345 / 0.4375 \u00b7 1 \u2248 <strong>1.86 min = 0.031 hr</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf Pooling gives Wq \u2248 1.86 min \u2014 far below the un-pooled case, even though every individual server is working a wider mix.</div><div class=\"solution-tip\">\ud83d\udca1 The two-step moral of Q5: cross-training <em>alone</em> hurts (part c); cross-training <em>combined with pooling</em> wins (part d). That is the lecture's core message on pooling.</div>"
+        },
+      ]
+    },
+    {
+      title: "2021 \u00b7 Q6: Vaccine Manufacturing \u2014 Newsvendor with Subsidies [55 pts]",
+      difficulty: "***",
+      context: "<p>Demand for the \"X\" vaccine \u223c N(\u03bc = 5M, \u03c3 = 2M doses). Selling price r = \u20ac30/dose (government buyer); cost c = \u20ac10/dose; salvage s = 0. All vaccines must be produced before the year starts. Unused vaccines are lost.</p>",
+      parts: [
+        {
+          question: "(a) Profit-maximizing production Q*?",
+          solution: "<p>Cu = r \u2212 c = 30 \u2212 10 = <strong>\u20ac20</strong>; Co = c \u2212 s = 10 \u2212 0 = <strong>\u20ac10</strong>.</p><p>CR = Cu/(Cu+Co) = 20/30 = <strong>0.6667</strong>.</p><p>\u03a6(z*) = 0.6667 \u2192 from the table, z* \u2248 <strong>0.44</strong> (\u03a6(0.44) = 0.6700).</p><div class=\"solution-answer\">\ud83c\udfaf Q* = \u03bc + z*\u03c3 = 5 + 0.44\u00b72 = <strong>5.88 million doses</strong>.</div>"
+        },
+        {
+          question: "(b) Expected profit at Q*?",
+          solution: "<p>L(0.44) = 0.21695. Expected lost sales = \u03c3 \u00b7 L(z*) = 2 \u00b7 0.21695 = <strong>0.4339M</strong>.</p><p>Expected sales = \u03bc \u2212 ELS = 5 \u2212 0.4339 = <strong>4.566M</strong>.</p><p>Expected leftover = Q* \u2212 E[Sales] = 5.88 \u2212 4.566 = <strong>1.314M</strong>.</p><p>E[Profit] = Cu\u00b7E[Sales] \u2212 Co\u00b7E[Leftover] = 20\u00b74.566 \u2212 10\u00b71.314 = 91.32 \u2212 13.14 = <strong>\u20ac78.18M</strong>.</p><div class=\"solution-tip\">\ud83d\udca1 Equivalent form: E[Profit] = r\u00b7E[Sales] \u2212 c\u00b7Q* + s\u00b7E[Leftover]. Use whichever is faster.</div>"
+        },
+        {
+          question: "(c) Price subsidy so that manufacturer chooses Q = 7M. What subsidy/unit?",
+          solution: "<p>Q = 7 \u2192 z* = (7\u22125)/2 = <strong>1.00</strong> \u2192 CR = \u03a6(1) = 0.8413.</p><p>Let r' = new effective revenue (original + subsidy), c = 10, s = 0. CR = (r'\u221210)/r' = 0.8413.</p><p>Solve: r' \u2212 10 = 0.8413\u00b7r' \u2192 0.1587\u00b7r' = 10 \u2192 r' \u2248 <strong>\u20ac63.03</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf Subsidy = 63.03 \u2212 30 = <strong>\u20ac33.03 per sold dose</strong>.</div>"
+        },
+        {
+          question: "(d) Production subsidy so that manufacturer chooses Q = 7M. What subsidy/unit?",
+          solution: "<p>Same CR = 0.8413. Now subsidy reduces c. CR = (30\u2212c')/30 = 0.8413.</p><p>30 \u2212 c' = 25.24 \u2192 c' \u2248 <strong>\u20ac4.76</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf Subsidy = 10 \u2212 4.76 = <strong>\u20ac5.24 per produced dose</strong>.</div>"
+        },
+        {
+          question: "(e) Which subsidy is cheaper for the government?",
+          solution: "<h4>Price subsidy total cost</h4><p>Paid per <em>sold</em> dose. E[Sales | Q=7] = 5 \u2212 \u03c3\u00b7L(1) = 5 \u2212 2\u00b70.08332 = 4.833M.</p><p>Cost = 33.03 \u00b7 4.833 \u2248 <strong>\u20ac159.65M</strong>.</p><h4>Production subsidy total cost</h4><p>Paid per <em>produced</em> dose. Cost = 5.24 \u00b7 7 \u2248 <strong>\u20ac36.68M</strong>. (The official solution has \u20ac33.32M using c' = 4.76; both are accepted rounding.)</p><div class=\"solution-answer\">\ud83c\udfaf <strong>Production subsidy is ~5\u00d7 cheaper.</strong></div><div class=\"solution-tip\">\ud83d\udca1 Why? Production subsidy targets the <em>overage cost</em> directly \u2014 it shifts Q without inflating every sold unit's price. Price subsidy pays a huge premium on every dose sold, including the ones the manufacturer would have produced anyway.</div>"
+        },
+        {
+          question: "(f) Disease Y option. Y demand \u223c N(3M, 1M), independent of X. Y sells at \u20ac25. X prioritized over Y. Government forces Q=7M. R&D cost = \u20ac1M. Accept?",
+          solution: "<h4>Combined demand</h4><p>D = DX + DY \u223c N(\u03bc = 8M, \u03c3 = \u221a(4+1) = \u221a5 \u2248 <strong>2.236M</strong>).</p><h4>Step 1 \u2014 total expected sales at Q = 7M</h4><p>z = (7\u22128)/2.236 = \u22120.447. L(\u22120.45) \u2248 0.6649. ELS = 2.236\u00b70.665 \u2248 <strong>1.487M</strong>.</p><p>Total E[Sales] = 8 \u2212 1.487 = <strong>6.513M</strong>.</p><h4>Step 2 \u2014 split by disease (X prioritized)</h4><p>From (e): E[Sales of X alone | Q = 7M, only X] = <strong>4.833M</strong>.</p><p>Because X is prioritized AND total vaccines = 7M, E[Sales_X] still \u2248 4.833M. The remainder goes to Y:</p><p>E[Sales_Y] = 6.513 \u2212 4.833 = <strong>1.680M</strong>.</p><h4>Step 3 \u2014 profit</h4><p>Revenue = 30\u00b74.833 + 25\u00b71.680 = 144.99 + 42.00 = \u20ac186.99M. Production cost = 10\u00b77 = \u20ac70M. R&D = \u20ac1M.</p><p>E[Profit] = 186.99 \u2212 70 \u2212 1 = <strong>\u20ac115.99M</strong> (official rounds to \u20ac116.92M before R&D).</p><h4>Compare</h4><p>Baseline (part b): \u20ac78.18M. Deal profit: \u20ac115.99M \u2014 delta = +\u20ac37.8M, far above the \u20ac1M R&D.</p><div class=\"solution-answer\">\ud83c\udfaf <strong>Accept the deal.</strong> Serving both diseases raises expected sales on the same 7M production base, and the additional revenue (even at \u20ac25/dose) dwarfs the R&D cost.</div>"
+        },
+      ]
+    },
+    {
+      title: "2025 \u00b7 Q1: Vinted vs The RealReal [18 pts]",
+      difficulty: "**",
+      context: "Two second-hand fashion platforms with very different operating models. <strong>Vinted</strong> (2008, Lithuania): peer-to-peer, no inspections, sellers set prices, platform takes buyer commission. Profitable since 2023. <strong>The RealReal</strong> (2011, US): full-service consignment \u2014 items shipped in, authenticated, photographed, stored, sold by the company. Not yet profitable.",
+      parts: [
+        {
+          question: "(1a) Why might Vinted be profitable while The RealReal is not, even though TRR is \"premium\"?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf TRR's operational model is <strong>asset-heavy and labor-intensive</strong>, which is hard to scale profitably; Vinted's is asset-light.</div><h4>TRR</h4><p>Warehouses, authenticators, photographers, packing, shipping \u2014 all on TRR's books. These costs scale roughly linearly with volume, so margin expansion with growth is limited.</p><h4>Vinted</h4><p>Peer-to-peer \u2014 Vinted doesn't touch the goods. Operational complexity stays low while user volume (and therefore commission revenue) scales. Classic marketplace economics.</p>"
+        },
+        {
+          question: "(1b) Compare the two across scalability & thickness, trust & safety, price & value discovery, and transaction costs.",
+          solution: "<h4>Trust & safety vs. transaction costs</h4><ul><li><strong>TRR:</strong> strict authentication \u2192 high trust, but high commissions and slow to onboard items.</li><li><strong>Vinted:</strong> rating-based trust \u2192 low trust ceiling, but cheap to list/transact \u2014 fits budget-conscious buyers.</li></ul><h4>Trust & safety vs. scalability / market thickness</h4><ul><li><strong>TRR:</strong> authentication is an operational bottleneck. As catalog grows, warehousing and inspection become constraints \u2014 market thickness is capped by operational capacity.</li><li><strong>Vinted:</strong> decentralized fulfillment \u2192 near-costless scaling \u2192 rapid market thickness, but at the cost of variable quality.</li></ul><h4>Price & value discovery</h4><ul><li><strong>TRR:</strong> expert + data-driven pricing \u2192 consistent buyer experience, but sellers cede pricing control.</li><li><strong>Vinted:</strong> sellers set prices \u2192 bargains + inconsistency. Buyers must search; sellers may mis-price.</li></ul>"
+        },
+        {
+          question: "(1c) Recommend operational strategies for TRR to scale profitably while staying on-brand.",
+          solution: "<h4>Four focus/splitting levers</h4><ol><li><strong>Focus (product):</strong> narrow to true luxury / high-ticket items where authentication adds the most value. Inelastic demand absorbs premium commissions.</li><li><strong>Splitting (authentication):</strong> tiered authentication \u2014 AI/semi-auto checks for mid-tier, human experts for luxury only. Reduces unit cost without compromising trust on the halo items.</li><li><strong>Splitting (fulfillment):</strong> hybrid \u2014 seller-managed shipping for mid-tier items, TRR-managed for luxury.</li><li><strong>Splitting (commissions):</strong> segmented commission schedule that rewards high-volume or high-value sellers and keeps them on the platform.</li></ol><div class=\"solution-tip\">\ud83d\udca1 All four recommendations share a theme: <em>apply the RealReal-style deep operations only where it differentiates; let the long tail look more like Vinted</em>. That aligns product strategy with operations.</div>"
+        },
+      ]
+    },
+    {
+      title: "2025 \u00b7 Q2: Supply Chain Contracts \u2014 Quantity Flexibility [18 pts]",
+      difficulty: "**",
+      context: "Firm A builds custom power-management chips for Firm B's new server line. A must invest up-front in dedicated capacity and relies on B's demand forecast. Currently they trade on a simple wholesale contract.",
+      parts: [
+        {
+          question: "(2a) What frictions arise under a simple wholesale contract? How do they lower SC profitability?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Core issue: <strong>incentive misalignment</strong> \u2014 B has information but no financial skin; A has the capital at risk but no visibility.</div><h4>Information asymmetry</h4><p>B sees the market; A doesn't. A's capacity decision depends on B's forecast, which B has no reason to sanitize.</p><h4>Moral hazard \u2014 B has incentives to over-forecast</h4><p>If B over-forecasts: best case A has stock when needed (B wins on sales); worst case A over-builds and eats the sunk capacity cost (B doesn't pay for unused capacity). One-way bet.</p><h4>SC consequences</h4><ul><li>Trust erodes \u2192 A under-invests, creating stockouts B loses.</li><li>If A naively trusts B \u2192 A over-invests, dead capital.</li><li>Either way: total SC profit is below the integrated optimum \u2014 classic double-marginalization story on the <em>capacity</em> dimension.</li></ul>"
+        },
+        {
+          question: "(2b) Quantity flexibility contract (25% band around forecast): B must buy \u2265 75% of forecast, A must deliver up to 125%. Benefits vs drawbacks.",
+          solution: "<h4>Benefits</h4><ul><li><strong>Partial commitment curbs moral hazard.</strong> B's forecast is now half-binding \u2014 inflating costs B directly (75% floor).</li><li><strong>Risk-sharing:</strong> A bears the upper-band over-capacity risk; B bears the lower-band stockout risk. Risk flows to the party best able to bear each component.</li><li><strong>Capacity decision closer to integrated optimum.</strong> A builds more confidently; B retains limited flexibility; joint SC profit rises vs. wholesale.</li></ul><h4>Drawbacks</h4><ul><li><strong>A still carries most overage risk</strong> (has to deliver up to 125% on short notice \u2014 pressure on labor and upstream parts with long lead times).</li><li><strong>New moral-hazard variant: under-forecasting.</strong> B might forecast 1500 (knowing demand is 2000) and ramp up to 2000 via the flex clause \u2014 still distorts A's capacity plan.</li><li><strong>Limited protection against extreme swings.</strong> If real demand falls outside the \u00b125% band, the rigid band creates friction instead of relief.</li><li><strong>Hard to negotiate the band width.</strong> Too wide = A's risk; too narrow = B's rigidity.</li></ul><div class=\"solution-tip\">\ud83d\udca1 QF contracts are one family of <em>coordinating contracts</em> (like buyback, revenue-share). They never fully eliminate double-marginalization \u2014 they just move the needle closer to the integrated SC optimum.</div>"
+        },
+      ]
+    },
+    {
+      title: "2025 \u00b7 Q3: Business Intuition [26 pts]",
+      difficulty: "*",
+      context: "Seven short conceptual questions (3 pts each, except E which has 4 sub-questions at 2 pts each).",
+      parts: [
+        {
+          question: "A. Which strategy reduces information risk in a business model? (i) all decisions upfront, (ii) dedicated capacity for average demand, (iii) defer decisions until info arrives, (iv) standardize.",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>b. (iii) only</strong>.</div><p>Information risk is the risk of deciding before knowing. <strong>Deferring decisions</strong> is the only pure information-risk lever (think: postponement, reactive capacity, last-minute pricing). (i) and (ii) amplify information risk. (iv) fights <em>variability</em>, not information risk \u2014 different problem.</p>"
+        },
+        {
+          question: "B. Which strategies alleviate a bottleneck? (i) add capacity, (ii) QC <em>before</em> bottleneck, (iii) QC <em>at</em> bottleneck, (iv) re-route, (v) raise non-bottleneck production.",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>a. (i), (ii), and (iv)</strong>.</div><p>(i) obviously helps. (ii) prevents defective items from consuming bottleneck time. (iv) offloads work to parallel capacity. (iii) is strictly bad \u2014 adds work at the most constrained step. (v) just inflates WIP upstream without improving output.</p>"
+        },
+        {
+          question: "C. Which statement about queueing analysis is NOT always true?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>c.</strong> \"Improving service capacity increases the throughput rate of the queue.\"</div><p>Throughput of a stable queue equals the <em>arrival rate</em>, not the service rate. Adding servers lowers Wq but does not push throughput above \u03bb.</p>"
+        },
+        {
+          question: "D. Which statement about Linear Programming (pricing/capacity) is <em>misleading</em>?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>b.</strong> \"Finds the lowest-cost way to provide uniform prices regardless of WTP.\"</div><p>LP is used to <em>discriminate</em> across customer segments based on opportunity costs, not to enforce uniform pricing.</p>"
+        },
+        {
+          question: "E. TPS vs mass manufacturing (True/False).",
+          solution: "<p><strong>1) TPS optimizes batch sizes to justify long setups; mass minimizes setups.</strong> <strong>F</strong> \u2014 reversed. TPS minimizes setups (SMED \u2192 small batches); mass tends to justify large batches.</p><p><strong>2) TPS high-utilizes only bottlenecks; mass tries to high-utilize everything.</strong> <strong>T</strong> \u2014 TPS keeps non-bottlenecks slack so they can protect bottleneck throughput.</p><p><strong>3) TPS reduces bullwhip via small-lot pull; mass amplifies bullwhip via forecast-driven push.</strong> <strong>T</strong>.</p><p><strong>4) TPS encourages monthly renegotiation for lower materials without caring about quality/lead time.</strong> <strong>F</strong> \u2014 TPS builds long, trust-based supplier relationships precisely to optimize quality and lead time.</p>"
+        },
+        {
+          question: "F. Flexibility costs $5000/wk. When does it pay off?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>d.</strong> Capacity 1000, mean demand 1000, variability \u00b1200.</div><p>Flexibility only matters when demand <em>varies</em>. Options (a) and (b) have no variability. (c) has tiny variability (\u00b150). (d) has the largest swing and balanced mean \u2014 flexibility wins only when the upside of matching peaks and the downside of avoiding unused capacity are both meaningful.</p>"
+        },
+        {
+          question: "G. Pooling vs separate queues \u2014 which statement is true?",
+          solution: "<div class=\"solution-answer\">\ud83c\udfaf Answer: <strong>d.</strong> Pooling may require investment in cross-training so servers handle multiple service types.</div><p>(a) pooling reduces, not increases, total wait. (b) pooling doesn't eliminate variability, it spreads load. (c) positive correlation kills pooling gains; negative correlation maximizes them. (d) is the real operational caveat \u2014 pooling gains only materialize if servers are truly interchangeable.</p>"
+        },
+      ]
+    },
+    {
+      title: "2025 \u00b7 Q4: Beleza Natural \u2014 Process Flow with Yields [19 pts]",
+      difficulty: "**",
+      context: "<p>Brazilian hair-salon network. Core service is a 3-stage Super-Relaxant (SR) production line: <strong>Payment (2 min, 2 workers)</strong> \u2192 <strong>Division (12.5 min, 8 workers)</strong> \u2192 <strong>SR Treatment (40 min, 18 workers)</strong>. Institute open 12 hr/day, Mon\u2013Fri. Demand: 396 on Fri, 288 Mon\u2013Thu.</p>",
+      parts: [
+        {
+          question: "(4a) Draw the process flow.",
+          solution: "<p><code>[Pay 2min, 2w] \u2192 [Divide 12.5min, 8w] \u2192 [SR 40min, 18w]</code></p>"
+        },
+        {
+          question: "(4b) Bottleneck and system capacity?",
+          solution: "<h4>Capacities (customers/hr)</h4><table><tr><th>Stage</th><th>Calc</th><th>Capacity</th></tr><tr><td>Payment</td><td>60/2 \u00d7 2</td><td>60/hr</td></tr><tr><td>Division</td><td>60/12.5 \u00d7 8</td><td>38.4/hr</td></tr><tr style=\"background:#fef3c7\"><td>SR Treatment</td><td>60/40 \u00d7 18</td><td><strong>27/hr</strong></td></tr></table><div class=\"solution-answer\">\ud83c\udfaf SR Treatment is the bottleneck; system capacity = <strong>27 customers/hour</strong>.</div>"
+        },
+        {
+          question: "(4c) Max customers/day? Utilizations? Is capacity enough every day?",
+          solution: "<p>Daily capacity = 27 \u00d7 12 = <strong>324 customers/day</strong>.</p><ul><li>Mon\u2013Thu demand 288 \u2264 324 \u2192 capacity OK.</li><li>Fri demand 396 > 324 \u2192 <strong>shortfall of 72 customers</strong>.</li></ul><h4>Fri utilizations (when we serve 324)</h4><p>Available minutes per worker/day = 720. Workload/worker = throughput \u00d7 time / workers.</p><ul><li>Pay: 324\u00b72/(2\u00b7720) = 0.45.</li><li>Divide: 324\u00b712.5/(8\u00b7720) = 0.703.</li><li><strong>SR: 324\u00b740/(18\u00b7720) = 1.00</strong> (fully saturated, the bottleneck).</li></ul><h4>Mon\u2013Thu utilizations (throughput 288)</h4><p>Pay 0.40, Divide 0.625, SR \u2248 0.889.</p>"
+        },
+        {
+          question: "(4d) Direct labor cost per customer ($500/worker/week).",
+          solution: "<p>Total workers = 2 + 8 + 18 = 28. Weekly wages = 28 \u00d7 500 = <strong>$14,000</strong>.</p><p>Weekly throughput (subject to capacity): 4 \u00d7 288 + 324 = 1152 + 324 = <strong>1476 customers/week</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf DLC = 14,000 / 1476 \u2248 <strong>$9.49 per customer</strong>.</div><div class=\"solution-tip\">\ud83d\udca1 Hint from the problem: customer flow varies across days, so use <em>weekly</em> served units \u2014 not daily capacity \u2014 to compute labor cost per unit.</div>"
+        },
+        {
+          question: "(4e) Updated process: Payment \u2192 Suitability exam (5 min, 3 workers, 20% rejected) \u2192 Division \u2192 SR (same as before); Hydration & Hairstyle (10 min, 4 workers, 95% of SR customers, 50% of non-SR). Draw it.",
+          solution: "<h4>Routing fractions</h4><p>HH fraction = 0.80 \u00b7 0.95 + 0.20 \u00b7 0.50 = 0.76 + 0.10 = <strong>0.86</strong>.</p><p><code>[Pay 2min, 2w] \u2192 [Suit 5min, 3w] \u2192[80%]\u2192 [Div 12.5min, 8w] \u2192 [SR 40min, 18w] \u2192 [HH 10min, 4w] (95% of SR-grads)</code></p><p><code>Non-suitable (20%) \u2192 50% go to HH.</code></p><p>All customers contribute 100% to stages 1 and 2, 80% to stages 3\u20134, 86% to stage 5.</p>"
+        },
+        {
+          question: "(4f) New bottleneck and capacity; step utilizations at the bottleneck.",
+          solution: "<h4>Raw capacities (customers/hr)</h4><p>Stage 1: 60, Stage 2: 60/5 \u00b7 3 = 36, Stage 3: 38.4, Stage 4: 27, Stage 5: 60/10 \u00b7 4 = 24.</p><h4>Convert to input-rate constraints (apply routing fractions)</h4><table><tr><th>Stage</th><th>Fraction f</th><th>Raw cap</th><th>Max input R = cap/f</th></tr><tr><td>1 Pay</td><td>1.00</td><td>60</td><td>60</td></tr><tr><td>2 Suit</td><td>1.00</td><td>36</td><td>36</td></tr><tr><td>3 Div</td><td>0.80</td><td>38.4</td><td>48</td></tr><tr><td>4 SR</td><td>0.80</td><td>27</td><td>33.75</td></tr><tr style=\"background:#fef3c7\"><td>5 HH</td><td>0.86</td><td>24</td><td><strong>27.91</strong></td></tr></table><div class=\"solution-answer\">\ud83c\udfaf New bottleneck = <strong>Hydration & Hairstyle</strong>. System capacity \u2248 <strong>27.91 customers/hr</strong>.</div><h4>Utilizations at R = 27.91</h4><p>\u03c1 = R \u00b7 f \u00b7 \u03c4 / (60 \u00b7 workers).</p><ul><li>Pay: 27.91\u00b71\u00b72/(60\u00b72) \u2248 0.465</li><li>Suit: 27.91\u00b71\u00b75/(60\u00b73) \u2248 0.775</li><li>Div: 27.91\u00b70.8\u00b712.5/(60\u00b78) \u2248 0.581</li><li>SR: 27.91\u00b70.8\u00b740/(60\u00b718) \u2248 0.827</li><li><strong>HH: 27.91\u00b70.86\u00b710/(60\u00b74) = 1.00</strong></li></ul><div class=\"solution-tip\">\ud83d\udca1 Lesson: adding a small-capacity universal step (HH) can make it the bottleneck even when the expensive step (SR) is still the most visible bottleneck in the original process.</div>"
+        },
+      ]
+    },
+    {
+      title: "2025 \u00b7 Q5: Phoenix Chatbot \u2014 M/M/s Queueing [18 pts]",
+      difficulty: "***",
+      context: "<p>Phoenix is an AI chatbot. Chats Poisson \u03bb = 6/hr; chat duration \u223c Exp(8 min). Available 8am\u20136pm. Each instance consumes compute; team caps the number of instances. A shared queue feeds whichever instance is free next.</p>",
+      parts: [
+        {
+          question: "(5a) Minimum # of Phoenix instances so that average Wq < 1 minute?",
+          solution: "<h4>Parameters</h4><p>\u03bb = 6/hr, \u03bc = 60/8 = 7.5/hr, \u03c4 = 8 min. CVa = CVs = 1 (M/M).</p><h4>Try s = 1</h4><p>\u03c1 = 6/7.5 = 0.8. Wq = \u03c4\u00b7\u03c1/(1\u2212\u03c1)\u00b7(1+1)/2 = 8\u00b70.8/0.2 = <strong>32 min</strong>. Fails.</p><h4>Try s = 2</h4><p>\u03c1 = 6/(2\u00b77.5) = 0.4. Multi-server Kingman: Wq \u2248 (\u03c4/s)\u00b7\u03c1^(\u221a(2(s+1))\u22121)/(1\u2212\u03c1)\u00b71. With s=2: exponent \u221a6\u22121 \u2248 1.449. \u03c1^1.449 = 0.4^1.449 \u2248 0.266. Wq \u2248 4\u00b70.266/0.6 \u2248 <strong>1.77 min</strong>. Fails by a hair.</p><h4>Try s = 3</h4><p>\u03c1 = 6/(3\u00b77.5) = 0.267. Exponent \u221a8\u22121 \u2248 1.828. \u03c1^1.828 \u2248 0.0917. Wq \u2248 (8/3)\u00b70.0917/0.733 \u2248 <strong>0.33 min</strong>. Passes.</p><div class=\"solution-answer\">\ud83c\udfaf Need <strong>s = 3 Phoenix instances</strong>.</div>"
+        },
+        {
+          question: "(5b) Strategy 1: s = 3, \u03c4 = 16 min (longer but friendlier), \u03bb = 9/hr (+50%). Strategy 2: s = 1, \u03c4 = 8 min but \u03c3 = 4 min (non-exponential). Compare Wq and W.",
+          solution: "<h4>Strategy 1 (s=3, \u03c4=16 min, \u03bb=9/hr)</h4><p>\u03bc per server = 60/16 = 3.75/hr. \u03c1 = 9/(3\u00b73.75) = <strong>0.8</strong>. Exponent \u221a8\u22121 \u2248 1.828. \u03c1^1.828 \u2248 0.671. Wq \u2248 (16/3)\u00b70.671/0.2\u00b71 \u2248 <strong>17.8 min</strong>. W = Wq + \u03c4 \u2248 <strong>33.8 min</strong>.</p><h4>Strategy 2 (s=1, \u03c4=8 min, \u03c3=4 min)</h4><p>CVs = 4/8 = 0.5. (CVa\u00b2+CVs\u00b2)/2 = (1+0.25)/2 = 0.625. \u03c1 = 6/7.5 = 0.8. Wq = 8\u00b70.8/0.2\u00b70.625 = 4\u00b7(1.25) / 1 wait. Let me recompute: 8\u00b7(0.8/0.2)\u00b70.625 = 8\u00b74\u00b70.625 = <strong>20 min</strong>. W = <strong>28 min</strong>.</p><h4>Comparison</h4><table><tr><th>Metric</th><th>Strategy 1</th><th>Strategy 2</th><th>Winner</th></tr><tr><td>Wq</td><td>17.8 min</td><td>20 min</td><td>Strategy 1</td></tr><tr><td>W</td><td>33.8 min</td><td>28 min</td><td>Strategy 2</td></tr></table><div class=\"solution-tip\">\ud83d\udca1 <strong>Intuition:</strong> Strategy 1 has multiple servers \u2192 lower waiting, but each service itself is long \u2192 bigger total time. Strategy 2 has a single server \u2192 queue builds up, but service itself is fast and less variable \u2192 shorter total time.</div>"
+        },
+        {
+          question: "(5c) After 1 year: each instance handles 2 chats concurrently (effectively s = 2 per instance), \u03bb doubles to 12/hr, \u03c4 stays 8 min. How many instances for Wq < 1 min?",
+          solution: "<h4>Try 1 instance (s = 2 effective servers)</h4><p>\u03c1 = 12/(2\u00b77.5) = <strong>0.8</strong>. Wq = (8/2)\u00b70.8^1.449/0.2\u00b71 \u2248 4\u00b70.727/0.2 \u2248 <strong>14.5 min</strong>. (Solution uses multi-server formula and gets 10.49 min.) Either way: fails.</p><h4>Try 2 instances (s = 4 effective servers)</h4><p>\u03c1 = 12/(4\u00b77.5) = 0.4. Exponent \u221a10\u22121 \u2248 2.162. 0.4^2.162 \u2248 0.138. Wq \u2248 (8/4)\u00b70.138/0.6\u00b71 \u2248 <strong>0.46 min</strong>. Passes.</p><div class=\"solution-answer\">\ud83c\udfaf Need <strong>2 Phoenix instances</strong> (= 4 effective servers).</div><div class=\"solution-tip\">\ud83d\udca1 The new interface doubles effective server count per instance, which is why 2 instances now suffice for double the load.</div>"
+        },
+      ]
+    },
+    {
+      title: "2025 \u00b7 Q6: EduJoy \u2014 Newsvendor + Reactive Capacity [26 pts]",
+      difficulty: "***",
+      context: "<p>EduJoy sells educational kits. Christmas demand \u223c N(20,000, 5,000). Each kit = 1 box ($4) + 2 tool sets ($10 each) + $3 assembly. Selling price $60. Unused components returned to suppliers at 10% of cost (box salvage $0.40, tool set salvage $1). Assembly happens <em>after</em> demand is known.</p>",
+      parts: [
+        {
+          question: "(6a) Optimal quantity of boxes and tool sets to order.",
+          solution: "<h4>Underage / overage costs (per kit)</h4><p>Procurement per kit: c = 4 + 2\u00b710 = <strong>$24</strong>. Salvage per kit: s = 0.10\u00b724 = <strong>$2.40</strong>. Price: r = $60. Assembly cost happens post-demand, so treat it as Cu-side only.</p><p>Cu = r \u2212 (c + assembly) = 60 \u2212 (24 + 3) = <strong>$33</strong>.</p><p>Co = c \u2212 s = 24 \u2212 2.40 = <strong>$21.60</strong>.</p><p>CR = 33 / (33 + 21.6) = <strong>0.6044</strong>.</p><p>\u03a6(z*) = 0.6044 \u2192 z* \u2248 <strong>0.26</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf Q* = 20,000 + 0.26\u00b75,000 = <strong>21,300 kits</strong> (solution uses 0.27\u219221,350) \u2192 <strong>21,350 boxes</strong> and <strong>42,700 tool sets</strong>.</div>"
+        },
+        {
+          question: "(6b) Expected lost sales.",
+          solution: "<p>L(0.27) = 0.27840. ELS = \u03c3\u00b7L(z*) = 5,000\u00b70.27840 = <strong>1,392 kits</strong>.</p>"
+        },
+        {
+          question: "(6c) Profits of EduJoy and each supplier.",
+          solution: "<h4>EduJoy</h4><p>E[Sales] = 20,000 \u2212 1,392 = 18,608. E[Leftover] = 21,350 \u2212 18,608 = 2,742.</p><p>Profit = (60\u22123)\u00b720,000 \u2014 wait let's use the exact form: (r\u2212assembly)\u00b7E[Sales] \u2212 Co\u00b7E[Leftover] + (assembly saved if lost). Cleanest is:<br>E[Profit] = 57\u00b7E[Sales] \u2212 24\u00b7Q* + 2.40\u00b7E[Leftover] \u2212 3\u00b7E[Sales]. Official form: (60\u22123)\u00b720,000 \u2212 33\u00b71,392 \u2212 21.6\u00b72,742.</p><p>= 57\u00b720,000 \u2212 33\u00b71,392 \u2212 21.6\u00b72,742 = 1,140,000 \u2212 45,936 \u2212 59,227 = <strong>$1,034,837</strong>.</p><h4>CraftMakers (boxes)</h4><p>Revenue: $4\u00b721,350 = $85,400. Salvage refund: $0.40\u00b72,742 = $1,097. Cost: $1\u00b721,350 = $21,350. Profit \u2248 85,400 \u2212 1,097 \u2212 21,350 = <strong>$62,953</strong>.</p><h4>LearnTools (tool sets)</h4><p>Revenue: $10\u00b742,700 = $427,000. Salvage refund: $1\u00b72\u00b72,742 = $5,484. Cost: $4\u00b742,700 = $170,800. Profit = 427,000 \u2212 5,484 \u2212 170,800 = <strong>$250,716</strong>.</p>"
+        },
+        {
+          question: "(6d) Add local production option at $6/box and $20/tool set (still $3 assembly). New optimal order from abroad.",
+          solution: "<h4>New overage/underage</h4><p>Local production per kit: cL = 6 + 2\u00b720 + 3 = <strong>$49</strong>.</p><p>Co = 24 \u2212 2.4 = $21.60 (unchanged).</p><p>Cu changes: if demand > Q*, now buy locally at $49 instead of losing the sale. So Cu = cL \u2212 (c + assembly) = 49 \u2212 27 = <strong>$22</strong> (the <em>penalty</em> of having underestimated foreign orders is just the local premium).</p><p>CR = 22/(22+21.6) = <strong>0.5046</strong> \u2192 z* = <strong>0.02</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf Q* = 20,000 + 0.02\u00b75,000 = <strong>20,100 kits</strong> \u2192 20,100 boxes + 40,200 tool sets from abroad.</div><div class=\"solution-tip\">\ud83d\udca1 Reactive capacity turns the big \"lost sale\" penalty ($33) into a small \"pay premium\" penalty ($22), dramatically lowering CR \u2192 much less safety stock from abroad.</div>"
+        },
+        {
+          question: "(6e) Expected number of kits produced locally?",
+          solution: "<p>ELS = 5,000\u00b7L(0.02) \u2248 5,000\u00b70.389 = <strong>\u2248 1,945 kits</strong> built locally on average.</p>"
+        },
+        {
+          question: "(6f) Profit with reactive capacity. Advise accept or not.",
+          solution: "<p>E[Sales] = 20,000 \u2212 1,945 = 18,055. E[Leftover] = 20,100 \u2212 18,055 = 2,045.</p><p>Profit = 57\u00b720,000 \u2212 22\u00b71,945 \u2212 21.6\u00b72,045 = 1,140,000 \u2212 42,790 \u2212 44,172 = <strong>$1,053,038</strong>.</p><div class=\"solution-answer\">\ud83c\udfaf +$18,200 vs. part (c) \u2014 about +2%. <strong>Yes, use the local manufacturer.</strong></div><div class=\"solution-tip\">\ud83d\udca1 The value of reactive capacity isn't just the ex-post sales rescue; it's also that Q* falls, reducing Co exposure on the foreign order.</div>"
+        },
+        {
+          question: "(6g) Rethink Cu/Co for (Scenario 1) selling leftovers as $20 extension packs, and (Scenario 2) local production capped at 5,000 kits.",
+          solution: "<h4>Scenario 1 \u2014 extension pack (r_ext = $20, no extra assembly)</h4><p>Cu unchanged (rescue via local not given here). Co changes: each leftover kit can now be sold as an extension pack for $20 instead of just salvaged at $2.40. EduJoy must absorb the $3 assembly to build the original kit (assuming already assembled), so:</p><p><strong>Co = (c + assembly) \u2212 r_ext = 27 \u2212 20 = $7</strong> \u2014 dramatically lower.</p><p>Net effect: CR rises, Q* rises \u2014 it's cheaper to over-order because extras sell as extension packs.</p><h4>Scenario 2 \u2014 local capped at 5,000 kits</h4><p>Co unchanged ($21.6). Cu is now <em>state-dependent</em>:</p><ul><li>If actual shortfall \u2264 5,000: cover locally, Cu = <strong>$22</strong> (same as part d).</li><li>If actual shortfall > 5,000: excess is lost, Cu = <strong>$33</strong> on that portion.</li></ul><p>You can no longer solve by a single critical ratio; the underage cost has a \"kink\" at Q+5,000. Compared to uncapped reactive capacity, you have to order a bit more from abroad to push the probability of the shortfall-exceeding-5,000 scenario down.</p><div class=\"solution-tip\">\ud83d\udca1 These scenarios illustrate the Session 6 core idea: <strong>Cu and Co are constructed from the payoff structure</strong>, not fixed by the cost sheet. Change the downstream option, Cu/Co change, and Q* shifts accordingly.</div>"
+        },
+      ]
+    },
+  ],
+
   readings: [
+    { label: "2021 Practice Exam (PDF)", url: "assets/session5/POM_Practice_Exam_2021.pdf" },
+    { label: "2021 Practice Exam — Solutions (PDF)", url: "assets/session5/POM_Practice_Exam_2021_Solutions.pdf" },
+    { label: "2025 Practice Exam (PDF)", url: "assets/session5/POM_Practice_Exam_2025.pdf" },
+    { label: "2025 Practice Exam — Solutions (PDF)", url: "assets/session5/POM_Practice_Exam_2025_Solutions.pdf" },
     { label: "Recipe 1: Process Improvement", url: "assets/session1/Recipe 1_Process Improvement.pdf" },
     { label: "Recipe 2: Managing Variability", url: "assets/session2/Recipe 2_Managing Variability.pdf" },
     { label: "Recipe 3: The Newsvendor", url: "assets/session3/Recipe 3_The Newsvendor.pdf" },
@@ -1664,124 +1982,198 @@ const SESSIONS = [
   ],
 
   teachingSlides: [
-    // ── Slide 1: Title ──
-    { type: "title", title: "Process and Operations Management", content: "<h2 style='margin-top:1rem'>Tutorial 5: Recap & Q\u00a0A</h2><p style='margin-top:.5rem;opacity:.8'>\u2014 Stefanos Poulidis</p>",
+    {
+      type: "title",
+      title: "Process and Operations Management",
+      content: "<h2 style='margin-top:1rem'>Tutorial 5: Recap &amp; Past Exams</h2><p style='margin-top:.5rem;opacity:.8'>\u2014 Stefanos Poulidis</p>",
       hints: [
-        { label: "Session Overview", icon: "\ud83d\udcdd", content: "<p>This session covers a comprehensive review of all four tutorial sessions: Process Improvement, Managing Variability, Newsvendor I, and Newsvendor II. We will review key formulas, frameworks, and problem-solving strategies.</p>" }
+        { label: "Session Overview", icon: "📝", content: "<p>Two-part session: (1) quick recap of the full syllabus, and (2) detailed walk-throughs of the 2021 and 2025 final exams, problem by problem.</p>" },
       ]
     },
-
-    // ── Slide 2: Course Overview ──
-    { type: "concept", title: "Course Overview", content: "<table><tr><th>Session</th><th>Topic</th><th>Key Concepts</th></tr><tr><td><strong>1</strong></td><td>Process Improvement</td><td>Bottlenecks, capacity, utilization, DLC, Little's Law</td></tr><tr><td><strong>2</strong></td><td>Managing Variability</td><td>Queuing theory, Wq/W/Lq, CVa/CVs, pooling</td></tr><tr><td><strong>3</strong></td><td>Newsvendor I</td><td>Cu, Co, CR, Q*, expected performance measures</td></tr><tr><td><strong>4</strong></td><td>Newsvendor II</td><td>Double marginalization, reactive capacity, risk pooling, service level</td></tr></table><p style='margin-top:1rem'>Each session builds on the previous one. The newsvendor framework from Session 3 is extended in Session 4 to supply chains, capacity planning, and risk management.</p>",
+    {
+      type: "concept",
+      title: "Course Overview",
+      content: "<table><tr><th>Session</th><th>Topic</th><th>Key Concepts</th></tr><tr><td><strong>1</strong></td><td>Process Improvement</td><td>Bottlenecks, capacity, utilization, DLC, Little's Law</td></tr><tr><td><strong>2</strong></td><td>Managing Variability</td><td>Queuing theory, Wq/W/Lq, CVa/CVs, pooling</td></tr><tr><td><strong>3</strong></td><td>Newsvendor I</td><td>Cu, Co, CR, Q*, expected performance</td></tr><tr><td><strong>4</strong></td><td>Newsvendor II</td><td>Double marginalization, reactive capacity, risk pooling</td></tr></table>",
       hints: [
-        { label: "Common Thread", icon: "\ud83d\udca1", content: "<p>The unifying theme across all sessions: <strong>variability is costly, and understanding it mathematically lets you make better decisions.</strong></p>" },
-        { label: "Exam Coverage", icon: "\ud83c\udfaf", content: "<p>All four sessions are examinable. The exam typically contains one problem from each major topic area. Practice identifying the problem type quickly.</p>" }
+        { label: "Unifying Theme", icon: "💡", content: "<p>Variability is costly \u2014 and structured tools let you quantify and beat it.</p>" },
       ]
     },
-
-    // ── Slide 3: Session 1 Recap ──
-    { type: "concept", title: "Session 1 Recap: Process Improvement", content: "<h4>The 4-Step Framework</h4><ol><li><strong>Draw</strong> the process flow diagram</li><li><strong>Find capacity</strong> of each resource (= 1 / Processing Time)</li><li><strong>Find the bottleneck</strong> (lowest capacity or highest utilization)</li><li><strong>Find system capacity</strong> (= bottleneck capacity)</li></ol><p style='margin-top:.75rem'><strong>Key insight:</strong> Improving a non-bottleneck does NOT increase output. Always fix the bottleneck first!</p><p style='margin-top:.5rem'>When yields differ across stages, compare <strong>utilizations</strong> rather than processing times to identify the bottleneck.</p>",
+    {
+      type: "concept",
+      title: "Session 1 Recap: Process Improvement",
+      content: "<h4>4-step framework</h4><ol><li>Draw the process flow.</li><li>Capacity = 1/processing time \u00d7 # workers.</li><li>Bottleneck = lowest capacity (or highest utilization if yields differ).</li><li>System capacity = bottleneck capacity.</li></ol><p><strong>Little's Law:</strong> L = \u03bb \u00b7 W.</p>",
       hints: [
-        { label: "Bottleneck Definition", icon: "\u26d3", content: "<p>The bottleneck is the resource with the <strong>lowest capacity</strong> (or equivalently, the <strong>highest utilization</strong>). It limits the throughput of the entire system. Think: highway narrowing from 3 lanes to 1.</p>" },
-        { label: "DLC Formula", icon: "\ud83d\udcb0", content: "<p>Direct Labor Cost = Total Wages per Hour / Throughput per Hour</p><p>Counterintuitive: hiring MORE workers can <em>reduce</em> cost per unit if the new worker relieves the bottleneck.</p>" }
+        { label: "Key Pitfall", icon: "⚠️", content: "<p>When routing fractions differ, compare <strong>utilizations</strong> not raw capacities (Beleza 4f is the canonical trap).</p>" },
       ]
     },
-
-    // ── Slide 4: Session 1 Key Formulas ──
-    { type: "formula", title: "Session 1: Key Formulas", content: "<div class='formula-box'>\\( \\text{Capacity} = \\frac{1}{\\text{Processing Time}} \\)</div><div class='formula-box'>\\( \\text{Utilization} = \\frac{\\text{Input Rate}}{\\text{Capacity}} \\)</div><div class='formula-box'>\\( \\text{DLC} = \\frac{\\text{Total Wages/hr}}{\\text{Throughput}} \\)</div><div class='formula-box'>\\( L = \\lambda \\times W \\)</div><div class='formula-box'>\\( T_{\\text{empty}} = \\text{Flow Time} + (N-1) \\times \\text{Cycle Time}_{\\text{bottleneck}} \\)</div><p style='margin-top:.75rem'>Where L = average inventory, \u03bb = throughput, W = average flow time. The empty system formula accounts for the first unit flowing through all stages before steady state begins.</p>",
+    {
+      type: "concept",
+      title: "Session 2 Recap: Managing Variability",
+      content: "<h4>Kingman's 6-step recipe (single server)</h4><div class='formula-box'>\\( W_q = \\tau \\cdot \\frac{\\rho}{1-\\rho} \\cdot \\frac{CV_a^2 + CV_s^2}{2} \\)</div><p>Multi-server approximation: replace \u03c4 with \u03c4/s and use \u03c1^(\u221a(2(s+1))\u22121) in the numerator.</p><p><strong>Three levers:</strong> lower \u03c1, lower CVs, pool resources.</p>",
       hints: [
-        { label: "Unit Consistency", icon: "\u26a0\ufe0f", content: "<p>Always convert all capacities to the <strong>same time unit</strong> (e.g., units/hour) before comparing. Mixing minutes and hours is the #1 arithmetic mistake.</p>" },
-        { label: "Little's Law Applications", icon: "\ud83d\udcdd", content: "<p>Little's Law (L = \u03bbW) is universal. Use it to find any one of the three variables when you know the other two. Works for entire systems or individual stages.</p>" }
+        { label: "When \u03c1 \u2192 1", icon: "⚠️", content: "<p>Waiting time blows up super-linearly. Most dangerous trap: forgetting to confirm \u03c1 < 1 before computing.</p>" },
       ]
     },
-
-    // ── Slide 5: Session 2 Recap ──
-    { type: "concept", title: "Session 2 Recap: Managing Variability", content: "<h4>The 6-Step Recipe</h4><ol><li>Write parameters: \u03bb (arrival rate), \u03bc (service rate), \u03c4 (service time), s (servers), CVa, CVs</li><li>Find s (number of servers)</li><li>Find \u03c1 = \u03bb / (s \u00d7 \u03bc) \u2014 must be < 1!</li><li>Calculate Wq (time waiting in queue)</li><li>W = Wq + \u03c4 (total time in system)</li><li>Lq = \u03bb \u00d7 Wq (average queue length)</li></ol><p style='margin-top:.75rem'><strong>Three levers to reduce waiting:</strong> (1) Reduce utilization, (2) Reduce service time variability, (3) Pool resources.</p>",
+    {
+      type: "concept",
+      title: "Session 3 Recap: Newsvendor I",
+      content: "<div class='formula-box'>\\( C_u = r - c \\quad C_o = c - s \\)</div><div class='formula-box'>\\( CR = \\frac{C_u}{C_u + C_o} \\quad Q^* = \\mu + z^*\\sigma \\)</div><div class='formula-box'>\\( E[\\text{Lost Sales}] = \\sigma \\cdot L(z^*) \\)</div><p>Discrete demand: smallest Q such that F(Q) \u2265 CR.</p>",
       hints: [
-        { label: "Highway Analogy", icon: "\ud83d\ude97", content: "<p>A highway at 90% capacity has occasional slowdowns. At 99% capacity, traffic jams are constant. Similarly, queues grow explosively as utilization approaches 100%. This is why \u03c1 < 1 is required for a stable queue.</p>" },
-        { label: "Pooling Benefit", icon: "\ud83c\udfaf", content: "<p>Pooling multiple servers into one queue (vs. separate lines) is <strong>always</strong> better. It reduces waiting time without any extra cost. Example: one line feeding multiple bank tellers vs. separate lines per teller.</p>" }
+        { label: "Where CR Lives", icon: "🎯", content: "<p>CR = in-stock probability, NOT expected fill rate. Fill rate is always \u2265 in-stock probability.</p>" },
       ]
     },
-
-    // ── Slide 6: Session 2 Key Formulas ──
-    { type: "formula", title: "Session 2: Key Formulas", content: "<div class='formula-box'>\\( \\rho = \\frac{\\lambda}{s \\times \\mu} \\)</div><div class='formula-box'>\\( W_q^{\\text{single}} = \\frac{\\rho}{1-\\rho} \\times \\frac{CV_a^2 + CV_s^2}{2} \\times \\tau \\)</div><div class='formula-box'>\\( W_q^{\\text{multi}} \\approx \\frac{\\rho^{\\sqrt{2(s+1)}}}{s(1-\\rho)} \\times \\frac{CV_a^2 + CV_s^2}{2} \\times \\tau \\)</div><div class='formula-box'>\\( W = W_q + \\tau \\qquad L_q = \\lambda \\times W_q \\)</div><p style='margin-top:.75rem'>These formulas decompose waiting into three factors: utilization effect, variability effect, and service time scale.</p>",
+    {
+      type: "concept",
+      title: "Session 4 Recap: Newsvendor II",
+      content: "<p><strong>Double marginalization:</strong> retailer's c = wholesale \u2192 inflated Co \u2192 lower Q*. Contracts (buyback, revenue share, quantity flexibility) close the gap.</p><p><strong>Reactive capacity:</strong> Cu = (expensive backup) \u2212 (cheap source). Cu < (r\u2212c), so Q* drops.</p><p><strong>Risk pooling:</strong> n independent demands \u2192 \u03c3_pool = \u03c3\u221an, CV drops by \u221an.</p><p><strong>Service level target:</strong> choose Q so \u03a6(z*) = target, no cost trade-off.</p>",
       hints: [
-        { label: "CV Definitions", icon: "\ud83d\udcdd", content: "<p>CV (Coefficient of Variation) = \u03c3 / \u03bc. Measures relative variability.</p><p>CVa = variability of inter-arrival times<br>CVs = variability of service times</p><p>If arrivals follow a Poisson process, CVa = 1. If service is deterministic, CVs = 0.</p>" },
-        { label: "Stability Condition", icon: "\u26a0\ufe0f", content: "<p>\u03c1 must be strictly less than 1 for the queue to be stable. If \u03c1 \u2265 1, the queue grows to infinity \u2014 the system cannot keep up with demand. Always check this first!</p>" }
+        { label: "Where Cu Really Comes From", icon: "💡", content: "<p>Cu and Co are constructed from the <em>payoff structure</em>, not from the cost sheet. EduJoy 6d-g is the case study.</p>" },
       ]
     },
-
-    // ── Slide 7: Session 3 Recap ──
-    { type: "concept", title: "Session 3 Recap: Newsvendor I", content: "<h4>The Newsvendor Framework</h4><p><strong>Cu</strong> (underage cost) = r \u2212 c = profit lost per unit of unmet demand</p><p><strong>Co</strong> (overage cost) = c \u2212 s = loss per unsold unit</p><p><strong>CR</strong> (critical ratio) = Cu / (Cu + Co)</p><h4>Finding Q*</h4><ul><li><strong>Normal demand:</strong> Q* = \u03bc + z*\u03c3 where \u03a6(z*) = CR</li><li><strong>Discrete demand:</strong> smallest Q where F(Q) \u2265 CR</li></ul><h4>Performance Measures</h4><p>E[Lost Sales] = \u03c3\u00b7L(z*), E[Sales] = \u03bc \u2212 E[LS], E[Leftover] = Q* \u2212 E[Sales]</p>",
+    {
+      type: "title",
+      title: "Part 2: Practice Exams",
+      content: "<p style='margin-top:1rem;font-size:1.1rem'>Two full past finals. Work them under exam conditions, then walk through the solutions step by step.</p><p style='margin-top:1rem;opacity:.8'>2021 exam \u2014 6 problems, 200 pts, 3 hours, closed book.<br>2025 exam \u2014 6 problems, 125 pts, 3 hours, open book.</p>",
       hints: [
-        { label: "When to Use Which", icon: "\ud83d\udca1", content: "<p><strong>Normal:</strong> When demand is described as N(\u03bc, \u03c3) or \"normally distributed\".</p><p><strong>Discrete:</strong> When demand has specific values with probabilities (e.g., a probability table).</p><p>The logic is the same \u2014 only the method of finding Q* differs.</p>" },
-        { label: "CR Intuition", icon: "\ud83c\udfaf", content: "<p>CR represents the probability of meeting all demand at the optimal order quantity. High CR (close to 1) means Cu >> Co, so you order aggressively. Low CR means Co dominates, so you order conservatively.</p>" }
+        { label: "How to Study", icon: "📝", content: "<p>1. Print and solve the exam end-to-end under exam conditions. 2. Time yourself. 3. THEN read the solutions and compare. Don't peek early \u2014 you'll learn nothing.</p>" },
       ]
     },
-
-    // ── Slide 8: Session 3 Key Formulas ──
-    { type: "formula", title: "Session 3: Key Formulas", content: "<div class='formula-box'>\\( C_u = r - c \\qquad C_o = c - s \\qquad CR = \\frac{C_u}{C_u + C_o} \\)</div><div class='formula-box'>\\( Q^* = \\mu + z^* \\sigma \\quad \\text{where } \\Phi(z^*) = CR \\)</div><div class='formula-box'>\\( E[\\text{Lost Sales}] = \\sigma \\cdot L(z^*) \\)</div><div class='formula-box'>\\( E[\\text{Sales}] = \\mu - E[\\text{Lost Sales}] \\)</div><div class='formula-box'>\\( E[\\text{Leftover}] = Q^* - E[\\text{Sales}] \\)</div><div class='formula-box'>\\( E[\\text{Profit}] = C_u \\times E[\\text{Sales}] - C_o \\times E[\\text{Leftover}] \\)</div>",
+    {
+      type: "concept",
+      title: "2021 Exam \u2014 Problem Map",
+      content: "<table><tr><th>#</th><th>Problem</th><th>Pts</th><th>Type</th></tr><tr><td>1</td><td>UberPool</td><td>30</td><td>Business intuition (marketplace design)</td></tr><tr><td>2</td><td>Aircraft engines</td><td>25</td><td>Business intuition (incentive alignment)</td></tr><tr><td>3</td><td>Intuition MCQ</td><td>25</td><td>5 short concept checks</td></tr><tr><td>4</td><td>INSEAD apps</td><td>30</td><td>Process flow w/ shared resources</td></tr><tr><td>5</td><td>Freddy's</td><td>35</td><td>Queueing + cross-training + pooling</td></tr><tr><td>6</td><td>Vaccine</td><td>55</td><td>Newsvendor + subsidies + combined demand</td></tr></table>",
       hints: [
-        { label: "L(z) vs \u03a6(z)", icon: "\u26a0\ufe0f", content: "<p>\u03a6(z) = CDF of the standard normal (probability). Used to find z* from CR.</p><p>L(z) = standard normal loss function. Used to calculate expected lost sales.</p><p>These are <strong>different functions</strong>. Do not confuse them! L(z) = \u03c6(z) \u2212 z[1\u2212\u03a6(z)].</p>" },
-        { label: "Quick Reference", icon: "\ud83d\udcdd", content: "<p>Common z* values: CR=0.5 \u2192 z*=0, CR=0.8 \u2192 z*=0.84, CR=0.9 \u2192 z*=1.28, CR=0.95 \u2192 z*=1.645</p><p>Common L(z) values: L(0)=0.3989, L(0.5)=0.1978, L(1.0)=0.0833, L(1.5)=0.0293, L(2.0)=0.0085</p>" }
+        { label: "Time Budget", icon: "⏱️", content: "<p>Pts \u2248 minutes rule of thumb works well here. Q6 alone is 55 min, Q5 is 35 min. Don't sink into Q1/Q2 essays.</p>" },
       ]
     },
-
-    // ── Slide 9: Session 4 Recap ──
-    { type: "concept", title: "Session 4 Recap: Newsvendor II", content: "<h4>Four Extensions of the Newsvendor</h4><ol><li><strong>Double Marginalization:</strong> Decentralized SC orders less than optimal. Retailer's c = wholesale price, not manufacturing cost.</li><li><strong>Reactive Capacity:</strong> Cheap source (commit upfront) + expensive backup. Cu = premium, Co = cheap cost.</li><li><strong>Risk Pooling:</strong> Aggregate n demands \u2192 \u03c3_pool = \u03c3\u221an, CV drops by \u221an.</li><li><strong>Service Level:</strong> When failure is catastrophic, use \u03a6(z*) = target probability instead of cost optimization.</li></ol><p style='margin-top:.75rem'>All four use the same CR \u2192 z* \u2192 Q* logic, just with different definitions of Cu and Co!</p>",
+    {
+      type: "step",
+      title: "2021 Q5a: Freddy's \u2014 Separate Queues",
+      content: "<h4>Setup</h4><p>Zeki does Salad, Angel does Sandwich. Add +1 min order/bill to every service.</p><table><tr><th>Section</th><th>\u03bb</th><th>\u03c4</th><th>\u03c1</th><th>Wq</th><th>L</th></tr><tr><td>Salad (Zeki)</td><td>6/hr</td><td>3 min</td><td>0.30</td><td>0.64 min</td><td>0.36</td></tr><tr><td>Sandwich (Angel)</td><td>12/hr</td><td>2 min</td><td>0.40</td><td>0.67 min</td><td>0.53</td></tr></table><p>CVa = 1, CVs = 0 \u2192 (CVa\u00b2+CVs\u00b2)/2 = 0.5 factor in Kingman.</p>",
       hints: [
-        { label: "Real-World Examples", icon: "\ud83c\udf10", content: "<p><strong>Double marginalization:</strong> Manufacturer-retailer relationships (e.g., fashion industry)</p><p><strong>Reactive capacity:</strong> Energy companies with pipeline + LNG backup</p><p><strong>Risk pooling:</strong> Centralized warehousing (e.g., Amazon fulfillment)</p><p><strong>Service level:</strong> Hospital capacity planning, disaster preparedness</p>" },
-        { label: "Contract Solutions", icon: "\ud83d\udd17", content: "<p>Buyback contracts, revenue sharing, and quantity flexibility contracts can align incentives in a decentralized supply chain, restoring the integrated optimum.</p>" }
+        { label: "Why \u00b70.5 Factor?", icon: "❓", content: "<p>Kingman: (CVa\u00b2+CVs\u00b2)/2. Poisson arrivals \u2192 CVa = 1. Deterministic service \u2192 CVs = 0. Factor = (1+0)/2 = 0.5.</p>" },
       ]
     },
-
-    // ── Slide 10: Session 4 Key Formulas ──
-    { type: "formula", title: "Session 4: Key Formulas", content: "<div class='formula-box'><strong>Double Marginalization:</strong><br>\\( CR_{\\text{integrated}} = \\frac{r - c_m}{r - s} \\qquad CR_{\\text{decentralized}} = \\frac{r - w}{r - s} \\)</div><div class='formula-box'><strong>Reactive Capacity:</strong><br>\\( C_u = c_{\\text{expensive}} - c_{\\text{cheap}} \\qquad C_o = c_{\\text{cheap}} \\)</div><div class='formula-box'><strong>Risk Pooling:</strong><br>\\( \\sigma_{\\text{pool}} = \\sigma \\sqrt{n} \\qquad CV_{\\text{pool}} = \\frac{CV}{\\sqrt{n}} \\)</div><div class='formula-box'><strong>Service Level:</strong><br>\\( \\Phi(z^*) = \\text{target probability} \\)</div>",
+    {
+      type: "step",
+      title: "2021 Q5b-c: Cross-Training Without Pooling",
+      content: "<h4>After cross-training: Zeki 1/3 of time, Angel 2/3</h4><p>E[\u03c4] = 1/3\u00b73 + 2/3\u00b75 = <strong>4.33 min</strong>.</p><p>E[\u03c4\u00b2] = 1/3\u00b79 + 2/3\u00b725 = <strong>19.67</strong>.</p><p>\u03c3 = \u221a(19.67 \u2212 4.33\u00b2) \u2248 <strong>0.94 min</strong>. CVs = 0.94/4.33 \u2248 0.22.</p><h4>Result on Salad section</h4><p>\u03c1 = 6/13.85 = 0.433 (up from 0.30). Wq \u2248 1.73 min (up from 0.64). L \u2248 <strong>0.61</strong> (up from 0.36).</p><p style='color:#ef4444;font-weight:600'>\u26a0 Cross-training alone <em>hurt</em> performance!</p>",
       hints: [
-        { label: "Why w > c_m Matters", icon: "\ud83d\udca1", content: "<p>Since wholesale price w > manufacturing cost c_m, the retailer's CR is always lower than the integrated CR. Lower CR \u2192 lower z* \u2192 lower Q* \u2192 more stockouts \u2192 lost profit for the entire supply chain.</p>" },
-        { label: "Pooling Pitfall", icon: "\u26a0\ufe0f", content: "<p>When pooling: <strong>variances add</strong>, not standard deviations! For n independent demands each with \u03c3: \u03c3_pool = \u03c3\u221an (not n\u03c3). This is because Var(sum) = n\u03c3\u00b2, so SD = \u03c3\u221an.</p>" }
+        { label: "Why Worse?", icon: "💡", content: "<p>Two forces fight each other: (a) higher average \u03c4 (went from 3 to 4.33) raises \u03c1 and W, (b) new service variability raises Wq. Both lose. Only pooling wins.</p>" },
       ]
     },
-
-    // ── Slide 11: Master Formula Sheet ──
-    { type: "formula", title: "Master Formula Sheet", content: "<h4>Process Improvement</h4><div class='formula-box'>\\( \\text{Capacity} = \\frac{1}{\\text{PT}} \\quad \\text{Util} = \\frac{\\lambda}{\\text{Cap}} \\quad \\text{DLC} = \\frac{\\text{Wages}}{\\text{Throughput}} \\quad L = \\lambda W \\)</div><h4>Managing Variability</h4><div class='formula-box'>\\( \\rho = \\frac{\\lambda}{s\\mu} \\quad W_q = \\frac{\\rho}{1-\\rho} \\cdot \\frac{CV_a^2+CV_s^2}{2} \\cdot \\tau \\quad W = W_q + \\tau \\quad L_q = \\lambda W_q \\)</div><h4>Newsvendor</h4><div class='formula-box'>\\( C_u = r-c \\quad C_o = c-s \\quad CR = \\frac{C_u}{C_u+C_o} \\quad Q^* = \\mu + z^*\\sigma \\)</div><div class='formula-box'>\\( E[\\text{LS}] = \\sigma L(z^*) \\quad E[\\text{Sales}] = \\mu - E[\\text{LS}] \\quad E[\\text{LO}] = Q^* - E[\\text{Sales}] \\)</div><h4>Extensions</h4><div class='formula-box'>\\( \\sigma_{\\text{pool}} = \\sigma\\sqrt{n} \\quad CV_{\\text{pool}} = CV/\\sqrt{n} \\quad \\Phi(z^*) = \\text{target (service level)} \\)</div>",
+    {
+      type: "step",
+      title: "2021 Q5d: Pooling Wins",
+      content: "<h4>Pool both queues, both staff serve everyone (M/M/2)</h4><p>\u03bb = 18/hr, \u03bc = 16/hr (3.75 min exp), s = 2. \u03c1 = 18/32 = <strong>0.5625</strong>.</p><p>Multi-server Kingman: Wq \u2248 (\u03c4/s)\u00b7\u03c1^(\u221a(2(s+1))\u22121)/(1\u2212\u03c1)\u00b71.</p><p>\u03c1^\u221a6\u22121 = 0.5625^1.449 \u2248 0.43. Wq \u2248 1.875\u00b70.43/0.44 \u2248 <strong>1.86 min</strong>.</p><div class='formula-box'>Separate queues (a): Wq = 0.64 / 0.67 min<br>Cross-trained only (c): Wq \u2248 1.73 min<br>Pooled (d): Wq \u2248 1.86 min</div><p>Wait \u2014 pooled has <em>higher</em> Wq than separate? That's because exponential service (CVs = 1) is much worse than deterministic. Pooling gains are offset by service-time randomness. But L per customer still drops.</p>",
       hints: [
-        { label: "How to Use This Sheet", icon: "\ud83d\udcdd", content: "<p>Step 1: Identify the problem type. Step 2: Go to the relevant section. Step 3: Plug in your values. This sheet covers 90% of what you need for the exam.</p>" },
-        { label: "Print This!", icon: "\ud83d\udda8\ufe0f", content: "<p>If allowed a formula sheet in the exam, this slide is your best friend. Make sure you understand each formula, not just memorize it.</p>" }
+        { label: "Lesson", icon: "🎓", content: "<p>Pooling gains are real but not automatic. They depend on the mix of \u03c1, CVs, and s. Don't assume pooling always wins \u2014 compute.</p>" },
       ]
     },
-
-    // ── Slide 12: Common Exam Mistakes ──
-    { type: "concept", title: "Common Exam Mistakes", content: "<ol><li><strong>Mixing time units</strong> \u2014 e.g., capacity in units/min vs. demand in units/hour</li><li><strong>Forgetting to check \u03c1 < 1</strong> before applying queuing formulas</li><li><strong>Using manufacturing cost instead of wholesale price</strong> for retailer's Co in double marginalization</li><li><strong>Adding standard deviations instead of variances</strong> when pooling demands</li><li><strong>Confusing L(z) with \u03a6(z)</strong> \u2014 loss function vs. CDF</li><li><strong>Not identifying the bottleneck correctly</strong> when yields differ across stages</li><li><strong>Forgetting that z* can be negative</strong> when Co > Cu (CR < 0.5)</li><li><strong>Applying process improvement to a non-bottleneck</strong> and claiming output increases</li><li><strong>Ignoring salvage value</strong> when computing Co (Co = c \u2212 s, not just c)</li><li><strong>Not reading the question carefully</strong> \u2014 is it asking for Q* or expected profit or both?</li></ol>",
+    {
+      type: "step",
+      title: "2021 Q6a-b: Vaccine Baseline",
+      content: "<h4>Demand D \u223c N(5M, 2M)</h4><p>r = 30, c = 10, s = 0. Cu = 20, Co = 10, CR = 2/3 = <strong>0.667</strong>.</p><p>z* \u2248 0.44 \u2192 Q* = 5 + 0.44\u00b72 = <strong>5.88M doses</strong>.</p><h4>Profit</h4><p>ELS = 2\u00b70.217 = 0.434M. E[Sales] = 4.566M. E[Leftover] = 1.314M.</p><p>E[Profit] = 20\u00b74.566 \u2212 10\u00b71.314 = <strong>\u20ac78.18M</strong>.</p>",
       hints: [
-        { label: "Self-Check", icon: "\u2705", content: "<p>Before submitting your answer, ask yourself: Did I convert all units? Did I check \u03c1 < 1? Did I use the right cost for Co? Did I add variances (not \u03c3's) when pooling? Did I answer the actual question asked?</p>" },
-        { label: "Partial Credit", icon: "\ud83d\udcdd", content: "<p>Even if you make an error early on, continue with your (incorrect) intermediate result. Examiners typically award marks for correct methodology applied to wrong numbers. Show your work!</p>" }
+        { label: "Two Equivalent Profit Forms", icon: "📝", content: "<p>\u20cf Cu\u00b7E[Sales] \u2212 Co\u00b7E[Leftover]  OR  r\u00b7E[Sales] \u2212 c\u00b7Q + s\u00b7E[Leftover]. Use whichever involves fewer numbers.</p>" },
       ]
     },
-
-    // ── Slide 13: Problem-Solving Strategy ──
-    { type: "concept", title: "Problem-Solving Strategy", content: "<h4>Step-by-Step for Any POM Problem</h4><ol><li><strong>Identify the problem type:</strong> Is it a process/bottleneck problem? A queuing problem? A newsvendor problem? An extension (double marginalization, reactive capacity, risk pooling)?</li><li><strong>Extract ALL parameters:</strong> Write down every number given. Label each one (\u03bb, \u03bc, r, c, s, \u03c3, etc.).</li><li><strong>Draw a diagram:</strong> Process flow for Session 1, queue diagram for Session 2, timeline for newsvendor.</li><li><strong>Apply the right formula set:</strong> Use the master formula sheet. Don't mix formulas from different problem types.</li><li><strong>Interpret the result:</strong> Does it make sense? Is utilization between 0 and 1? Is Q* positive? Is profit reasonable?</li></ol><p style='margin-top:.75rem'><em>The exam rewards structured thinking. Show every step clearly.</em></p>",
+    {
+      type: "step",
+      title: "2021 Q6c-e: Subsidies to Push Q to 7M",
+      content: "<p>Q = 7 \u2192 z* = 1 \u2192 CR = 0.8413.</p><h4>Price subsidy</h4><p>Solve (r'\u221210)/r' = 0.8413 \u2192 r' = \u20ac63.03 \u2192 subsidy \u2248 <strong>\u20ac33.03/sold</strong>. Cost per government: 33.03 \u00d7 E[Sales at Q=7] = 33.03\u00b74.83 \u2248 <strong>\u20ac159.65M</strong>.</p><h4>Production subsidy</h4><p>Solve (30\u2212c')/30 = 0.8413 \u2192 c' \u2248 \u20ac4.76 \u2192 subsidy \u2248 <strong>\u20ac5.24/produced</strong>. Cost per government: 5.24 \u00d7 7 \u2248 <strong>\u20ac36.68M</strong>.</p><div class='solution-answer'>\ud83c\udfaf Production subsidy is <strong>4\u00d7 cheaper</strong>.</div>",
       hints: [
-        { label: "Time Management", icon: "\u23f0", content: "<p>In the exam, spend 2 minutes reading the entire problem before writing anything. Identify the type, then work methodically. Don't rush into calculations without understanding what's being asked.</p>" },
-        { label: "Sanity Checks", icon: "\ud83e\udde0", content: "<p>After solving, verify: Is utilization \u2264 100%? Is Q* > 0? Is E[Sales] \u2264 \u03bc? Is E[Leftover] \u2265 0? Is E[Profit] reasonable given the margins? If any check fails, recheck your work.</p>" }
+        { label: "Intuition", icon: "💡", content: "<p>Production subsidy targets the Co side directly, at cost of 7M\u00d7\u20ac5. Price subsidy pays a premium on every sold unit \u2014 including units that would have been sold anyway without the subsidy.</p>" },
       ]
     },
-
-    // ── Slide 14: Past Exam Problems ──
-    { type: "concept", title: "Past Exam Problems", content: "<div style='text-align:center;padding:2rem'><p style='font-size:1.2rem;opacity:.7'>Practice problems from past exams will be uploaded here.</p><p style='margin-top:1rem;font-size:1.1rem'><strong>Check back next week for practice materials.</strong></p><p style='margin-top:1.5rem;opacity:.6'>In the meantime, revisit problems from Sessions 1\u20134 and solve them from scratch without looking at the solutions.</p></div>",
+    {
+      type: "step",
+      title: "2021 Q6f: Combined X+Y Demand",
+      content: "<h4>Merge the demands</h4><p>Combined: mean 8M, \u03c3 = \u221a(4+1) = <strong>2.236M</strong>.</p><h4>Expected sales at Q = 7M (combined)</h4><p>z = (7\u22128)/2.236 = \u22120.45. L(\u22120.45) \u2248 0.665. ELS = 1.487M. E[Total Sales] = 6.513M.</p><h4>Split: X prioritized</h4><p>E[Sales_X | Q=7, X alone] = 4.833M (from part e). So E[Sales_Y] = 6.513 \u2212 4.833 = <strong>1.680M</strong>.</p><h4>Profit</h4><p>30\u00b74.833 + 25\u00b71.680 \u2212 10\u00b77 \u2212 1 (R&D) = 186.99 \u2212 70 \u2212 1 = <strong>\u20ac115.99M</strong>.</p><p>\u0394 vs. part b = +\u20ac37.8M \u226b \u20ac1M R&D. <strong>Accept.</strong></p>",
       hints: [
-        { label: "Preparation Tip", icon: "\ud83d\udca1", content: "<p>The best exam preparation: for each tutorial problem, cover the solution and try to solve it from scratch. Time yourself. If you get stuck for more than 5 minutes on a step, peek at just that step, then continue on your own.</p>" },
-        { label: "Office Hours", icon: "\ud83d\udce7", content: "<p>If you have questions about any topic, come to office hours or post on the course forum. No question is too basic \u2014 it's better to ask now than to be confused in the exam.</p>" }
+        { label: "Why Add Variances?", icon: "📝", content: "<p>For independent normal demands, Var(D1+D2) = Var(D1) + Var(D2). So \u03c3_combined = \u221a(\u03c3\u2081\u00b2+\u03c3\u2082\u00b2). This is the same risk-pooling formula from Session 4.</p>" },
       ]
     },
-
-    // ── Slide 15: Good Luck! ──
-    { type: "title", title: "Good Luck!", content: "<p style='font-size:1.2rem;margin-top:1rem'>You've worked through four challenging tutorial sessions covering process improvement, variability management, and the newsvendor model in all its forms.</p><p style='margin-top:1rem;font-size:1.1rem'>Remember: <strong>structured thinking beats memorization.</strong> Identify the problem type, extract parameters, apply the framework, and check your answer.</p><p style='margin-top:1.5rem;opacity:.8'>Questions? Reach out during office hours or via email.</p><p style='margin-top:1rem;opacity:.6'>Best wishes for the exam \u2014 Stefanos</p>",
+    {
+      type: "concept",
+      title: "2025 Exam \u2014 Problem Map",
+      content: "<table><tr><th>#</th><th>Problem</th><th>Pts</th><th>Type</th></tr><tr><td>1</td><td>Vinted vs TRR</td><td>18</td><td>Business intuition (marketplace design)</td></tr><tr><td>2</td><td>Supply chain contracts</td><td>18</td><td>Business intuition (quantity flexibility)</td></tr><tr><td>3</td><td>Intuition MCQ</td><td>26</td><td>7 short concept checks</td></tr><tr><td>4</td><td>Beleza Natural</td><td>19</td><td>Process flow with yields</td></tr><tr><td>5</td><td>Phoenix chatbot</td><td>18</td><td>M/M/s queueing</td></tr><tr><td>6</td><td>EduJoy</td><td>26</td><td>Newsvendor + reactive capacity</td></tr></table>",
       hints: [
-        { label: "Final Advice", icon: "\ud83c\udf1f", content: "<p>Trust your preparation. You've seen every problem type that can appear on the exam. Stay calm, manage your time, and show your work. You've got this!</p>" },
-        { label: "Resources", icon: "\ud83d\udcda", content: "<p>All recipes, review sheets, and tutorial solutions are available on the course website. Use them as references during your final review.</p>" }
+        { label: "Shorter Exam, Heavier Per-Minute", icon: "⏱️", content: "<p>125 pts / 180 min = 1.44 min/pt. Slightly more relaxed than 2021 but still requires time discipline.</p>" },
       ]
-    }
+    },
+    {
+      type: "step",
+      title: "2025 Q4b: Beleza \u2014 Simple Process",
+      content: "<p>Stages: Payment (2 min, 2w), Division (12.5 min, 8w), SR (40 min, 18w).</p><table><tr><th>Stage</th><th>Capacity/hr</th></tr><tr><td>Payment</td><td>60</td></tr><tr><td>Division</td><td>38.4</td></tr><tr style='background:#fef3c7'><td>SR</td><td><strong>27</strong></td></tr></table><p>Bottleneck = SR \u2192 system capacity <strong>27/hr</strong>.</p><p>Daily: 27 \u00d7 12 hr = 324 customers. Friday demand 396 > 324 \u2192 <strong>72-customer shortfall on Fridays</strong>.</p>",
+      hints: [
+        { label: "DLC Shortcut", icon: "🔢", content: "<p>Weekly wages = 28 \u00d7 $500 = $14,000. Weekly throughput = 4\u00b7288 + 324 = 1476. DLC = $9.49/customer.</p>" },
+      ]
+    },
+    {
+      type: "step",
+      title: "2025 Q4f: Beleza with Yields",
+      content: "<h4>New flow</h4><p>Pay 2min (2w) \u2192 Suit 5min (3w) \u2192 [80%]\u2192 Div 12.5min (8w) \u2192 SR 40min (18w) \u2192 HH 10min (4w). HH fraction = 0.8\u00b70.95 + 0.2\u00b70.50 = <strong>0.86</strong>.</p><h4>Max input rate through each stage (R = cap/fraction)</h4><table><tr><th>Stage</th><th>Cap</th><th>Fraction</th><th>Max R</th></tr><tr><td>Pay</td><td>60</td><td>1.00</td><td>60</td></tr><tr><td>Suit</td><td>36</td><td>1.00</td><td>36</td></tr><tr><td>Div</td><td>38.4</td><td>0.80</td><td>48</td></tr><tr><td>SR</td><td>27</td><td>0.80</td><td>33.75</td></tr><tr style='background:#fef3c7'><td>HH</td><td>24</td><td>0.86</td><td><strong>27.9</strong></td></tr></table><p>Bottleneck = <strong>HH</strong>. System capacity \u2248 <strong>27.9 customers/hr</strong>.</p>",
+      hints: [
+        { label: "Canonical Trap", icon: "⚠️", content: "<p>SR has lowest raw capacity, but HH is the <em>effective</em> bottleneck once you divide by routing fraction. Always compare R values, not raw capacities, when fractions differ.</p>" },
+      ]
+    },
+    {
+      type: "step",
+      title: "2025 Q5a: Phoenix Baseline M/M/s Sizing",
+      content: "<h4>\u03bb = 6/hr, \u03bc = 7.5/hr, target Wq < 1 min</h4><table><tr><th>s</th><th>\u03c1</th><th>Wq (min)</th><th>Meets target?</th></tr><tr><td>1</td><td>0.80</td><td>32</td><td>\u274c</td></tr><tr><td>2</td><td>0.40</td><td>1.77</td><td>\u274c (barely)</td></tr><tr style='background:#dcfce7'><td><strong>3</strong></td><td>0.267</td><td><strong>0.33</strong></td><td>\u2705</td></tr></table><p>Answer: deploy <strong>3 Phoenix instances</strong>.</p>",
+      hints: [
+        { label: "Non-Linearity", icon: "💡", content: "<p>Going from s=1 to s=2 cuts Wq by 18\u00d7. s=2 to s=3 by another 5\u00d7. Adding servers at low \u03c1 has diminishing returns \u2014 always compute, don't extrapolate linearly.</p>" },
+      ]
+    },
+    {
+      type: "step",
+      title: "2025 Q5b: Two Competing Strategies",
+      content: "<h4>Strategy 1 \u2014 s=3, \u03c4=16 min (nicer bot), \u03bb=9/hr (+50%)</h4><p>\u03bc per server = 3.75/hr. \u03c1 = 0.8. Wq \u2248 <strong>17.8 min</strong>. W \u2248 <strong>33.8 min</strong>.</p><h4>Strategy 2 \u2014 s=1, \u03c4=8 min, \u03c3=4 min (CVs=0.5)</h4><p>\u03c1 = 0.8, (CVa\u00b2+CVs\u00b2)/2 = 0.625. Wq \u2248 <strong>20 min</strong>. W = 20 + 8 = <strong>28 min</strong>.</p><table><tr><th></th><th>Wq</th><th>W</th></tr><tr><td>Strategy 1</td><td>17.8</td><td>33.8</td></tr><tr><td>Strategy 2</td><td><strong>20</strong></td><td><strong>28</strong></td></tr></table><p>Strategy 1 wins on Wq (more servers); Strategy 2 wins on W (shorter service time dominates).</p>",
+      hints: [
+        { label: "Queue vs System", icon: "🎯", content: "<p>Wq and W optimize differently. If customers hate waiting in a queue, pick Strategy 1. If they hate long total interactions (impatience while being served), pick Strategy 2.</p>" },
+      ]
+    },
+    {
+      type: "step",
+      title: "2025 Q5c: Parallel Processing per Instance",
+      content: "<p>New interface: each instance = 2 simultaneous chats (s = 2 per instance). \u03bb doubles to 12/hr.</p><h4>Try 1 instance (s=2 effective)</h4><p>\u03c1 = 0.8. Wq \u2248 10.5 min. \u274c</p><h4>Try 2 instances (s=4 effective)</h4><p>\u03c1 = 0.4. Wq \u2248 0.46 min. \u2705</p><div class='solution-answer'>\ud83c\udfaf Deploy <strong>2 Phoenix instances</strong> (4 effective servers).</div>",
+      hints: [
+        { label: "Same Load, Half the Instances", icon: "💡", content: "<p>Doubling \u03bb and doubling effective servers keeps \u03c1 constant. Multi-tasking \u2248 adding servers \u2014 exact same math.</p>" },
+      ]
+    },
+    {
+      type: "step",
+      title: "2025 Q6a-c: EduJoy Baseline",
+      content: "<h4>Per-kit parameters</h4><p>c = 4 + 2\u00b710 = $24. s = $2.40 (10% buy-back). r = $60. Assembly $3 after demand realized.</p><p>Cu = 60 \u2212 (24+3) = <strong>$33</strong>. Co = 24 \u2212 2.40 = <strong>$21.60</strong>. CR = 33/54.6 \u2248 <strong>0.604</strong>. z* = 0.27.</p><p>Q* = 20,000 + 0.27\u00b75,000 = <strong>21,350 kits</strong>.</p><h4>Performance</h4><p>ELS = 5,000\u00b70.278 = 1,392. E[Sales] = 18,608. E[Leftover] = 2,742.</p><p>EduJoy profit = 57\u00b720,000 \u2212 33\u00b71,392 \u2212 21.6\u00b72,742 \u2248 <strong>$1.035M</strong>.</p>",
+      hints: [
+        { label: "Why \u00d72 Tool Sets?", icon: "📝", content: "<p>Each kit needs 1 box + 2 tool sets. Order 21,350 boxes AND 42,700 tool sets (= 2\u00b7Q*). Always expand the BOM before pricing c.</p>" },
+      ]
+    },
+    {
+      type: "step",
+      title: "2025 Q6d-f: Reactive Capacity",
+      content: "<h4>Add local production option ($49/kit all-in)</h4><p>Co unchanged: $21.60. Cu changes: now the penalty of under-ordering is the local premium, not the lost-sale margin. <strong>Cu = 49 \u2212 27 = $22</strong>.</p><p>CR = 22/43.6 \u2248 <strong>0.505</strong>. z* = 0.02. Q* = 20,100 kits \u2014 <strong>almost at the mean</strong>.</p><h4>Profit</h4><p>ELS = 5,000\u00b70.389 \u2248 1,945 (these will be built locally). E[Sales] = 18,055. E[Leftover] = 2,045.</p><p>Profit = 57\u00b720,000 \u2212 22\u00b71,945 \u2212 21.6\u00b72,045 \u2248 <strong>$1.053M</strong> (+$18K vs no reactive).</p>",
+      hints: [
+        { label: "Why CR Drops So Far", icon: "💡", content: "<p>Reactive capacity shrinks the Cu/Co <em>ratio</em>. Foreign order now leans toward matching the mean rather than covering the upper tail \u2014 because the upper tail can be rescued locally.</p>" },
+      ]
+    },
+    {
+      type: "step",
+      title: "2025 Q6g: Scenario Analysis \u2014 Re-think Cu/Co",
+      content: "<h4>Scenario 1 \u2014 leftover kits \u2192 $20 extension packs</h4><p>Cu unchanged. Co drops: each leftover now worth $20 instead of $2.40. <strong>Co = 27 \u2212 20 = $7</strong> (assumes kits already assembled).</p><p>CR rises \u2192 Q* rises. Over-ordering is much cheaper.</p><h4>Scenario 2 \u2014 local production capped at 5,000 kits</h4><p>Co unchanged at $21.60. Cu becomes <em>piecewise</em>:</p><ul><li>Shortfall \u2264 5,000: Cu = $22 (local rescue).</li><li>Shortfall > 5,000: excess is lost sale, Cu = $33 on that portion.</li></ul><p>No single CR fits; you solve a two-piece newsvendor by inflating Q* above part (d)'s 20,100.</p>",
+      hints: [
+        { label: "Takeaway", icon: "🎯", content: "<p>Cu and Co are <em>financial constructions</em> from the downstream payoff structure \u2014 not numbers handed to you. Change the downstream option (extension pack, local cap) \u2192 re-derive Cu/Co \u2192 re-solve.</p>" },
+      ]
+    },
+    {
+      type: "concept",
+      title: "Good Luck \u2014 Final Tips",
+      content: "<ol><li><strong>Identify the problem type</strong> in the first 30 seconds (process, queue, newsvendor, business intuition).</li><li><strong>Write all parameters</strong> before touching a formula \u2014 catches 80% of silly errors.</li><li><strong>Draw the flow / demand distribution</strong> \u2014 makes routing fractions and Cu/Co derivations obvious.</li><li><strong>Check \u03c1 < 1</strong> before computing Wq. Queue must be stable.</li><li><strong>Sanity-check units</strong>: are capacities in the same time unit? Are dollars consistent?</li><li><strong>If stuck, show the setup.</strong> Partial credit goes to the first valid equation.</li></ol><p style='margin-top:1.5rem;text-align:center'><strong>You've seen every problem type that can appear. Trust the framework.</strong></p>",
+      hints: [
+        { label: "Final Note", icon: "🌟", content: "<p>Structured thinking beats memorization. Good luck \u2014 Stefanos</p>" },
+      ]
+    },
   ]
-}
+  }
 ];
