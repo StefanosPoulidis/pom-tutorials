@@ -1620,6 +1620,7 @@ const SESSIONS = [
   topic: "Recap & Past Exams",
   status: "available",
   summary: "Comprehensive review of Sessions 1–4 plus full walk-throughs of the 2021 and 2025 POM final exams. Every exam problem is presented with detailed, step-by-step solutions that you can reveal at your own pace. Key formulas, frameworks, and common pitfalls are highlighted alongside the problem types you are most likely to see on the final.",
+  recording: "assets/recordings/Tutorial5.mp4",
 
   concepts: [
     {
