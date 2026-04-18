@@ -5,19 +5,22 @@
  * You never need to touch the HTML files.
  *
  * Session fields:
- *   number      - Session number (1-4)
- *   topic       - Short topic title shown on cards
- *   status      - "available" | "coming-soon"
- *   summary     - 2-3 sentence description for the session card
- *   recording   - URL to tutorial recording (OneDrive/Dropbox link, optional)
- *   slides      - Path to the slide deck PDF (relative to repo root)
- *   recipe      - Path to the recipe/cheat-sheet PDF (optional)
- *   reviewSheet - Path to the review sheet PDF
- *   solutions   - Path to the solutions PDF
- *   concepts    - Array of { title, icon, body } key concept cards
- *   diagrams    - Array of { title, svg } inline SVG diagrams
- *   problems    - Array of problem objects with inline solutions
- *   readings    - Array of { label, url } for further reading links
+ *   number         - Session number (1-5)
+ *   topic          - Short topic title shown on cards
+ *   status         - "available" | "coming-soon"
+ *   summary        - 2-3 sentence description for the session card
+ *   recording      - Path to tutorial recording MP4 (optional, e.g. assets/recordings/TutorialN.mp4)
+ *   slidesPDF      - Path to the slide deck PDF (optional)
+ *   recipe         - Path to the recipe/cheat-sheet PDF (optional)
+ *   reviewSheet    - Path to the review sheet PDF (optional)
+ *   solutions      - Path to the solutions PDF (optional)
+ *   concepts       - Array of { title, icon, body } key concept cards
+ *   diagrams       - Array of { title, svg } inline SVG diagrams
+ *   problems       - Array of problem objects with inline reveal-on-click solutions
+ *   readings       - Array of { label, url } for further reading links
+ *   teachingSlides - Array of slide objects for presenter mode (present.html)
+ *   practiceExams  - Array of { year, title, instructor, duration, totalPoints, format,
+ *                    examPDF, solutionsPDF, topics } (Session 5 only)
  */
 
 const SESSIONS = [
