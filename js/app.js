@@ -6,30 +6,20 @@
  * Content is rendered from content.js — no HTML editing needed.
  */
 
-// ─── Load KaTeX dynamically via fetch+eval (for math rendering) ───
-(function loadKaTeX() {
-  var base = 'vendor/katex/';
-  var link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = base + 'katex.min.css';
-  document.head.appendChild(link);
-  fetch(base + 'katex.min.js').then(function(r) { return r.text(); })
-    .then(function(code) { (0, eval)(code); return fetch(base + 'auto-render.min.js'); })
-    .then(function(r) { return r.text(); })
-    .then(function(code) {
-      (0, eval)(code);
-      if (typeof renderMathInElement === 'function') {
-        renderMathInElement(document.body, {
-          delimiters: [
-            {left: '\\(', right: '\\)', display: false},
-            {left: '\\[', right: '\\]', display: true}
-          ],
-          throwOnError: false
-        });
-      }
-    })
-    .catch(function(e) { console.warn('KaTeX load failed:', e); });
-})();
+// KaTeX is loaded with defer in the page head and is ready by DOMContentLoaded.
+const mathRenderOptions = {
+  delimiters: [
+    { left: '\\(', right: '\\)', display: false },
+    { left: '\\[', right: '\\]', display: true }
+  ],
+  throwOnError: false
+};
+
+function renderMath(root) {
+  if (root && typeof renderMathInElement === "function") {
+    renderMathInElement(root, mathRenderOptions);
+  }
+}
 
 // ─── Password Utilities ───
 async function hashPassword(password) {
@@ -59,11 +49,14 @@ async function handleSiteLogin(e) {
   const error = document.getElementById("gate-error");
   const hash = await hashPassword(input.value);
   if (hash === POM_CONFIG.passwordHash) {
+    input.setAttribute("aria-invalid", "false");
+    error.textContent = "";
     sessionStorage.setItem("pom_auth", "true");
     showApp();
     init();
   } else {
     error.textContent = "Incorrect password. Please try again.";
+    input.setAttribute("aria-invalid", "true");
     input.value = "";
     input.focus();
   }
@@ -80,7 +73,7 @@ function renderDashboard() {
     const badgeClass = available ? "badge-available" : "badge-coming";
     const badgeLabel = available ? "Available" : "Coming Soon";
     const dot = available ? "&#9679;" : "&#9711;";
-    const cursorStyle = available ? "" : ' style="cursor:default;opacity:.7"';
+    const cursorStyle = available ? "" : ' style="cursor:default;opacity:.7" aria-disabled="true" tabindex="-1"';
 
     return `
       <a class="card" href="${href}"${cursorStyle}>
@@ -111,6 +104,7 @@ function renderSession() {
   const session = SESSIONS.find(s => s.number === num);
 
   if (!session) {
+    document.title = "Session not found | POM Tutorials";
     container.innerHTML = '<div class="coming-soon"><div class="icon">&#128269;</div><h2>Session not found</h2><p>Return to the <a href="index.html">dashboard</a>.</p></div>';
     return;
   }
@@ -140,7 +134,7 @@ function renderSession() {
 
   // ── Key Concepts ──
   const conceptsHTML = (session.concepts && session.concepts.length > 0)
-    ? `<div class="section">
+    ? `<div class="section" id="concepts">
         <h2>Key Concepts</h2>
         <div class="concepts-grid">${session.concepts.map(c =>
           `<div class="concept-card">
@@ -153,7 +147,7 @@ function renderSession() {
 
   // ── Diagrams ──
   const diagramsHTML = (session.diagrams && session.diagrams.length > 0)
-    ? `<div class="section">
+    ? `<div class="section" id="diagrams">
         <h2>Process Flow Diagrams</h2>
         ${session.diagrams.map(d =>
           `<div class="diagram-block">
@@ -172,19 +166,19 @@ function renderSession() {
   // ── Recording video player ──
   const recordingHTML = session.recording ? `
     <div class="recording-section">
-      <button class="recording-toggle" onclick="toggleRecording(this, '${session.recording}')">
+      <button class="recording-toggle" onclick="toggleRecording(this, '${session.recording}')" aria-expanded="false" aria-controls="recording-player">
         <span class="toggle-icon">▶</span>
         <span>Tutorial Recording</span>
         <span class="recording-badge">Watch</span>
       </button>
-      <div id="recording-player" class="recording-player hidden">
+      <div id="recording-player" class="recording-player hidden" hidden>
         <video id="recording-video" controls preload="auto" width="100%" type="video/mp4"></video>
         <p style="text-align:center;padding:.5rem;font-size:.8rem;color:#64748b">Large file — may take a moment to buffer. <a href="${session.recording}" download style="color:#3b82f6">Download instead</a></p>
       </div>
     </div>` : "";
 
   const materialsHTML = materials.map(m =>
-    `<li><a href="${m.path}" target="_blank">
+    `<li><a href="${m.path}" target="_blank" rel="noopener noreferrer">
       <span class="file-icon">${m.icon || 'PDF'}</span>
       <span>${m.label}</span>
     </a></li>`
@@ -201,11 +195,11 @@ function renderSession() {
             <span class="part-letter">${String.fromCharCode(97 + j)}</span>
             <span>${part.question}</span>
           </div>
-          <button class="solution-toggle" onclick="toggleSolution('${id}', this)" aria-expanded="false">
+          <button class="solution-toggle" onclick="toggleSolution('${id}', this)" aria-expanded="false" aria-controls="${id}">
             <span>Show Solution</span>
             <span class="chevron">&#9654;</span>
           </button>
-          <div class="solution-body" id="${id}">${part.solution}</div>
+          <div class="solution-body" id="${id}" hidden>${part.solution}</div>
         </div>`;
     }).join("");
 
@@ -224,7 +218,7 @@ function renderSession() {
 
   // ── Practice Exams ──
   const practiceExamsHTML = (session.practiceExams && session.practiceExams.length > 0)
-    ? `<div class="section">
+    ? `<div class="section" id="practice-exams">
         <h2>Practice Exams</h2>
         <p style="font-size:.85rem;color:var(--gray-500);margin-bottom:1.25rem;">Download the exam, time yourself (3 hours), then check your work against the solutions PDF. Detailed step-by-step walk-throughs of every problem are below under "Problems &amp; Solutions".</p>
         <div class="exam-grid">${session.practiceExams.map(e => `
@@ -242,8 +236,8 @@ function renderSession() {
               <ul>${e.topics.map(t => `<li>${t}</li>`).join("")}</ul>
             </div>
             <div class="exam-links">
-              <a href="${e.examPDF}" target="_blank" class="btn btn-primary exam-btn">Exam PDF</a>
-              <a href="${e.solutionsPDF}" target="_blank" class="btn exam-btn exam-btn-secondary">Solutions PDF</a>
+              <a href="${e.examPDF}" target="_blank" rel="noopener noreferrer" class="btn btn-primary exam-btn">Exam PDF</a>
+              <a href="${e.solutionsPDF}" target="_blank" rel="noopener noreferrer" class="btn exam-btn exam-btn-secondary">Solutions PDF</a>
             </div>
           </div>`).join("")}
         </div>
@@ -251,20 +245,39 @@ function renderSession() {
 
   // ── Readings ──
   const readingsHTML = session.readings.map(r =>
-    `<li><a href="${r.url}" target="_blank">
+    `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer">
       <span>${r.label}</span>
-      <span class="link-arrow">&#8599;</span>
+      <span class="link-arrow" aria-hidden="true">&#8599;</span>
     </a></li>`
   ).join("");
 
+  const outlineItems = [
+    session.concepts && session.concepts.length > 0 ? ["concepts", "Concepts"] : null,
+    session.diagrams && session.diagrams.length > 0 ? ["diagrams", "Diagrams"] : null,
+    (materials.length > 0 || (session.teachingSlides && session.teachingSlides.length > 0) || session.recording) ? ["materials", "Materials"] : null,
+    session.practiceExams && session.practiceExams.length > 0 ? ["practice-exams", "Practice exams"] : null,
+    session.problems && session.problems.length > 0 ? ["problems", "Problems"] : null,
+    session.readings && session.readings.length > 0 ? ["further-reading", "Further reading"] : null
+  ].filter(Boolean);
+
+  const outlineHTML = `<nav class="session-outline" aria-label="Session contents">
+    <span>On this page</span>
+    ${outlineItems.map(([id, label]) => `<a href="#${id}">${label}</a>`).join("")}
+  </nav>`;
+
   container.innerHTML = `
+    <aside class="session-guide">
+      <span aria-hidden="true">&#128161;</span>
+      <div><strong>Recommended flow:</strong> review the concepts, work through the interactive slides and optional hints, then attempt each problem before revealing its solution.</div>
+    </aside>
+    ${outlineHTML}
     ${conceptsHTML}
     ${diagramsHTML}
 
-    <div class="section">
+    <div class="section" id="materials">
       <h2>Materials</h2>
       ${session.teachingSlides && session.teachingSlides.length > 0
-        ? `<a href="present.html?s=${session.number}" class="present-btn">&#9654;&ensp;Present Teaching Slides</a>`
+        ? `<a href="present.html?s=${session.number}" class="present-btn">&#9654;&ensp;Open Interactive Slides</a>`
         : ""}
       ${recordingHTML}
       <ul class="materials-list">${materialsHTML}</ul>
@@ -272,22 +285,25 @@ function renderSession() {
 
     ${practiceExamsHTML}
 
-    <div class="section">
+    <div class="section" id="problems">
       <h2>Problems &amp; Solutions</h2>
       <p style="font-size:.85rem;color:var(--gray-500);margin-bottom:1.25rem;">Click "Show Solution" under each part to reveal the worked answer. Try the problem yourself first!</p>
       ${problemsHTML}
     </div>
 
-    <div class="section">
+    <div class="section" id="further-reading">
       <h2>Further Reading</h2>
       <ul class="reading-list">${readingsHTML}</ul>
     </div>`;
+
+  renderMath(container);
 }
 
 // ─── Solution toggle ───
 function toggleSolution(id, btn) {
   const el = document.getElementById(id);
   const open = el.classList.toggle("open");
+  el.hidden = !open;
   btn.setAttribute("aria-expanded", open);
   btn.querySelector("span:first-child").textContent = open ? "Hide Solution" : "Show Solution";
 }
@@ -301,13 +317,15 @@ function renderNav() {
   const currentSession = parseInt(params.get("s"), 10);
   const isIndex = !window.location.pathname.includes("session.html");
 
-  let html = `<li><a href="index.html" class="${isIndex ? "active" : ""}">Home</a></li>`;
+  let html = `<li><a href="index.html" class="${isIndex ? "active" : ""}"${isIndex ? ' aria-current="page"' : ""}>Home</a></li>`;
   SESSIONS.forEach(s => {
     const available = s.status === "available";
     const href = available ? `session.html?s=${s.number}` : "#";
     const active = s.number === currentSession ? "active" : "";
     const style = available ? "" : ' style="opacity:.5;cursor:default"';
-    html += `<li><a href="${href}" class="${active}" data-session="${s.number}"${style}>S${s.number}</a></li>`;
+    const current = active ? ' aria-current="page"' : "";
+    const disabled = available ? "" : ' aria-disabled="true" tabindex="-1"';
+    html += `<li><a href="${href}" class="${active}" data-session="${s.number}"${style}${current}${disabled}>S${s.number}</a></li>`;
   });
   navLinks.innerHTML = html;
 }
@@ -316,7 +334,21 @@ function setupMobileNav() {
   const toggle = document.getElementById("nav-toggle");
   const navLinks = document.getElementById("nav-links");
   if (toggle && navLinks) {
-    toggle.addEventListener("click", () => navLinks.classList.toggle("open"));
+    const closeMenu = () => {
+      navLinks.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    toggle.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    navLinks.addEventListener("click", event => {
+      if (event.target.closest("a")) closeMenu();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
+    });
   }
 }
 
@@ -335,6 +367,8 @@ function toggleRecording(btn, url) {
   var isHidden = player.classList.contains("hidden");
 
   player.classList.toggle("hidden");
+  player.hidden = !isHidden;
+  btn.setAttribute("aria-expanded", String(isHidden));
   btn.querySelector(".toggle-icon").textContent = isHidden ? "▼" : "▶";
 
   // Only set source the first time it's opened
@@ -346,12 +380,21 @@ function toggleRecording(btn, url) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const gateForm = document.getElementById("gate-form");
+  const gateInput = document.getElementById("gate-password");
   if (gateForm) gateForm.addEventListener("submit", handleSiteLogin);
+  if (gateInput) {
+    gateInput.addEventListener("input", () => {
+      gateInput.setAttribute("aria-invalid", "false");
+      const error = document.getElementById("gate-error");
+      if (error) error.textContent = "";
+    });
+  }
 
   if (isAuthenticated()) {
     showApp();
     init();
   } else {
     showAuthGate();
+    if (gateInput) gateInput.focus();
   }
 });

@@ -15,6 +15,7 @@
   --red-500: #ef4444;
   --amber-100: #fef3c7;
   --amber-700: #b45309;
+  --focus: #fbbf24;
   --radius: 12px;
   --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
   --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
@@ -22,7 +23,45 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 html, body { overflow-x: hidden; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: fixed;
+  top: .75rem;
+  left: .75rem;
+  z-index: 1000;
+  padding: .65rem 1rem;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform .15s ease;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
 
 /* ─── Auth Gate (site-wide) ─── */
 .auth-gate {
@@ -82,6 +121,11 @@ html, body { overflow-x: hidden; }
 }
 
 .gate-form input:focus { border-color: var(--teal); }
+
+.gate-form input[aria-invalid="true"] {
+  border-color: var(--red-500);
+  box-shadow: 0 0 0 3px rgba(239,68,68,.12);
+}
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -150,6 +194,10 @@ body {
   font-size: 1.5rem;
   cursor: pointer;
   padding: .25rem;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ─── Hero ─── */
@@ -178,6 +226,87 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
+}
+
+/* ─── Recommended Study Path ─── */
+.study-path {
+  display: grid;
+  grid-template-columns: minmax(220px, .75fr) minmax(0, 1.75fr);
+  gap: 2rem;
+  padding: 1.5rem;
+  margin: .5rem 0 2rem;
+  background: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%);
+  border: 1px solid #cdeee5;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.study-path-intro .eyebrow {
+  display: block;
+  margin-bottom: .25rem;
+  color: var(--teal);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.study-path-intro h2 {
+  color: var(--navy);
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.study-path-intro p {
+  margin-top: .5rem;
+  color: var(--gray-700);
+  font-size: .88rem;
+}
+
+.study-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+}
+
+.study-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: .65rem;
+  min-width: 0;
+}
+
+.study-step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.study-steps strong,
+.study-steps span:last-child {
+  display: block;
+}
+
+.study-steps strong {
+  color: var(--navy);
+  font-size: .86rem;
+  line-height: 1.35;
+}
+
+.study-steps span:last-child {
+  margin-top: .2rem;
+  color: var(--gray-700);
+  font-size: .78rem;
+  line-height: 1.45;
 }
 
 /* ─── Session Cards Grid ─── */
@@ -321,8 +450,60 @@ a.card:hover {
   padding: 2rem 1.5rem 4rem;
 }
 
+.session-guide {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  margin-bottom: 1rem;
+  padding: .9rem 1rem;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-left: 4px solid var(--teal);
+  border-radius: 8px;
+  color: var(--gray-700);
+  font-size: .88rem;
+}
+
+.session-guide strong { color: var(--navy); }
+
+.session-outline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .45rem;
+  margin-bottom: 2rem;
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.session-outline > span {
+  margin-right: .25rem;
+  color: var(--gray-500);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.session-outline a {
+  padding: .3rem .65rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--teal);
+  font-size: .78rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.session-outline a:hover {
+  border-color: var(--teal);
+  background: #ecfdf5;
+}
+
 .section {
   margin-bottom: 2.5rem;
+  scroll-margin-top: 88px;
 }
 
 .section h2 {
@@ -1073,7 +1254,7 @@ a.card:hover {
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
-  .nav-toggle { display: block; }
+  .nav-toggle { display: inline-flex; }
   .nav-links {
     display: none;
     position: absolute;
@@ -1093,4 +1274,16 @@ a.card:hover {
   .session-hero .subtitle { font-size: .9rem; }
   .session-hero { padding: 2rem 1rem 1.5rem; }
   .password-row { flex-direction: column; }
+  .study-path { grid-template-columns: 1fr; gap: 1.25rem; }
+  .study-steps { grid-template-columns: 1fr; }
+  .session-outline { align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
 }

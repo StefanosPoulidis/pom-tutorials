@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#003346" />
   <title>Presenter | POM Tutorials</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/presenter.css" />
   <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <script defer src="vendor/katex/katex.min.js"></script>
-  <script defer src="vendor/katex/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}], throwOnError: false});"></script>
+  <script defer src="vendor/katex/auto-render.min.js"></script>
 </head>
 <body>
 
@@ -19,10 +21,11 @@
       <h1>Process &amp; Operations Management</h1>
       <p>INSEAD MBA Tutorial Sessions</p>
       <form id="gate-form" class="gate-form">
-        <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" />
+        <label for="gate-password" class="sr-only">Tutorial password</label>
+        <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" aria-describedby="gate-error" required />
         <button type="submit" class="btn btn-primary">Enter</button>
       </form>
-      <div id="gate-error" class="password-error"></div>
+      <div id="gate-error" class="password-error" role="alert" aria-live="polite"></div>
       <details class="reveal-password">
         <summary>Reveal password</summary>
         <p>The password is <code>pom2026T</code>.</p>
@@ -34,17 +37,21 @@
   <div id="app-content" style="display:none">
     <div class="presenter">
       <div class="presenter-toolbar">
-        <a href="index.html" id="exit-btn" class="presenter-btn">&#10094; Exit</a>
-        <span id="slide-counter" class="slide-counter">1 / 1</span>
-        <button id="fullscreen-btn" class="presenter-btn">&#9974; Fullscreen</button>
+        <a href="index.html" id="exit-btn" class="presenter-btn" aria-label="Exit presentation and return to the session">&#10094; Exit</a>
+        <button type="button" id="slide-counter" class="slide-counter" aria-haspopup="dialog" aria-label="Slide 1 of 1. Open slide navigator">1 / 1</button>
+        <div class="presenter-actions">
+          <button type="button" id="help-btn" class="presenter-btn" aria-haspopup="dialog" aria-expanded="false">? Help</button>
+          <button type="button" id="fullscreen-btn" class="presenter-btn" aria-pressed="false">&#9974; Fullscreen</button>
+        </div>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-      <div class="slide-viewport">
-        <div id="slide-container" class="slide-container"></div>
+      <div class="progress-bar" id="progress-bar" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="slide-viewport" id="slide-viewport" tabindex="0" aria-label="Slide content">
+        <div id="slide-container" class="slide-container" aria-live="polite"></div>
       </div>
+      <div id="scroll-cue" class="scroll-cue" aria-hidden="true">&#8595; More below</div>
       <div class="presenter-nav">
-        <button id="prev-btn" class="presenter-btn nav-btn">&#9664; Prev</button>
-        <button id="next-btn" class="presenter-btn nav-btn">Next &#9654;</button>
+        <button type="button" id="prev-btn" class="presenter-btn nav-btn" aria-label="Previous slide">&#9664; Prev</button>
+        <button type="button" id="next-btn" class="presenter-btn nav-btn" aria-label="Next slide">Next &#9654;</button>
       </div>
     </div>
   </div>
