@@ -68,15 +68,15 @@
         <div class="game-how-grid" aria-label="How the game works">
           <div class="game-how-card">
             <span class="game-how-number">1</span>
-            <div><strong>Choose Q</strong><p>Commit your order without seeing demand.</p></div>
+            <div><strong>Identify the change</strong><p>Compare the morning&rsquo;s brief with the baseline.</p></div>
           </div>
           <div class="game-how-card">
             <span class="game-how-number">2</span>
-            <div><strong>Demand arrives</strong><p>See sales, leftovers, lost sales, and profit.</p></div>
+            <div><strong>Predict, then choose Q</strong><p>First predict the direction of Q*, then commit a quantity.</p></div>
           </div>
           <div class="game-how-card">
             <span class="game-how-number">3</span>
-            <div><strong>Adapt your policy</strong><p>Respond to a different market brief each morning.</p></div>
+            <div><strong>Explain the movement</strong><p>Use immediate feedback to connect the changed input to Q*.</p></div>
           </div>
         </div>
 
@@ -84,7 +84,7 @@
           <div class="scenario-copy">
             <span class="game-kicker">The eight-morning challenge</span>
             <h3>What will change?</h3>
-            <p>Each market brief changes one or two decision inputs. Watch separately for a shift in expected demand, a change in forecast uncertainty, and a change in the cost of ordering too little or too much.</p>
+            <p>After the baseline, five mornings change exactly one input at a time. The seventh combines two opposing changes, and the eighth is a capstone. This lets you learn what moves Q* before solving the full problem.</p>
             <div class="scenario-mission">
               <strong>Your mission</strong>
               <span>Maximize cumulative profit over eight rounds. After each result, compare your choice with that morning&rsquo;s Q* on the same realized demand.</span>
@@ -98,7 +98,7 @@
         </div>
 
         <div class="game-start-row">
-          <p><strong>Time:</strong> about five minutes. No calculator required.</p>
+          <p><strong>Time:</strong> about six minutes. No calculator required.</p>
           <button type="button" class="game-primary-btn" id="start-game">Start the challenge <span aria-hidden="true">&rarr;</span></button>
         </div>
       </section>
@@ -120,15 +120,26 @@
             <span class="game-kicker" id="round-brief-label">Morning 1 brief</span>
             <h2 id="round-title">Regular weekday</h2>
             <p class="decision-reminder" id="round-story">A normal day at the campus counter.</p>
+            <span class="round-change-chip" id="round-change-label">Baseline</span>
 
             <dl class="round-brief-grid" aria-label="Current market brief">
-              <div><dt>Mean demand</dt><dd id="round-mean">100</dd></div>
-              <div><dt>Std. deviation</dt><dd id="round-sd">20</dd></div>
-              <div><dt>Sell</dt><dd id="round-price">$10</dd></div>
-              <div><dt>Cost</dt><dd id="round-cost">$4</dd></div>
-              <div><dt>Salvage</dt><dd id="round-salvage">$1</dd></div>
+              <div data-brief-field="meanDemand"><dt>Mean demand</dt><dd id="round-mean">100</dd></div>
+              <div data-brief-field="demandSd"><dt>Std. deviation</dt><dd id="round-sd">20</dd></div>
+              <div data-brief-field="sellingPrice"><dt>Sell</dt><dd id="round-price">$10</dd></div>
+              <div data-brief-field="unitCost"><dt>Cost</dt><dd id="round-cost">$4</dd></div>
+              <div data-brief-field="salvageValue"><dt>Salvage</dt><dd id="round-salvage">$1</dd></div>
             </dl>
             <p class="decision-reminder">Demand will be revealed only after you commit.</p>
+
+            <fieldset class="prediction-fieldset" id="prediction-fieldset" aria-describedby="prediction-error">
+              <legend id="prediction-question">Before calculating: where should Q* sit relative to mean demand?</legend>
+              <div class="prediction-options">
+                <label><input type="radio" name="prediction" value="lower" /><span id="prediction-lower-label">Below mean</span></label>
+                <label><input type="radio" name="prediction" value="same" /><span id="prediction-same-label">At mean</span></label>
+                <label><input type="radio" name="prediction" value="higher" /><span id="prediction-higher-label">Above mean</span></label>
+              </div>
+              <p class="input-error prediction-error" id="prediction-error" role="alert"></p>
+            </fieldset>
 
             <div class="quantity-control">
               <label for="order-slider">Order quantity, Q</label>
@@ -184,6 +195,7 @@
             </dl>
 
             <div class="profit-equation" id="profit-equation"></div>
+            <div class="prediction-result" id="prediction-result"></div>
             <div class="round-benchmark" id="round-benchmark"></div>
             <button type="button" class="game-primary-btn" id="next-round">Next morning <span aria-hidden="true">&rarr;</span></button>
           </section>
@@ -241,9 +253,10 @@
               <div><span>3</span><p>CR = C<sub>u</sub>/(C<sub>u</sub>+C<sub>o</sub>) sets the target demand percentile</p></div>
               <div><span>4</span><p>Q* = &mu; + z(CR)&sigma; combines the forecast, economics, and uncertainty</p></div>
             </div>
+            <p class="table-scroll-hint">Swipe the table to compare your Q with Q* <span aria-hidden="true">&rarr;</span></p>
             <div class="policy-table-wrap">
               <table class="policy-table">
-                <thead><tr><th>Brief</th><th>&mu;</th><th>&sigma;</th><th>CR</th><th>Your Q</th><th>Q*</th></tr></thead>
+                <thead><tr><th>Brief</th><th>&mu;</th><th>&sigma;</th><th>CR</th><th>Prediction</th><th>Your Q</th><th>Q*</th></tr></thead>
                 <tbody id="policy-table-body"></tbody>
               </table>
             </div>

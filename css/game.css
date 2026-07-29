@@ -424,6 +424,18 @@
   font-size: .84rem;
 }
 
+.round-change-chip {
+  margin-top: .65rem;
+  border-radius: 999px;
+  padding: .24rem .62rem;
+  background: #e6f6f2;
+  color: var(--game-teal-dark);
+  display: inline-flex;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .025em;
+}
+
 .round-brief-grid {
   margin-top: 1rem;
   display: grid;
@@ -445,6 +457,20 @@
   border-left: 0;
 }
 
+.round-brief-grid > div.brief-changed {
+  background: #fff8e8;
+  box-shadow: inset 0 3px 0 var(--game-gold);
+}
+
+.round-brief-grid > div.brief-changed dt::after {
+  content: "changed";
+  margin-top: .08rem;
+  color: #a6630a;
+  display: block;
+  font-size: .5rem;
+  letter-spacing: .03em;
+}
+
 .round-brief-grid dt {
   color: var(--gray-500);
   font-size: .58rem;
@@ -458,6 +484,63 @@
   color: var(--navy);
   font-size: .98rem;
   font-weight: 850;
+}
+
+.prediction-fieldset {
+  min-width: 0;
+  margin-top: 1.15rem;
+  border: 1px solid #c9dddd;
+  border-radius: 10px;
+  padding: .85rem;
+  background: #f8fbfb;
+}
+
+.prediction-fieldset legend {
+  max-width: 100%;
+  padding: 0 .35rem;
+  color: var(--navy);
+  font-size: .81rem;
+  font-weight: 760;
+  line-height: 1.45;
+}
+
+.prediction-options {
+  margin-top: .35rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .45rem;
+}
+
+.prediction-options label {
+  min-width: 0;
+  min-height: 42px;
+  border: 1px solid #c4d4d5;
+  border-radius: 8px;
+  padding: .5rem .55rem;
+  background: var(--white);
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.prediction-options label:has(input:checked) {
+  border-color: var(--game-teal);
+  background: #e6f6f2;
+  color: var(--game-teal-dark);
+  box-shadow: 0 0 0 2px rgba(0,127,105,.09);
+}
+
+.prediction-options input {
+  flex: 0 0 auto;
+  accent-color: var(--game-teal);
+}
+
+.prediction-error {
+  margin-bottom: -.25rem;
 }
 
 .quantity-control {
@@ -674,6 +757,31 @@
   line-height: 1.45;
 }
 
+.prediction-result {
+  margin-bottom: .55rem;
+  padding: .68rem .75rem;
+  border: 1px solid;
+  border-radius: 7px;
+  font-size: .74rem;
+  line-height: 1.5;
+}
+
+.prediction-result.correct {
+  border-color: #9ad8c8;
+  background: #eefbf6;
+  color: #145c4c;
+}
+
+.prediction-result.review {
+  border-color: #f1cf87;
+  background: #fffbeb;
+  color: #81510c;
+}
+
+.prediction-result strong {
+  color: var(--navy);
+}
+
 .round-benchmark strong {
   color: var(--navy);
 }
@@ -803,6 +911,7 @@
 
 .formula-debrief,
 .lesson-debrief {
+  min-width: 0;
   padding: 1.4rem;
 }
 
@@ -849,6 +958,10 @@
   overflow-x: auto;
 }
 
+.table-scroll-hint {
+  display: none;
+}
+
 .policy-table {
   width: 100%;
   border-collapse: collapse;
@@ -878,6 +991,18 @@
 .policy-table td:last-child {
   color: var(--game-teal-dark);
   font-weight: 800;
+}
+
+.prediction-table-status {
+  font-weight: 750;
+}
+
+.prediction-table-status.correct {
+  color: #14735e;
+}
+
+.prediction-table-status.review {
+  color: #9a670e;
 }
 
 .lesson-debrief {
@@ -986,6 +1111,22 @@
 
   .quantity-input-row {
     grid-template-columns: 1fr 104px;
+  }
+
+  .prediction-options {
+    gap: .35rem;
+  }
+
+  .prediction-options label {
+    padding: .45rem .38rem;
+    font-size: .66rem;
+  }
+
+  .table-scroll-hint {
+    margin: .85rem 0 -.55rem;
+    color: var(--gray-500);
+    display: block;
+    font-size: .68rem;
   }
 
   .round-brief-grid {

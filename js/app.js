@@ -103,11 +103,11 @@ function renderDashboard() {
         </div>
       </div>
       <div class="card-body">
-        <p>Respond to eight changing market briefs. Adjust for demand, uncertainty, and unit economics, then see why the optimal quantity is not simply average demand.</p>
+        <p>Use controlled comparisons to predict how demand, uncertainty, and unit economics move Q*, then test your policy across eight market briefs.</p>
       </div>
       <div class="card-footer">
         <span class="badge badge-game">&#9654;&nbsp;Play now</span>
-        <span class="card-game-time">About 5 minutes</span>
+        <span class="card-game-time">About 6 minutes</span>
       </div>
     </a>`;
 

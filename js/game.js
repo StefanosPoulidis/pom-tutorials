@@ -10,6 +10,10 @@ const NEWSVENDOR_SCENARIOS = Object.freeze([
     name: "Regular weekday",
     shortName: "Weekday",
     story: "A normal day at the campus counter establishes your baseline.",
+    changeLabel: "Baseline",
+    changedFields: [],
+    correctPrediction: "higher",
+    teachingPoint: "Since the underage cost exceeds the overage cost, the target percentile is above 50%. Q* therefore sits above mean demand.",
     meanDemand: 100,
     demandSd: 20,
     sellingPrice: 10,
@@ -17,21 +21,29 @@ const NEWSVENDOR_SCENARIOS = Object.freeze([
     salvageValue: 1
   }),
   Object.freeze({
-    name: "Rainy Monday",
-    shortName: "Rainy Monday",
-    story: "Foot traffic is expected to be lower, and the forecast is relatively tight.",
+    name: "Lower foot traffic",
+    shortName: "Lower mean",
+    story: "The forecast mean falls, while uncertainty and all unit economics remain at baseline.",
+    changeLabel: "One change: mean demand",
+    changedFields: ["meanDemand"],
+    correctPrediction: "lower",
+    teachingPoint: "Only mean demand fell. Holding uncertainty and economics fixed shifts the entire demand distribution—and Q*—down by the same amount.",
     meanDemand: 75,
-    demandSd: 12,
+    demandSd: 20,
     sellingPrice: 10,
     unitCost: 4,
     salvageValue: 1
   }),
   Object.freeze({
-    name: "Club event",
-    shortName: "Club event",
-    story: "A large student event raises expected demand and makes attendance less predictable.",
-    meanDemand: 130,
-    demandSd: 24,
+    name: "Uncertain turnout",
+    shortName: "Higher uncertainty",
+    story: "The forecast mean stays at baseline, but demand becomes substantially more variable.",
+    changeLabel: "One change: uncertainty",
+    changedFields: ["demandSd"],
+    correctPrediction: "higher",
+    teachingPoint: "Only uncertainty increased. Because the target percentile is above the mean, a larger standard deviation stretches the positive safety buffer and raises Q*.",
+    meanDemand: 100,
+    demandSd: 35,
     sellingPrice: 10,
     unitCost: 4,
     salvageValue: 1
@@ -39,7 +51,11 @@ const NEWSVENDOR_SCENARIOS = Object.freeze([
   Object.freeze({
     name: "Donation pickup",
     shortName: "Donation",
-    story: "A charity will collect leftovers, raising their end-of-day salvage value.",
+    story: "A charity raises the value of leftovers; every other input remains at baseline.",
+    changeLabel: "One change: salvage value",
+    changedFields: ["salvageValue"],
+    correctPrediction: "higher",
+    teachingPoint: "Only salvage value increased. Leftovers became less costly, so the overage cost fell, the critical ratio rose, and Q* moved upward.",
     meanDemand: 100,
     demandSd: 20,
     sellingPrice: 10,
@@ -47,44 +63,60 @@ const NEWSVENDOR_SCENARIOS = Object.freeze([
     salvageValue: 3
   }),
   Object.freeze({
-    name: "Premium pop-up",
-    shortName: "Premium",
-    story: "A premium recipe sells for more but also costs more to prepare.",
-    meanDemand: 90,
-    demandSd: 18,
-    sellingPrice: 14,
-    unitCost: 5,
-    salvageValue: 2
-  }),
-  Object.freeze({
-    name: "Supplier shortage",
-    shortName: "Shortage",
-    story: "Ingredients cost more and unsold pastries have no salvage value, making overordering unusually costly.",
-    meanDemand: 110,
+    name: "Ingredient shortage",
+    shortName: "Higher cost",
+    story: "Preparation becomes expensive; the forecast, selling price, and salvage value stay at baseline.",
+    changeLabel: "One change: unit cost",
+    changedFields: ["unitCost"],
+    correctPrediction: "lower",
+    teachingPoint: "Only unit cost increased. Underage became less costly while overage became more costly, pushing the critical ratio below 50% and Q* below mean demand.",
+    meanDemand: 100,
     demandSd: 20,
     sellingPrice: 10,
-    unitCost: 6,
-    salvageValue: 0
+    unitCost: 7,
+    salvageValue: 1
   }),
   Object.freeze({
-    name: "Preorder signals",
-    shortName: "Preorders",
-    story: "Early reservations make demand much more predictable without changing its mean.",
+    name: "Premium pricing",
+    shortName: "Higher price",
+    story: "Customers will pay more; the forecast, preparation cost, and salvage value stay at baseline.",
+    changeLabel: "One change: selling price",
+    changedFields: ["sellingPrice"],
+    correctPrediction: "higher",
+    teachingPoint: "Only selling price increased. A missed sale became more costly, raising the underage cost, the critical ratio, and Q*.",
     meanDemand: 100,
-    demandSd: 8,
-    sellingPrice: 10,
+    demandSd: 20,
+    sellingPrice: 14,
     unitCost: 4,
     salvageValue: 1
   }),
   Object.freeze({
-    name: "Festival rush",
-    shortName: "Festival",
-    story: "Festival traffic raises expected demand and creates substantial uncertainty.",
-    meanDemand: 120,
-    demandSd: 35,
+    name: "Quiet day with donations",
+    shortName: "Two changes",
+    story: "Expected demand falls, but the charity pickup raises the value of leftovers.",
+    changeLabel: "Two changes: mean and salvage",
+    changedFields: ["meanDemand", "salvageValue"],
+    correctPrediction: "same",
+    teachingPoint: "Two forces oppose one another: lower mean demand pulls Q* down, while higher salvage value pushes it up. Here they nearly cancel.",
+    meanDemand: 90,
+    demandSd: 20,
     sellingPrice: 10,
     unitCost: 4,
-    salvageValue: 1
+    salvageValue: 3
+  }),
+  Object.freeze({
+    name: "Festival pop-up",
+    shortName: "Capstone",
+    story: "A final market brief changes the forecast, uncertainty, price, cost, and salvage value together.",
+    changeLabel: "Capstone: all inputs change",
+    changedFields: ["meanDemand", "demandSd", "sellingPrice", "unitCost", "salvageValue"],
+    correctPrediction: "higher",
+    teachingPoint: "The capstone requires the full model: the new economics set the target percentile, then the changed mean and uncertainty translate that percentile into Q*.",
+    meanDemand: 115,
+    demandSd: 30,
+    sellingPrice: 13,
+    unitCost: 5,
+    salvageValue: 2
   })
 ]);
 
@@ -112,6 +144,9 @@ function initNewsvendorGame() {
   document.getElementById("submit-order").addEventListener("click", submitNewsvendorOrder);
   document.getElementById("next-round").addEventListener("click", advanceNewsvendorRound);
   document.getElementById("play-again").addEventListener("click", startNewsvendorGame);
+  document.querySelectorAll('input[name="prediction"]').forEach(radio => {
+    radio.addEventListener("change", clearNewsvendorPredictionError);
+  });
 
   slider.addEventListener("input", () => {
     input.value = slider.value;
@@ -147,6 +182,7 @@ function startNewsvendorGame() {
 
   setNewsvendorControlsEnabled(true);
   setNewsvendorOrder(getCurrentNewsvendorScenario().meanDemand);
+  resetNewsvendorPrediction();
   clearNewsvendorInputError();
   renderNewsvendorRoundHeader();
   renderNewsvendorScore();
@@ -159,6 +195,14 @@ function submitNewsvendorOrder() {
 
   const input = document.getElementById("order-input");
   const quantity = Number(input.value);
+  const predictionInput = document.querySelector('input[name="prediction"]:checked');
+
+  if (!predictionInput) {
+    document.getElementById("prediction-error").textContent =
+      "Predict the direction of Q* before choosing your quantity.";
+    document.querySelector('input[name="prediction"]').focus();
+    return;
+  }
 
   if (
     input.value.trim() === "" ||
@@ -183,6 +227,8 @@ function submitNewsvendorOrder() {
   newsvendorState.results.push({
     round: newsvendorState.round,
     scenario,
+    prediction: predictionInput.value,
+    predictionCorrect: predictionInput.value === scenario.correctPrediction,
     order: quantity,
     optimalOrder,
     demand,
@@ -221,6 +267,7 @@ function advanceNewsvendorRound() {
   document.getElementById("round-result").hidden = true;
   setNewsvendorControlsEnabled(true);
   setNewsvendorOrder(getCurrentNewsvendorScenario().meanDemand);
+  resetNewsvendorPrediction();
   clearNewsvendorInputError();
   renderNewsvendorRoundHeader();
   announceNewsvendor(`Morning ${newsvendorState.round} of ${NEWSVENDOR_GAME.rounds}. Choose your order.`);
@@ -330,11 +377,34 @@ function renderNewsvendorRoundHeader() {
   document.getElementById("round-brief-label").textContent = `Morning ${round} brief`;
   document.getElementById("round-title").textContent = scenario.name;
   document.getElementById("round-story").textContent = scenario.story;
+  document.getElementById("round-change-label").textContent = scenario.changeLabel;
   document.getElementById("round-mean").textContent = scenario.meanDemand;
   document.getElementById("round-sd").textContent = scenario.demandSd;
   document.getElementById("round-price").textContent = formatCurrency(scenario.sellingPrice);
   document.getElementById("round-cost").textContent = formatCurrency(scenario.unitCost);
   document.getElementById("round-salvage").textContent = formatCurrency(scenario.salvageValue);
+
+  document.querySelectorAll("[data-brief-field]").forEach(item => {
+    item.classList.toggle(
+      "brief-changed",
+      scenario.changedFields.includes(item.dataset.briefField)
+    );
+  });
+
+  const baselineOrder = calculateOptimalNewsvendorOrder(NEWSVENDOR_SCENARIOS[0]);
+  if (round === 1) {
+    document.getElementById("prediction-question").textContent =
+      "Before calculating: where should Q* sit relative to mean demand?";
+    document.getElementById("prediction-lower-label").textContent = "Below mean";
+    document.getElementById("prediction-same-label").textContent = "At mean";
+    document.getElementById("prediction-higher-label").textContent = "Above mean";
+  } else {
+    document.getElementById("prediction-question").textContent =
+      `Compared with the baseline Q* of ${baselineOrder}, should this morning's Q* be lower, about the same, or higher?`;
+    document.getElementById("prediction-lower-label").textContent = "Lower";
+    document.getElementById("prediction-same-label").textContent = "About the same";
+    document.getElementById("prediction-higher-label").textContent = "Higher";
+  }
 
   const slider = document.getElementById("order-slider");
   slider.min = sliderMinimum;
@@ -365,7 +435,16 @@ function renderNewsvendorRoundHeader() {
 }
 
 function renderNewsvendorResult(result) {
-  const { order, demand, player, optimal, optimalOrder, scenario } = result;
+  const {
+    order,
+    demand,
+    player,
+    optimal,
+    optimalOrder,
+    scenario,
+    prediction,
+    predictionCorrect
+  } = result;
   const visualMaximum = Math.max(160, order, demand);
   const underageCost = scenario.sellingPrice - scenario.unitCost;
   const overageCost = scenario.unitCost - scenario.salvageValue;
@@ -394,6 +473,17 @@ function renderNewsvendorResult(result) {
 
   document.getElementById("profit-equation").textContent =
     `${formatCurrency(scenario.sellingPrice)} × ${player.sales} sales + ${formatCurrency(scenario.salvageValue)} × ${player.leftover} leftover − ${formatCurrency(scenario.unitCost)} × ${order} ordered = ${formatCurrency(player.profit)}`;
+
+  const baselineOrder = calculateOptimalNewsvendorOrder(NEWSVENDOR_SCENARIOS[0]);
+  const predictionResult = document.getElementById("prediction-result");
+  predictionResult.classList.toggle("correct", predictionCorrect);
+  predictionResult.classList.toggle("review", !predictionCorrect);
+  const comparison = result.round === 1
+    ? `Here mean demand is ${scenario.meanDemand} and Q* is ${optimalOrder}.`
+    : `Q* moves from the baseline ${baselineOrder} to ${optimalOrder}.`;
+  predictionResult.innerHTML = predictionCorrect
+    ? `<strong>Prediction correct: ${formatNewsvendorPrediction(prediction)}.</strong> ${scenario.teachingPoint} ${comparison}`
+    : `<strong>Review your prediction.</strong> You chose ${formatNewsvendorPrediction(prediction).toLowerCase()}; the correct direction was ${formatNewsvendorPrediction(scenario.correctPrediction).toLowerCase()}. ${scenario.teachingPoint} ${comparison}`;
 
   const roundGap = player.profit - optimal.profit;
   document.getElementById("round-benchmark").innerHTML =
@@ -459,13 +549,16 @@ function showNewsvendorDebrief() {
   const materiallyAbove = newsvendorState.results.filter(
     result => result.order > result.optimalOrder + 3
   ).length;
+  const correctPredictions = newsvendorState.results.filter(
+    result => result.predictionCorrect
+  ).length;
   const benchmarkGap = playerTotal - optimalTotal;
 
   document.getElementById("final-player-profit").textContent = formatCurrency(playerTotal);
   document.getElementById("final-optimal-profit").textContent = formatCurrency(optimalTotal);
   document.getElementById("final-mean-profit").textContent = formatCurrency(meanTotal);
   document.getElementById("final-average-order").textContent =
-    `Average distance from Q*: ${formatNumber(averageDistanceFromOptimal, 1)} units`;
+    `Average distance from Q*: ${formatNumber(averageDistanceFromOptimal, 1)} units · Predictions: ${correctPredictions}/${NEWSVENDOR_GAME.rounds}`;
 
   let policyReading;
   if (averageDistanceFromOptimal <= 4) {
@@ -481,6 +574,9 @@ function showNewsvendorDebrief() {
     policyReading =
       `Your choices averaged ${formatNumber(averageDistanceFromOptimal, 1)} units from Q*. You moved around the targets in both directions; use the table below to separate forecast shifts from changes in the critical ratio.`;
   }
+
+  const predictionReading =
+    ` You correctly predicted ${correctPredictions} of ${NEWSVENDOR_GAME.rounds} directional comparisons before choosing quantities.`;
 
   let pathReading;
   if (benchmarkGap > 0) {
@@ -501,11 +597,13 @@ function showNewsvendorDebrief() {
         <td>${result.scenario.meanDemand}</td>
         <td>${result.scenario.demandSd}</td>
         <td>${calculateNewsvendorCriticalRatio(result.scenario).toFixed(3)}</td>
+        <td><span class="prediction-table-status ${result.predictionCorrect ? "correct" : "review"}">${result.predictionCorrect ? `✓ ${formatNewsvendorPrediction(result.prediction)}` : `${formatNewsvendorPrediction(result.prediction)} → ${formatNewsvendorPrediction(result.scenario.correctPrediction)}`}</span></td>
         <td>${result.order}</td>
         <td>${result.optimalOrder}</td>
       </tr>`).join("");
 
-  document.getElementById("debrief-summary").textContent = policyReading + pathReading;
+  document.getElementById("debrief-summary").textContent =
+    policyReading + predictionReading + pathReading;
   document.getElementById("game-play").hidden = true;
   document.getElementById("game-debrief").hidden = false;
   announceNewsvendor(
@@ -530,12 +628,26 @@ function setNewsvendorControlsEnabled(enabled) {
   document.getElementById("order-input").disabled = !enabled;
   document.getElementById("order-slider").disabled = !enabled;
   document.getElementById("submit-order").disabled = !enabled;
+  document.querySelectorAll('input[name="prediction"]').forEach(radio => {
+    radio.disabled = !enabled;
+  });
 }
 
 function clearNewsvendorInputError() {
   const input = document.getElementById("order-input");
   input.removeAttribute("aria-invalid");
   document.getElementById("order-error").textContent = "";
+}
+
+function resetNewsvendorPrediction() {
+  document.querySelectorAll('input[name="prediction"]').forEach(radio => {
+    radio.checked = false;
+  });
+  clearNewsvendorPredictionError();
+}
+
+function clearNewsvendorPredictionError() {
+  document.getElementById("prediction-error").textContent = "";
 }
 
 function announceNewsvendor(message) {
@@ -573,4 +685,10 @@ function formatNumber(value, decimals) {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals
   });
+}
+
+function formatNewsvendorPrediction(prediction) {
+  if (prediction === "lower") return "Lower";
+  if (prediction === "same") return "About the same";
+  return "Higher";
 }
