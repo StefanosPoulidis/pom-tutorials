@@ -406,6 +406,34 @@ a.card:hover {
   color: var(--amber-700);
 }
 
+.card-game {
+  border: 1px solid #b8e4d8;
+  position: relative;
+}
+
+.card-game .card-header {
+  background: linear-gradient(135deg, #006b5a 0%, #008b72 100%);
+}
+
+.card-game-mark {
+  width: 50px;
+  background: rgba(255,255,255,.18);
+  font-size: 1.05rem;
+  letter-spacing: -.04em;
+}
+
+.badge-game {
+  background: #ccfbf1;
+  color: #115e59;
+}
+
+.card-game-time {
+  margin-left: auto;
+  color: var(--gray-500);
+  font-size: .72rem;
+  font-weight: 600;
+}
+
 /* ─── Session Page ─── */
 .session-hero {
   background: linear-gradient(135deg, var(--navy) 0%, #004d5a 100%);

@@ -67,7 +67,7 @@ function renderDashboard() {
   const grid = document.getElementById("card-grid");
   if (!grid) return;
 
-  grid.innerHTML = SESSIONS.map(s => {
+  const sessionCards = SESSIONS.map(s => {
     const available = s.status === "available";
     const href = available ? `session.html?s=${s.number}` : "#";
     const badgeClass = available ? "badge-available" : "badge-coming";
@@ -92,6 +92,26 @@ function renderDashboard() {
         </div>
       </a>`;
   }).join("");
+
+  const gameCard = `
+    <a class="card card-game" href="newsvendor-game.html" aria-label="Play the Newsvendor Challenge">
+      <div class="card-header">
+        <div class="card-number card-game-mark" aria-hidden="true">Q?</div>
+        <div class="card-header-text">
+          <h3>Interactive Game</h3>
+          <div class="card-topic">The Newsvendor Challenge</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>Respond to eight changing market briefs. Adjust for demand, uncertainty, and unit economics, then see why the optimal quantity is not simply average demand.</p>
+      </div>
+      <div class="card-footer">
+        <span class="badge badge-game">&#9654;&nbsp;Play now</span>
+        <span class="card-game-time">About 5 minutes</span>
+      </div>
+    </a>`;
+
+  grid.innerHTML = sessionCards + gameCard;
 }
 
 // ─── Render: Session Page ───
@@ -315,7 +335,9 @@ function renderNav() {
 
   const params = new URLSearchParams(window.location.search);
   const currentSession = parseInt(params.get("s"), 10);
-  const isIndex = !window.location.pathname.includes("session.html");
+  const pageName = window.location.pathname.split("/").pop();
+  const isIndex = pageName === "" || pageName === "index.html";
+  const isGame = pageName === "newsvendor-game.html";
 
   let html = `<li><a href="index.html" class="${isIndex ? "active" : ""}"${isIndex ? ' aria-current="page"' : ""}>Home</a></li>`;
   SESSIONS.forEach(s => {
@@ -327,6 +349,7 @@ function renderNav() {
     const disabled = available ? "" : ' aria-disabled="true" tabindex="-1"';
     html += `<li><a href="${href}" class="${active}" data-session="${s.number}"${style}${current}${disabled}>S${s.number}</a></li>`;
   });
+  html += `<li><a href="newsvendor-game.html" class="${isGame ? "active" : ""}"${isGame ? ' aria-current="page"' : ""}>Game</a></li>`;
   navLinks.innerHTML = html;
 }
 
@@ -358,6 +381,7 @@ function init() {
   renderDashboard();
   renderSession();
   setupMobileNav();
+  if (typeof initNewsvendorGame === "function") initNewsvendorGame();
 }
 
 // ─── Recording video player ───

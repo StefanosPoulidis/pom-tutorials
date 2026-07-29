@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#003346" />
+  <meta name="description" content="An interactive Newsvendor game for learning inventory decisions under uncertain demand." />
+  <title>The Newsvendor Challenge | POM Tutorials</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body class="game-page">
+
+  <div id="auth-gate" class="auth-gate">
+    <div class="gate-card">
+      <div class="gate-logo">POM <span>Tutorials</span></div>
+      <h1>Process &amp; Operations Management</h1>
+      <p>INSEAD MBA Tutorial Sessions</p>
+      <form id="gate-form" class="gate-form">
+        <label for="gate-password" class="sr-only">Tutorial password</label>
+        <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" aria-describedby="gate-error" required />
+        <button type="submit" class="btn btn-primary">Enter</button>
+      </form>
+      <div id="gate-error" class="password-error" role="alert" aria-live="polite"></div>
+      <details class="reveal-password">
+        <summary>Reveal password</summary>
+        <p>The password is <code>pom2026T</code>.</p>
+      </details>
+    </div>
+  </div>
+
+  <div id="app-content" style="display:none">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <nav class="navbar" aria-label="Primary">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-brand">POM <span>Tutorials</span></a>
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-controls="nav-links" aria-expanded="false">&#9776;</button>
+        <ul class="nav-links" id="nav-links"></ul>
+      </div>
+    </nav>
+
+    <header class="game-hero">
+      <div class="game-hero-inner">
+        <div>
+          <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Interactive game</div>
+          <span class="game-eyebrow">Commit before demand is known</span>
+          <h1>The Newsvendor Challenge</h1>
+          <p>Run a fresh-pastry counter through eight changing market conditions. Your score is real operating profit—not points invented for the game.</p>
+        </div>
+        <div class="game-hero-badge" aria-hidden="true">
+          <span>Q</span>
+          <strong>?</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="game-container" id="main-content" tabindex="-1">
+      <div id="game-live" class="sr-only" aria-live="polite"></div>
+
+      <section id="game-intro" class="game-section" aria-labelledby="game-intro-title">
+        <div class="game-intro-heading">
+          <span class="game-kicker">Your role</span>
+          <h2 id="game-intro-title">Order today. Learn demand tomorrow.</h2>
+          <p>You manage a campus pastry counter. Every morning brings a new forecast or a change in the unit economics. Choose how many pastries to prepare before demand is revealed, then learn which input moved the optimal quantity.</p>
+        </div>
+
+        <div class="game-how-grid" aria-label="How the game works">
+          <div class="game-how-card">
+            <span class="game-how-number">1</span>
+            <div><strong>Choose Q</strong><p>Commit your order without seeing demand.</p></div>
+          </div>
+          <div class="game-how-card">
+            <span class="game-how-number">2</span>
+            <div><strong>Demand arrives</strong><p>See sales, leftovers, lost sales, and profit.</p></div>
+          </div>
+          <div class="game-how-card">
+            <span class="game-how-number">3</span>
+            <div><strong>Adapt your policy</strong><p>Respond to a different market brief each morning.</p></div>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-copy">
+            <span class="game-kicker">The eight-morning challenge</span>
+            <h3>What will change?</h3>
+            <p>Each market brief changes one or two decision inputs. Watch separately for a shift in expected demand, a change in forecast uncertainty, and a change in the cost of ordering too little or too much.</p>
+            <div class="scenario-mission">
+              <strong>Your mission</strong>
+              <span>Maximize cumulative profit over eight rounds. After each result, compare your choice with that morning&rsquo;s Q* on the same realized demand.</span>
+            </div>
+          </div>
+          <dl class="economics-grid" aria-label="Inputs that change">
+            <div><dt>Demand level</dt><dd>&mu;</dd><span>moves the center</span></div>
+            <div><dt>Uncertainty</dt><dd>&sigma;</dd><span>scales the buffer</span></div>
+            <div><dt>Economics</dt><dd>C<sub>u</sub>/C<sub>o</sub></dd><span>sets the percentile</span></div>
+          </dl>
+        </div>
+
+        <div class="game-start-row">
+          <p><strong>Time:</strong> about five minutes. No calculator required.</p>
+          <button type="button" class="game-primary-btn" id="start-game">Start the challenge <span aria-hidden="true">&rarr;</span></button>
+        </div>
+      </section>
+
+      <section id="game-play" class="game-section" aria-labelledby="round-title" hidden>
+        <div class="score-strip" aria-label="Current game status">
+          <div class="score-progress">
+            <span id="round-label">Round 1 of 8</span>
+            <div class="round-progress" role="progressbar" aria-label="Game progress" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1">
+              <span id="round-progress-fill"></span>
+            </div>
+          </div>
+          <div class="score-stat"><span>Your profit</span><strong id="total-profit">$0</strong></div>
+          <div class="score-stat"><span>Gap vs Q*</span><strong id="benchmark-gap">&mdash;</strong></div>
+        </div>
+
+        <div class="game-board">
+          <section class="decision-card" aria-labelledby="round-title">
+            <span class="game-kicker" id="round-brief-label">Morning 1 brief</span>
+            <h2 id="round-title">Regular weekday</h2>
+            <p class="decision-reminder" id="round-story">A normal day at the campus counter.</p>
+
+            <dl class="round-brief-grid" aria-label="Current market brief">
+              <div><dt>Mean demand</dt><dd id="round-mean">100</dd></div>
+              <div><dt>Std. deviation</dt><dd id="round-sd">20</dd></div>
+              <div><dt>Sell</dt><dd id="round-price">$10</dd></div>
+              <div><dt>Cost</dt><dd id="round-cost">$4</dd></div>
+              <div><dt>Salvage</dt><dd id="round-salvage">$1</dd></div>
+            </dl>
+            <p class="decision-reminder">Demand will be revealed only after you commit.</p>
+
+            <div class="quantity-control">
+              <label for="order-slider">Order quantity, Q</label>
+              <div class="quantity-input-row">
+                <input type="range" id="order-slider" min="40" max="160" value="100" step="1" />
+                <div class="quantity-number-wrap">
+                  <input type="number" id="order-input" min="0" max="250" value="100" inputmode="numeric" aria-describedby="order-error" />
+                  <span>units</span>
+                </div>
+              </div>
+              <div class="range-labels" aria-hidden="true"><span id="range-min-label">40</span><span id="range-mean-label">Forecast mean: 100</span><span id="range-max-label">160</span></div>
+              <p class="input-error" id="order-error" role="alert"></p>
+            </div>
+
+            <button type="button" class="game-primary-btn game-order-btn" id="submit-order">Commit order</button>
+
+            <details class="decision-hint">
+              <summary>Need a decision hint?</summary>
+              <div>
+                <p>Compare the marginal costs:</p>
+                <p><strong id="hint-underage">C<sub>u</sub> = r &minus; c = $6</strong> for a unit you could have sold but did not stock.</p>
+                <p><strong id="hint-overage">C<sub>o</sub> = c &minus; s = $3</strong> for a unit ordered but left unsold.</p>
+                <p id="hint-guidance">The critical ratio is <strong>0.667</strong>. Because this is above 0.5, Q* lies above mean demand. Greater uncertainty makes that upward buffer larger.</p>
+              </div>
+            </details>
+          </section>
+
+          <section class="round-result" id="round-result" aria-labelledby="result-title" aria-live="polite" hidden>
+            <div class="result-heading">
+              <span class="game-kicker">Morning complete</span>
+              <h2 id="result-title">Demand was <span id="result-demand">0</span></h2>
+              <p id="result-diagnosis"></p>
+            </div>
+
+            <div class="quantity-visual" aria-label="Order and demand comparison">
+              <div class="quantity-visual-row">
+                <span>Ordered</span>
+                <div class="quantity-track"><span class="quantity-fill ordered-fill" id="order-bar"></span></div>
+                <strong id="result-order">0</strong>
+              </div>
+              <div class="quantity-visual-row">
+                <span>Demand</span>
+                <div class="quantity-track"><span class="quantity-fill demand-fill" id="demand-bar"></span></div>
+                <strong id="demand-bar-label">0</strong>
+              </div>
+            </div>
+
+            <dl class="outcome-grid">
+              <div><dt>Sales</dt><dd id="result-sales">0</dd></div>
+              <div><dt>Leftover</dt><dd id="result-leftover">0</dd></div>
+              <div><dt>Lost sales</dt><dd id="result-lost">0</dd></div>
+              <div class="profit-outcome"><dt>Profit</dt><dd id="result-profit">$0</dd></div>
+            </dl>
+
+            <div class="profit-equation" id="profit-equation"></div>
+            <div class="round-benchmark" id="round-benchmark"></div>
+            <button type="button" class="game-primary-btn" id="next-round">Next morning <span aria-hidden="true">&rarr;</span></button>
+          </section>
+        </div>
+
+        <section class="history-card" aria-labelledby="history-title">
+          <div>
+            <span class="game-kicker">Decision log</span>
+            <h2 id="history-title">Your mornings so far</h2>
+          </div>
+          <div class="history-table-wrap">
+            <table>
+              <caption class="sr-only">Order, demand, outcome, and profit for completed rounds</caption>
+              <thead><tr><th>Morning</th><th>Market brief</th><th>Order Q</th><th>Demand</th><th>Outcome</th><th>Profit</th></tr></thead>
+              <tbody id="history-body">
+                <tr class="history-empty"><td colspan="6">Your first result will appear here.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="game-debrief" class="game-section" aria-labelledby="debrief-title" hidden>
+        <div class="debrief-hero">
+          <span class="game-kicker">Eight mornings complete</span>
+          <h2 id="debrief-title">Your policy, explained</h2>
+          <p id="debrief-summary"></p>
+        </div>
+
+        <div class="debrief-score-grid">
+          <div class="debrief-score-card player-score">
+            <span>Your total profit</span>
+            <strong id="final-player-profit">$0</strong>
+            <small id="final-average-order">Average distance from Q*: 0</small>
+          </div>
+          <div class="debrief-score-card">
+            <span>Adaptive Q* policy</span>
+            <strong id="final-optimal-profit">$0</strong>
+            <small>Uses that morning&rsquo;s optimal order</small>
+          </div>
+          <div class="debrief-score-card">
+            <span>Mean-demand policy</span>
+            <strong id="final-mean-profit">$0</strong>
+            <small>Orders that morning&rsquo;s forecast mean</small>
+          </div>
+        </div>
+
+        <div class="debrief-grid">
+          <section class="formula-debrief" aria-labelledby="formula-title">
+            <span class="game-kicker">The long-run solution</span>
+            <h3 id="formula-title">Why Q* changed across mornings</h3>
+            <div class="debrief-steps">
+              <div><span>1</span><p>C<sub>u</sub> = selling price &minus; unit cost</p></div>
+              <div><span>2</span><p>C<sub>o</sub> = unit cost &minus; salvage value</p></div>
+              <div><span>3</span><p>CR = C<sub>u</sub>/(C<sub>u</sub>+C<sub>o</sub>) sets the target demand percentile</p></div>
+              <div><span>4</span><p>Q* = &mu; + z(CR)&sigma; combines the forecast, economics, and uncertainty</p></div>
+            </div>
+            <div class="policy-table-wrap">
+              <table class="policy-table">
+                <thead><tr><th>Brief</th><th>&mu;</th><th>&sigma;</th><th>CR</th><th>Your Q</th><th>Q*</th></tr></thead>
+                <tbody id="policy-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="lesson-debrief" aria-labelledby="lesson-title">
+            <span class="game-kicker">What the game teaches</span>
+            <h3 id="lesson-title">Optimize the policy, not yesterday</h3>
+            <ul>
+              <li>The best quantity can produce leftovers on some days and lost sales on others.</li>
+              <li>Expected demand moves the center of the decision; it does not determine the answer by itself.</li>
+              <li>The critical ratio determines whether Q* sits above or below the mean.</li>
+              <li>Uncertainty magnifies the distance between the mean and the target percentile.</li>
+              <li>The Q* policy is optimal <em>in expectation</em>; another policy can win over only eight lucky rounds.</li>
+              <li>Chasing the previous day&rsquo;s demand adds noise. The demand distribution and unit economics should drive Q.</li>
+            </ul>
+          </aside>
+        </div>
+
+        <div class="debrief-actions">
+          <a href="session.html?s=3" class="game-secondary-btn">Review Newsvendor concepts</a>
+          <button type="button" class="game-primary-btn" id="play-again">Play a new demand path</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      INSEAD &mdash; Process &amp; Operations Management Tutorials
+    </footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
