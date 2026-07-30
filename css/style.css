@@ -129,50 +129,60 @@ input:focus-visible,
 
 .gate-home-card {
   display: grid;
-  grid-template-columns: minmax(300px, .8fr) minmax(460px, 1.2fr);
-  max-width: 960px;
+  grid-template-columns: minmax(360px, .78fr) minmax(620px, 1.22fr);
+  max-width: 1140px;
   padding: 0;
   overflow: hidden;
+  border-radius: 20px;
   text-align: left;
+  box-shadow: 0 28px 80px rgba(0,0,0,.3);
 }
 
 .gate-login-panel {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 3rem 2.5rem;
+  padding: 4rem 3.25rem;
 }
 
 .gate-home-card .gate-logo {
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
+  font-size: 1.75rem;
 }
 
 .gate-access-label {
   align-self: flex-start;
-  margin-bottom: .85rem;
-  padding: .3rem .65rem;
+  margin-bottom: 1rem;
+  padding: .35rem .75rem;
   border-radius: 999px;
   background: var(--gray-100);
   color: var(--gray-600);
-  font-size: .7rem;
+  font-size: .76rem;
   font-weight: 800;
   letter-spacing: .09em;
   text-transform: uppercase;
 }
 
 .gate-home-card h1 {
-  font-size: 1.4rem;
+  font-size: 1.65rem;
   line-height: 1.3;
 }
 
 .gate-login-panel > p {
-  margin: .5rem 0 1.75rem;
+  margin: .6rem 0 2rem;
   color: var(--gray-500);
-  font-size: .9rem;
+  font-size: 1rem;
 }
 
 .gate-home-card .gate-form input {
   min-width: 0;
+  padding: .85rem 1.1rem;
+  font-size: 1rem;
+}
+
+.gate-home-card .gate-form .btn {
+  padding: .8rem 1.3rem;
+  font-size: .95rem;
 }
 
 .gate-home-card .password-error {
@@ -180,9 +190,9 @@ input:focus-visible,
 }
 
 .gate-login-panel .gate-password-help {
-  margin: .25rem 0 0;
+  margin: .35rem 0 0;
   color: var(--gray-500);
-  font-size: .75rem;
+  font-size: .82rem;
   line-height: 1.45;
 }
 
@@ -191,9 +201,9 @@ input:focus-visible,
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.75rem;
   min-width: 0;
-  padding: 2.25rem;
+  padding: 3rem;
   overflow: hidden;
   background:
     radial-gradient(circle at 90% 5%, rgba(84, 214, 206, .22), transparent 34%),
@@ -224,20 +234,20 @@ input:focus-visible,
 }
 
 .gate-game-copy {
-  max-width: 520px;
+  max-width: 620px;
 }
 
 .gate-public-badge {
   display: inline-flex;
   align-items: center;
-  gap: .45rem;
-  margin-bottom: .8rem;
-  padding: .3rem .65rem;
+  gap: .5rem;
+  margin-bottom: 1rem;
+  padding: .35rem .75rem;
   border: 1px solid rgba(126, 234, 225, .35);
   border-radius: 999px;
   background: rgba(0, 0, 0, .12);
   color: #a9f1eb;
-  font-size: .7rem;
+  font-size: .76rem;
   font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -245,27 +255,27 @@ input:focus-visible,
 
 .gate-public-badge > span {
   color: #63e3d8;
-  font-size: .75rem;
+  font-size: .82rem;
 }
 
 .gate-game-copy h2 {
-  margin: 0 0 .65rem;
+  margin: 0 0 .75rem;
   color: var(--white);
-  font-size: 1.65rem;
+  font-size: 2.05rem;
   line-height: 1.15;
 }
 
 .gate-game-copy p {
   margin: 0;
   color: rgba(255,255,255,.76);
-  font-size: .9rem;
-  line-height: 1.55;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .gate-game-preview {
-  padding: 1rem;
+  padding: 1.25rem;
   border: 1px solid rgba(255,255,255,.2);
-  border-radius: 14px;
+  border-radius: 16px;
   background: rgba(255,255,255,.96);
   color: var(--navy);
   box-shadow: 0 18px 45px rgba(0, 25, 35, .28);
@@ -282,9 +292,9 @@ input:focus-visible,
 }
 
 .gate-preview-topline {
-  margin-bottom: .8rem;
+  margin-bottom: .95rem;
   color: var(--gray-500);
-  font-size: .68rem;
+  font-size: .74rem;
   font-weight: 800;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -292,7 +302,7 @@ input:focus-visible,
 
 .gate-preview-progress {
   width: 42%;
-  height: 5px;
+  height: 6px;
   overflow: hidden;
   border-radius: 999px;
   background: var(--gray-200);
@@ -307,8 +317,8 @@ input:focus-visible,
 }
 
 .gate-preview-brief {
-  padding: .75rem;
-  border-radius: 10px;
+  padding: .9rem;
+  border-radius: 11px;
   background: #edf9f8;
 }
 
@@ -321,37 +331,37 @@ input:focus-visible,
 .gate-preview-brief small,
 .gate-preview-metrics small {
   color: var(--gray-500);
-  font-size: .65rem;
+  font-size: .72rem;
 }
 
 .gate-preview-brief strong {
-  font-size: .88rem;
+  font-size: 1rem;
 }
 
 .gate-preview-chip {
-  padding: .3rem .6rem;
+  padding: .35rem .7rem;
   border-radius: 999px;
   background: var(--teal);
   color: var(--white);
-  font-size: .78rem;
+  font-size: .86rem;
   font-weight: 800;
 }
 
 .gate-preview-metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: .5rem;
-  margin: .65rem 0;
+  gap: .65rem;
+  margin: .8rem 0;
 }
 
 .gate-preview-metrics div {
-  padding: .6rem .7rem;
+  padding: .75rem .85rem;
   border: 1px solid var(--gray-200);
   border-radius: 9px;
 }
 
 .gate-preview-metrics strong {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
 }
 
 .gate-preview-metrics .gate-preview-question {
@@ -360,7 +370,7 @@ input:focus-visible,
 }
 
 .gate-preview-decision {
-  padding-top: .75rem;
+  padding-top: .85rem;
   border-top: 1px solid var(--gray-200);
 }
 
@@ -371,20 +381,63 @@ input:focus-visible,
 
 .gate-preview-decision div span {
   color: var(--gray-500);
-  font-size: .65rem;
+  font-size: .72rem;
 }
 
 .gate-preview-decision div strong {
-  font-size: .9rem;
+  font-size: 1rem;
 }
 
 .gate-preview-button {
-  padding: .45rem .7rem;
-  border-radius: 7px;
+  padding: .55rem .85rem;
+  border-radius: 8px;
   background: var(--teal);
   color: var(--white);
-  font-size: .7rem;
+  font-size: .78rem;
   font-weight: 800;
+  white-space: nowrap;
+}
+
+.gate-preview-feedback {
+  display: grid;
+  grid-template-columns: auto repeat(2, minmax(95px, 1fr));
+  align-items: center;
+  gap: .65rem;
+  margin-top: .9rem;
+  padding: .75rem .85rem;
+  border-radius: 10px;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.gate-feedback-label {
+  padding-right: .35rem;
+  color: rgba(255,255,255,.62);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.gate-preview-feedback div {
+  display: flex;
+  flex-direction: column;
+  padding-left: .75rem;
+  border-left: 1px solid rgba(255,255,255,.15);
+}
+
+.gate-preview-feedback small {
+  color: rgba(255,255,255,.58);
+  font-size: .66rem;
+}
+
+.gate-preview-feedback strong {
+  color: var(--white);
+  font-size: .92rem;
+}
+
+.gate-preview-feedback .gate-feedback-gap {
+  color: #a9f1eb;
 }
 
 .gate-game-footer {
@@ -396,15 +449,15 @@ input:focus-visible,
 .gate-game-facts {
   display: flex;
   flex-wrap: wrap;
-  gap: .45rem;
+  gap: .55rem;
 }
 
 .gate-game-facts span {
-  padding: .28rem .55rem;
+  padding: .32rem .65rem;
   border: 1px solid rgba(255,255,255,.18);
   border-radius: 999px;
   color: rgba(255,255,255,.72);
-  font-size: .67rem;
+  font-size: .73rem;
 }
 
 .gate-game-footer > strong {
@@ -412,7 +465,7 @@ input:focus-visible,
   align-items: center;
   justify-content: space-between;
   color: var(--white);
-  font-size: .9rem;
+  font-size: 1.02rem;
 }
 
 body {
@@ -1526,14 +1579,14 @@ a.card:hover {
 .formula-box .katex { font-size: 1.2em; }
 
 /* ─── Responsive ─── */
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
   .auth-gate-home {
     align-items: flex-start;
   }
 
   .gate-home-card {
     grid-template-columns: 1fr;
-    max-width: 640px;
+    max-width: 780px;
   }
 
   .gate-login-panel {
@@ -1545,7 +1598,7 @@ a.card:hover {
   }
 
   .gate-game-feature {
-    padding: 2rem;
+    padding: 2.5rem;
   }
 }
 
@@ -1599,6 +1652,24 @@ a.card:hover {
 
   .gate-preview-metrics div {
     padding: .55rem;
+  }
+
+  .gate-game-preview {
+    padding: 1rem;
+  }
+
+  .gate-preview-feedback {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gate-feedback-label {
+    grid-column: 1 / -1;
+    padding-right: 0;
+  }
+
+  .gate-preview-feedback div:first-of-type {
+    padding-left: 0;
+    border-left: 0;
   }
 
   .gate-game-facts span {
