@@ -1,7 +1,7 @@
 /* POM Tutorials - Application Logic
  *
- * Site-wide password gate: blocks ALL content until the correct password
- * is entered. Auth persists in sessionStorage for the browser session.
+ * Password gate for tutorial content. Public pages can opt out with
+ * data-access="public" on the body element.
  *
  * Content is rendered from content.js — no HTML editing needed.
  */
@@ -32,15 +32,23 @@ function isAuthenticated() {
   return sessionStorage.getItem("pom_auth") === "true";
 }
 
-// ─── Site-wide Auth Gate ───
+function isPublicPage() {
+  return document.body.dataset.access === "public";
+}
+
+// ─── Tutorial Auth Gate ───
 function showAuthGate() {
-  document.getElementById("auth-gate").style.display = "flex";
-  document.getElementById("app-content").style.display = "none";
+  const gate = document.getElementById("auth-gate");
+  const app = document.getElementById("app-content");
+  if (gate) gate.style.display = "flex";
+  if (app) app.style.display = "none";
 }
 
 function showApp() {
-  document.getElementById("auth-gate").style.display = "none";
-  document.getElementById("app-content").style.display = "block";
+  const gate = document.getElementById("auth-gate");
+  const app = document.getElementById("app-content");
+  if (gate) gate.style.display = "none";
+  if (app) app.style.display = "block";
 }
 
 async function handleSiteLogin(e) {
@@ -340,6 +348,13 @@ function renderNav() {
   const isGame = pageName === "newsvendor-game.html";
 
   let html = `<li><a href="index.html" class="${isIndex ? "active" : ""}"${isIndex ? ' aria-current="page"' : ""}>Home</a></li>`;
+  if (isGame && isPublicPage()) {
+    navLinks.innerHTML = `
+      <li><a href="index.html">Tutorial login</a></li>
+      <li><a href="newsvendor-game.html" class="active" aria-current="page">Game</a></li>`;
+    return;
+  }
+
   SESSIONS.forEach(s => {
     const available = s.status === "available";
     const href = available ? `session.html?s=${s.number}` : "#";
@@ -403,6 +418,12 @@ function toggleRecording(btn, url) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (isPublicPage()) {
+    showApp();
+    init();
+    return;
+  }
+
   const gateForm = document.getElementById("gate-form");
   const gateInput = document.getElementById("gate-password");
   if (gateForm) gateForm.addEventListener("submit", handleSiteLogin);

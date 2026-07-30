@@ -1,10 +1,8 @@
 # POM Tutorials - INSEAD MBA
 
 > **🔗 Live Site: [https://stefanospoulidis.github.io/pom-tutorials/](https://stefanospoulidis.github.io/pom-tutorials/)**
->
-> **🔑 Password: `pom2026T`**
 
-Interactive static website for Process & Operations Management tutorial sessions. Built for GitHub Pages with client-side password protection for solutions.
+Interactive static website for Process & Operations Management tutorial sessions, plus a public Newsvendor Challenge. Built for GitHub Pages with a client-side password gate for tutorial content.
 
 ## Quick Start
 
@@ -18,6 +16,7 @@ Interactive static website for Process & Operations Management tutorial sessions
 pom-tutorials/
 ├── index.html          ← Dashboard (renders from content.js)
 ├── session.html        ← Session page template (renders from content.js)
+├── newsvendor-game.html← Public Newsvendor Challenge
 ├── css/style.css       ← All styles
 ├── js/
 │   ├── config.js       ← Password hash (edit to change password)
@@ -94,7 +93,7 @@ GitHub Pages will update automatically within a minute.
 3. Open `js/config.js` and replace the `passwordHash` value
 4. Commit and push
 
-**Current password: `pom2026T`**
+Share the password with students through an appropriate private course channel. Do not add it to this public repository or display it on the login screen.
 
 ## How It Works
 
@@ -104,6 +103,9 @@ GitHub Pages will update automatically within a minute.
 - `session.html?s=1` renders Session 1, `?s=2` renders Session 2, etc.
 - Password is hashed client-side with SHA-256 and compared against the stored hash
 - On correct entry, `sessionStorage` remembers the auth so students don't re-enter during the same browser session
+- The Newsvendor Challenge is a public page and does not load the password configuration or tutorial content
+
+> **Security note:** A client-side gate on a static GitHub Pages site deters casual browsing, but it cannot make repository files or direct asset URLs private. Confidential or licence-restricted materials require authenticated hosting such as the institution's learning platform.
 
 ## Tech Stack
 

@@ -10,27 +10,9 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/game.css" />
 </head>
-<body class="game-page">
+<body class="game-page" data-access="public">
 
-  <div id="auth-gate" class="auth-gate">
-    <div class="gate-card">
-      <div class="gate-logo">POM <span>Tutorials</span></div>
-      <h1>Process &amp; Operations Management</h1>
-      <p>INSEAD MBA Tutorial Sessions</p>
-      <form id="gate-form" class="gate-form">
-        <label for="gate-password" class="sr-only">Tutorial password</label>
-        <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" aria-describedby="gate-error" required />
-        <button type="submit" class="btn btn-primary">Enter</button>
-      </form>
-      <div id="gate-error" class="password-error" role="alert" aria-live="polite"></div>
-      <details class="reveal-password">
-        <summary>Reveal password</summary>
-        <p>The password is <code>pom2026T</code>.</p>
-      </details>
-    </div>
-  </div>
-
-  <div id="app-content" style="display:none">
+  <div id="app-content">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <nav class="navbar" aria-label="Primary">
       <div class="nav-inner">
@@ -289,8 +271,6 @@
     </footer>
   </div>
 
-  <script src="js/config.js"></script>
-  <script src="js/content.js"></script>
   <script src="js/app.js"></script>
   <script src="js/game.js"></script>
 </body>
