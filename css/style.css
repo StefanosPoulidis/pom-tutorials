@@ -127,52 +127,292 @@ input:focus-visible,
   box-shadow: 0 0 0 3px rgba(239,68,68,.12);
 }
 
-.gate-divider {
+.gate-home-card {
+  display: grid;
+  grid-template-columns: minmax(300px, .8fr) minmax(460px, 1.2fr);
+  max-width: 960px;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+}
+
+.gate-login-panel {
   display: flex;
-  align-items: center;
-  gap: .75rem;
-  margin: 1.15rem 0 .85rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2.5rem;
+}
+
+.gate-home-card .gate-logo {
+  margin-bottom: 2.5rem;
+}
+
+.gate-access-label {
+  align-self: flex-start;
+  margin-bottom: .85rem;
+  padding: .3rem .65rem;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.gate-home-card h1 {
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+.gate-login-panel > p {
+  margin: .5rem 0 1.75rem;
+  color: var(--gray-500);
+  font-size: .9rem;
+}
+
+.gate-home-card .gate-form input {
+  min-width: 0;
+}
+
+.gate-home-card .password-error {
+  margin-top: .4rem;
+}
+
+.gate-login-panel .gate-password-help {
+  margin: .25rem 0 0;
   color: var(--gray-500);
   font-size: .75rem;
-  font-weight: 700;
+  line-height: 1.45;
+}
+
+.gate-game-feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-width: 0;
+  padding: 2.25rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 90% 5%, rgba(84, 214, 206, .22), transparent 34%),
+    linear-gradient(145deg, #003346 0%, #005a63 100%);
+  color: var(--white);
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.gate-game-feature::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -4rem;
+  bottom: -5rem;
+  width: 15rem;
+  height: 15rem;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 2.5rem rgba(255,255,255,.035),
+    0 0 0 5rem rgba(255,255,255,.025);
+}
+
+.gate-game-feature:hover .gate-game-preview {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,.36);
+}
+
+.gate-game-copy {
+  max-width: 520px;
+}
+
+.gate-public-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  margin-bottom: .8rem;
+  padding: .3rem .65rem;
+  border: 1px solid rgba(126, 234, 225, .35);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .12);
+  color: #a9f1eb;
+  font-size: .7rem;
+  font-weight: 800;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
 
-.gate-divider::before,
-.gate-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
+.gate-public-badge > span {
+  color: #63e3d8;
+  font-size: .75rem;
+}
+
+.gate-game-copy h2 {
+  margin: 0 0 .65rem;
+  color: var(--white);
+  font-size: 1.65rem;
+  line-height: 1.15;
+}
+
+.gate-game-copy p {
+  margin: 0;
+  color: rgba(255,255,255,.76);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.gate-game-preview {
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 14px;
+  background: rgba(255,255,255,.96);
+  color: var(--navy);
+  box-shadow: 0 18px 45px rgba(0, 25, 35, .28);
+  transition: transform .18s ease, border-color .18s ease;
+}
+
+.gate-preview-topline,
+.gate-preview-brief,
+.gate-preview-decision {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.gate-preview-topline {
+  margin-bottom: .8rem;
+  color: var(--gray-500);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.gate-preview-progress {
+  width: 42%;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
   background: var(--gray-200);
 }
 
-.gate-game-link {
+.gate-preview-progress i {
+  display: block;
+  width: 50%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--teal);
+}
+
+.gate-preview-brief {
+  padding: .75rem;
+  border-radius: 10px;
+  background: #edf9f8;
+}
+
+.gate-preview-brief div,
+.gate-preview-metrics div {
   display: flex;
   flex-direction: column;
-  gap: .15rem;
-  padding: .85rem 1rem;
-  border: 1px solid rgba(0, 160, 166, .35);
-  border-radius: 10px;
-  background: rgba(0, 160, 166, .07);
-  color: var(--navy);
-  text-decoration: none;
-  transition: transform .15s ease, border-color .15s ease, background .15s ease;
 }
 
-.gate-game-link:hover {
-  transform: translateY(-1px);
-  border-color: var(--teal);
-  background: rgba(0, 160, 166, .12);
+.gate-preview-brief small,
+.gate-preview-metrics small {
+  color: var(--gray-500);
+  font-size: .65rem;
 }
 
-.gate-game-link strong {
-  font-size: .95rem;
+.gate-preview-brief strong {
+  font-size: .88rem;
 }
 
-.gate-game-link > span {
-  color: var(--gray-600);
+.gate-preview-chip {
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  background: var(--teal);
+  color: var(--white);
   font-size: .78rem;
+  font-weight: 800;
+}
+
+.gate-preview-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+  margin: .65rem 0;
+}
+
+.gate-preview-metrics div {
+  padding: .6rem .7rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 9px;
+}
+
+.gate-preview-metrics strong {
+  font-size: 1.05rem;
+}
+
+.gate-preview-metrics .gate-preview-question {
+  border-color: rgba(0, 160, 166, .35);
+  background: rgba(0, 160, 166, .06);
+}
+
+.gate-preview-decision {
+  padding-top: .75rem;
+  border-top: 1px solid var(--gray-200);
+}
+
+.gate-preview-decision div {
+  display: flex;
+  flex-direction: column;
+}
+
+.gate-preview-decision div span {
+  color: var(--gray-500);
+  font-size: .65rem;
+}
+
+.gate-preview-decision div strong {
+  font-size: .9rem;
+}
+
+.gate-preview-button {
+  padding: .45rem .7rem;
+  border-radius: 7px;
+  background: var(--teal);
+  color: var(--white);
+  font-size: .7rem;
+  font-weight: 800;
+}
+
+.gate-game-footer {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+
+.gate-game-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.gate-game-facts span {
+  padding: .28rem .55rem;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  color: rgba(255,255,255,.72);
+  font-size: .67rem;
+}
+
+.gate-game-footer > strong {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--white);
+  font-size: .9rem;
 }
 
 body {
@@ -1286,6 +1526,29 @@ a.card:hover {
 .formula-box .katex { font-size: 1.2em; }
 
 /* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .auth-gate-home {
+    align-items: flex-start;
+  }
+
+  .gate-home-card {
+    grid-template-columns: 1fr;
+    max-width: 640px;
+  }
+
+  .gate-login-panel {
+    padding: 2.25rem 2rem;
+  }
+
+  .gate-home-card .gate-logo {
+    margin-bottom: 1.5rem;
+  }
+
+  .gate-game-feature {
+    padding: 2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-toggle { display: inline-flex; }
   .nav-links {
@@ -1310,6 +1573,37 @@ a.card:hover {
   .study-path { grid-template-columns: 1fr; gap: 1.25rem; }
   .study-steps { grid-template-columns: 1fr; }
   .session-outline { align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .auth-gate-home {
+    padding: .75rem;
+  }
+
+  .gate-home-card {
+    border-radius: 14px;
+  }
+
+  .gate-login-panel,
+  .gate-game-feature {
+    padding: 1.5rem;
+  }
+
+  .gate-home-card h1 {
+    font-size: 1.25rem;
+  }
+
+  .gate-game-copy h2 {
+    font-size: 1.4rem;
+  }
+
+  .gate-preview-metrics div {
+    padding: .55rem;
+  }
+
+  .gate-game-facts span {
+    font-size: .63rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

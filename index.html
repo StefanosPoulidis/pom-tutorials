@@ -14,21 +14,63 @@
 <body>
 
   <!-- ─── Site-wide Auth Gate ─── -->
-  <div id="auth-gate" class="auth-gate">
-    <div class="gate-card">
-      <div class="gate-logo">POM <span>Tutorials</span></div>
-      <h1>Process &amp; Operations Management</h1>
-      <p>INSEAD MBA Tutorial Sessions</p>
-      <form id="gate-form" class="gate-form">
-        <label for="gate-password" class="sr-only">Tutorial password</label>
-        <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" aria-describedby="gate-error" required />
-        <button type="submit" class="btn btn-primary">Enter</button>
-      </form>
-      <div id="gate-error" class="password-error" role="alert" aria-live="polite"></div>
-      <div class="gate-divider"><span>Public learning tool</span></div>
-      <a class="gate-game-link" href="newsvendor-game.html">
-        <strong>Play the Newsvendor Challenge</strong>
-        <span>No password required &middot; about 6 minutes <span aria-hidden="true">&rarr;</span></span>
+  <div id="auth-gate" class="auth-gate auth-gate-home">
+    <div class="gate-card gate-home-card">
+      <section class="gate-login-panel" aria-labelledby="tutorial-login-title">
+        <div class="gate-logo">POM <span>Tutorials</span></div>
+        <span class="gate-access-label">Student access</span>
+        <h1 id="tutorial-login-title">Process &amp; Operations Management</h1>
+        <p>INSEAD MBA Tutorial Sessions</p>
+        <form id="gate-form" class="gate-form">
+          <label for="gate-password" class="sr-only">Tutorial password</label>
+          <input type="password" id="gate-password" placeholder="Enter password" autocomplete="off" aria-describedby="gate-error gate-password-help" required />
+          <button type="submit" class="btn btn-primary">Enter</button>
+        </form>
+        <div id="gate-error" class="password-error" role="alert" aria-live="polite"></div>
+        <p class="gate-password-help" id="gate-password-help">Use the password shared through the course channel.</p>
+      </section>
+
+      <a class="gate-game-feature" href="newsvendor-game.html" aria-label="Play the public Newsvendor Challenge">
+        <div class="gate-game-copy">
+          <span class="gate-public-badge"><span aria-hidden="true">&#9679;</span> Public interactive game</span>
+          <h2>Order before demand is revealed.</h2>
+          <p>Run a pastry counter through eight changing markets. Predict how the optimal order moves, commit your quantity, and learn from immediate feedback.</p>
+        </div>
+
+        <div class="gate-game-preview" aria-hidden="true">
+          <div class="gate-preview-topline">
+            <span>Morning 4 of 8</span>
+            <span class="gate-preview-progress"><i></i></span>
+          </div>
+          <div class="gate-preview-brief">
+            <div>
+              <small>Market change</small>
+              <strong>Uncertainty rises</strong>
+            </div>
+            <span class="gate-preview-chip">&sigma; &uarr;</span>
+          </div>
+          <div class="gate-preview-metrics">
+            <div><small>Mean demand</small><strong>120</strong></div>
+            <div><small>Std. deviation</small><strong>35</strong></div>
+            <div class="gate-preview-question"><small>Optimal Q*</small><strong>?</strong></div>
+          </div>
+          <div class="gate-preview-decision">
+            <div>
+              <span>Choose your order quantity</span>
+              <strong>Q = 128</strong>
+            </div>
+            <span class="gate-preview-button">Commit order</span>
+          </div>
+        </div>
+
+        <div class="gate-game-footer">
+          <div class="gate-game-facts">
+            <span>8 markets</span>
+            <span>Immediate feedback</span>
+            <span>About 6 minutes</span>
+          </div>
+          <strong>Play the Newsvendor Challenge <span aria-hidden="true">&rarr;</span></strong>
+        </div>
       </a>
     </div>
   </div>
