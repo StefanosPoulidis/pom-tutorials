@@ -28,7 +28,7 @@ const NEWSVENDOR_PROFILES = Object.freeze([
     higherCost: 9,
     higherPrice: 16,
     offsetMean: 70,
-    capstone: Object.freeze({ meanDemand: 95, demandSd: 24, sellingPrice: 15, unitCost: 6, salvageValue: 2 })
+    capstone: Object.freeze({ meanDemand: 95, demandSd: 24, sellingPrice: 15, unitCost: 6, salvageValue: 3 })
   }),
   Object.freeze({
     id: "C",
@@ -50,7 +50,7 @@ const NEWSVENDOR_PROFILES = Object.freeze([
     higherCost: 6,
     higherPrice: 11,
     offsetMean: 60,
-    capstone: Object.freeze({ meanDemand: 78, demandSd: 20, sellingPrice: 10, unitCost: 4, salvageValue: 1 })
+    capstone: Object.freeze({ meanDemand: 78, demandSd: 20, sellingPrice: 10, unitCost: 4, salvageValue: 2 })
   }),
   Object.freeze({
     id: "E",
@@ -61,7 +61,7 @@ const NEWSVENDOR_PROFILES = Object.freeze([
     higherCost: 11,
     higherPrice: 20,
     offsetMean: 127,
-    capstone: Object.freeze({ meanDemand: 170, demandSd: 42, sellingPrice: 18, unitCost: 7, salvageValue: 2 })
+    capstone: Object.freeze({ meanDemand: 170, demandSd: 42, sellingPrice: 18, unitCost: 7, salvageValue: 3 })
   }),
   Object.freeze({
     id: "F",
@@ -245,6 +245,7 @@ function startNewsvendorGame() {
   document.getElementById("game-debrief").hidden = true;
   document.getElementById("game-play").hidden = false;
   document.getElementById("round-result").hidden = true;
+  document.querySelector(".decision-hint").open = false;
   document.getElementById("history-body").innerHTML =
     '<tr class="history-empty"><td colspan="6">Your first result will appear here.</td></tr>';
 
@@ -626,7 +627,7 @@ function showNewsvendorDebrief() {
   document.getElementById("final-optimal-profit").textContent = formatCurrency(optimalTotal);
   document.getElementById("final-mean-profit").textContent = formatCurrency(meanTotal);
   document.getElementById("final-average-order").textContent =
-    `Average distance from Q*: ${formatNumber(averageDistanceFromOptimal, 1)} units · Predictions: ${correctPredictions}/${NEWSVENDOR_GAME.rounds}`;
+    `Decision quality: avg. ${formatNumber(averageDistanceFromOptimal, 1)} units from Q* · Predictions: ${correctPredictions}/${NEWSVENDOR_GAME.rounds}`;
 
   let policyReading;
   if (averageDistanceFromOptimal <= 4) {

@@ -866,6 +866,18 @@
   gap: 1rem;
 }
 
+.replay-comparison-note {
+  margin: -.15rem 0 1.35rem;
+  color: var(--gray-500);
+  font-size: .78rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.replay-comparison-note strong {
+  color: var(--navy);
+}
+
 .debrief-score-card {
   padding: 1.25rem;
   border: 1px solid #d6e3e4;

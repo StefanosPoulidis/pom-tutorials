@@ -46,7 +46,7 @@
           <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Interactive game</div>
           <span class="game-eyebrow">Commit before demand is known</span>
           <h1>The Newsvendor Challenge</h1>
-          <p>Run a fresh-pastry counter through eight changing market conditions. Your score is real operating profit—not points invented for the game.</p>
+          <p>Run a fresh-pastry counter through eight changing market conditions. Track real operating profit, then judge decision quality against Q*&mdash;not against another version&rsquo;s dollar total.</p>
         </div>
         <div class="game-hero-badge" aria-hidden="true">
           <span>Q</span>
@@ -146,7 +146,7 @@
               <div class="quantity-input-row">
                 <input type="range" id="order-slider" min="40" max="160" value="100" step="1" />
                 <div class="quantity-number-wrap">
-                  <input type="number" id="order-input" min="0" max="250" value="100" inputmode="numeric" aria-describedby="order-error" />
+                  <input type="number" id="order-input" min="0" max="250" value="100" inputmode="numeric" aria-label="Order quantity, Q" aria-describedby="order-error" />
                   <span>units</span>
                 </div>
               </div>
@@ -229,7 +229,7 @@
           <div class="debrief-score-card player-score">
             <span>Your total profit</span>
             <strong id="final-player-profit">$0</strong>
-            <small id="final-average-order">Average distance from Q*: 0</small>
+            <small id="final-average-order">Decision quality: avg. 0 units from Q* · Predictions: 0/8</small>
           </div>
           <div class="debrief-score-card">
             <span>Adaptive Q* policy</span>
@@ -242,6 +242,7 @@
             <small>Orders that morning&rsquo;s forecast mean</small>
           </div>
         </div>
+        <p class="replay-comparison-note"><strong>Comparing replays:</strong> Market scale changes between versions, so compare your distance from Q* and prediction score&mdash;not raw profit totals.</p>
 
         <div class="debrief-grid">
           <section class="formula-debrief" aria-labelledby="formula-title">
@@ -278,7 +279,7 @@
 
         <div class="debrief-actions">
           <a href="session.html?s=3" class="game-secondary-btn">Review Newsvendor concepts</a>
-          <button type="button" class="game-primary-btn" id="play-again">Play a new demand path</button>
+          <button type="button" class="game-primary-btn" id="play-again">Play another version</button>
         </div>
       </section>
     </main>
