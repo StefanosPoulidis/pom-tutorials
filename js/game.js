@@ -5,123 +5,188 @@
  * separating decision quality from the luck of the demand path.
  */
 
-const NEWSVENDOR_SCENARIOS = Object.freeze([
+const NEWSVENDOR_PROFILE_STORAGE_KEY = "pom_newsvendor_profile";
+
+const NEWSVENDOR_PROFILES = Object.freeze([
   Object.freeze({
+    id: "A",
+    baseline: Object.freeze({ meanDemand: 100, demandSd: 20, sellingPrice: 10, unitCost: 4, salvageValue: 1 }),
+    lowerMean: 75,
+    higherSd: 35,
+    higherSalvage: 3,
+    higherCost: 7,
+    higherPrice: 14,
+    offsetMean: 90,
+    capstone: Object.freeze({ meanDemand: 115, demandSd: 30, sellingPrice: 13, unitCost: 5, salvageValue: 2 })
+  }),
+  Object.freeze({
+    id: "B",
+    baseline: Object.freeze({ meanDemand: 80, demandSd: 15, sellingPrice: 12, unitCost: 5, salvageValue: 2 }),
+    lowerMean: 60,
+    higherSd: 27,
+    higherSalvage: 4,
+    higherCost: 9,
+    higherPrice: 16,
+    offsetMean: 70,
+    capstone: Object.freeze({ meanDemand: 95, demandSd: 24, sellingPrice: 15, unitCost: 6, salvageValue: 2 })
+  }),
+  Object.freeze({
+    id: "C",
+    baseline: Object.freeze({ meanDemand: 120, demandSd: 25, sellingPrice: 9, unitCost: 3, salvageValue: 0 }),
+    lowerMean: 90,
+    higherSd: 40,
+    higherSalvage: 2,
+    higherCost: 6,
+    higherPrice: 13,
+    offsetMean: 105,
+    capstone: Object.freeze({ meanDemand: 135, demandSd: 35, sellingPrice: 12, unitCost: 5, salvageValue: 1 })
+  }),
+  Object.freeze({
+    id: "D",
+    baseline: Object.freeze({ meanDemand: 65, demandSd: 12, sellingPrice: 8, unitCost: 3, salvageValue: 1 }),
+    lowerMean: 50,
+    higherSd: 22,
+    higherSalvage: 2,
+    higherCost: 6,
+    higherPrice: 11,
+    offsetMean: 60,
+    capstone: Object.freeze({ meanDemand: 78, demandSd: 20, sellingPrice: 10, unitCost: 4, salvageValue: 1 })
+  }),
+  Object.freeze({
+    id: "E",
+    baseline: Object.freeze({ meanDemand: 150, demandSd: 30, sellingPrice: 15, unitCost: 6, salvageValue: 2 }),
+    lowerMean: 115,
+    higherSd: 48,
+    higherSalvage: 5,
+    higherCost: 11,
+    higherPrice: 20,
+    offsetMean: 127,
+    capstone: Object.freeze({ meanDemand: 170, demandSd: 42, sellingPrice: 18, unitCost: 7, salvageValue: 2 })
+  }),
+  Object.freeze({
+    id: "F",
+    baseline: Object.freeze({ meanDemand: 90, demandSd: 18, sellingPrice: 11, unitCost: 4, salvageValue: 1 }),
+    lowerMean: 68,
+    higherSd: 32,
+    higherSalvage: 3,
+    higherCost: 8,
+    higherPrice: 15,
+    offsetMean: 78,
+    capstone: Object.freeze({ meanDemand: 105, demandSd: 28, sellingPrice: 14, unitCost: 5, salvageValue: 2 })
+  })
+]);
+
+let NEWSVENDOR_SCENARIOS = [];
+
+function buildNewsvendorScenarios(profile) {
+  const baseline = profile.baseline;
+  const createScenario = (details, values) => Object.freeze({
+    ...details,
+    changedFields: Object.freeze([...details.changedFields]),
+    ...values
+  });
+
+  return Object.freeze([
+    createScenario({
     name: "Regular weekday",
     shortName: "Weekday",
     story: "A normal day at the campus counter establishes your baseline.",
     changeLabel: "Baseline",
     changedFields: [],
     correctPrediction: "higher",
-    teachingPoint: "Since the underage cost exceeds the overage cost, the target percentile is above 50%. Q* therefore sits above mean demand.",
-    meanDemand: 100,
-    demandSd: 20,
-    sellingPrice: 10,
-    unitCost: 4,
-    salvageValue: 1
-  }),
-  Object.freeze({
+    teachingPoint: "Since the underage cost exceeds the overage cost, the target percentile is above 50%. Q* therefore sits above mean demand."
+  }, baseline),
+    createScenario({
     name: "Lower foot traffic",
     shortName: "Lower mean",
     story: "The forecast mean falls, while uncertainty and all unit economics remain at baseline.",
     changeLabel: "One change: mean demand",
     changedFields: ["meanDemand"],
     correctPrediction: "lower",
-    teachingPoint: "Only mean demand fell. Holding uncertainty and economics fixed shifts the entire demand distribution—and Q*—down by the same amount.",
-    meanDemand: 75,
-    demandSd: 20,
-    sellingPrice: 10,
-    unitCost: 4,
-    salvageValue: 1
-  }),
-  Object.freeze({
+    teachingPoint: "Only mean demand fell. Holding uncertainty and economics fixed shifts the entire demand distribution—and Q*—down by the same amount."
+  }, { ...baseline, meanDemand: profile.lowerMean }),
+    createScenario({
     name: "Uncertain turnout",
     shortName: "Higher uncertainty",
     story: "The forecast mean stays at baseline, but demand becomes substantially more variable.",
     changeLabel: "One change: uncertainty",
     changedFields: ["demandSd"],
     correctPrediction: "higher",
-    teachingPoint: "Only uncertainty increased. Because the target percentile is above the mean, a larger standard deviation stretches the positive safety buffer and raises Q*.",
-    meanDemand: 100,
-    demandSd: 35,
-    sellingPrice: 10,
-    unitCost: 4,
-    salvageValue: 1
-  }),
-  Object.freeze({
+    teachingPoint: "Only uncertainty increased. Because the target percentile is above the mean, a larger standard deviation stretches the positive safety buffer and raises Q*."
+  }, { ...baseline, demandSd: profile.higherSd }),
+    createScenario({
     name: "Donation pickup",
     shortName: "Donation",
     story: "A charity raises the value of leftovers; every other input remains at baseline.",
     changeLabel: "One change: salvage value",
     changedFields: ["salvageValue"],
     correctPrediction: "higher",
-    teachingPoint: "Only salvage value increased. Leftovers became less costly, so the overage cost fell, the critical ratio rose, and Q* moved upward.",
-    meanDemand: 100,
-    demandSd: 20,
-    sellingPrice: 10,
-    unitCost: 4,
-    salvageValue: 3
-  }),
-  Object.freeze({
+    teachingPoint: "Only salvage value increased. Leftovers became less costly, so the overage cost fell, the critical ratio rose, and Q* moved upward."
+  }, { ...baseline, salvageValue: profile.higherSalvage }),
+    createScenario({
     name: "Ingredient shortage",
     shortName: "Higher cost",
     story: "Preparation becomes expensive; the forecast, selling price, and salvage value stay at baseline.",
     changeLabel: "One change: unit cost",
     changedFields: ["unitCost"],
     correctPrediction: "lower",
-    teachingPoint: "Only unit cost increased. Underage became less costly while overage became more costly, pushing the critical ratio below 50% and Q* below mean demand.",
-    meanDemand: 100,
-    demandSd: 20,
-    sellingPrice: 10,
-    unitCost: 7,
-    salvageValue: 1
-  }),
-  Object.freeze({
+    teachingPoint: "Only unit cost increased. Underage became less costly while overage became more costly, pushing the critical ratio below 50% and Q* below mean demand."
+  }, { ...baseline, unitCost: profile.higherCost }),
+    createScenario({
     name: "Premium pricing",
     shortName: "Higher price",
     story: "Customers will pay more; the forecast, preparation cost, and salvage value stay at baseline.",
     changeLabel: "One change: selling price",
     changedFields: ["sellingPrice"],
     correctPrediction: "higher",
-    teachingPoint: "Only selling price increased. A missed sale became more costly, raising the underage cost, the critical ratio, and Q*.",
-    meanDemand: 100,
-    demandSd: 20,
-    sellingPrice: 14,
-    unitCost: 4,
-    salvageValue: 1
-  }),
-  Object.freeze({
+    teachingPoint: "Only selling price increased. A missed sale became more costly, raising the underage cost, the critical ratio, and Q*."
+  }, { ...baseline, sellingPrice: profile.higherPrice }),
+    createScenario({
     name: "Quiet day with donations",
     shortName: "Two changes",
     story: "Expected demand falls, but the charity pickup raises the value of leftovers.",
     changeLabel: "Two changes: mean and salvage",
     changedFields: ["meanDemand", "salvageValue"],
     correctPrediction: "same",
-    teachingPoint: "Two forces oppose one another: lower mean demand pulls Q* down, while higher salvage value pushes it up. Here they nearly cancel.",
-    meanDemand: 90,
-    demandSd: 20,
-    sellingPrice: 10,
-    unitCost: 4,
-    salvageValue: 3
-  }),
-  Object.freeze({
+    teachingPoint: "Two forces oppose one another: lower mean demand pulls Q* down, while higher salvage value pushes it up. Here they nearly cancel."
+  }, { ...baseline, meanDemand: profile.offsetMean, salvageValue: profile.higherSalvage }),
+    createScenario({
     name: "Festival pop-up",
     shortName: "Capstone",
     story: "A final market brief changes the forecast, uncertainty, price, cost, and salvage value together.",
     changeLabel: "Capstone: all inputs change",
     changedFields: ["meanDemand", "demandSd", "sellingPrice", "unitCost", "salvageValue"],
     correctPrediction: "higher",
-    teachingPoint: "The capstone requires the full model: the new economics set the target percentile, then the changed mean and uncertainty translate that percentile into Q*.",
-    meanDemand: 115,
-    demandSd: 30,
-    sellingPrice: 13,
-    unitCost: 5,
-    salvageValue: 2
-  })
-]);
+    teachingPoint: "The capstone requires the full model: the new economics set the target percentile, then the changed mean and uncertainty translate that percentile into Q*."
+  }, profile.capstone)
+  ]);
+}
+
+function selectNewsvendorProfile() {
+  let previousProfileId = null;
+  try {
+    previousProfileId = sessionStorage.getItem(NEWSVENDOR_PROFILE_STORAGE_KEY);
+  } catch (_) {
+    // The game still works when browser storage is unavailable.
+  }
+
+  const eligibleProfiles = NEWSVENDOR_PROFILES.filter(
+    profile => profile.id !== previousProfileId
+  );
+  const selectedProfile =
+    eligibleProfiles[Math.floor(Math.random() * eligibleProfiles.length)];
+
+  try {
+    sessionStorage.setItem(NEWSVENDOR_PROFILE_STORAGE_KEY, selectedProfile.id);
+  } catch (_) {
+    // No persistent tracking is required; this only prevents an immediate repeat.
+  }
+
+  return selectedProfile;
+}
 
 const NEWSVENDOR_GAME = Object.freeze({
-  rounds: NEWSVENDOR_SCENARIOS.length,
+  rounds: 8,
   minimumOrder: 0,
   maximumOrder: 250
 });
@@ -167,10 +232,13 @@ function initNewsvendorGame() {
 }
 
 function startNewsvendorGame() {
+  const selectedProfile = selectNewsvendorProfile();
+  NEWSVENDOR_SCENARIOS = buildNewsvendorScenarios(selectedProfile);
   newsvendorState = {
     round: 1,
     results: [],
-    awaitingNextRound: false
+    awaitingNextRound: false,
+    profileId: selectedProfile.id
   };
 
   document.getElementById("game-intro").hidden = true;
